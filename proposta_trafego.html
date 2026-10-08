@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Proposta de Gestão de Tráfego Orgânico & Pago | Ricardo & Severino</title>
+  
+  <!-- Tipografia de Alto Padrão -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* Configuração A4 Rigorosa */
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #E5E7EB;
+      color: #1C1917;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      margin: 0 auto;
+      background: #FFFFFF;
+      position: relative;
+      padding: 20mm 20mm 18mm 20mm;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    /* Cores de Marca & Tráfego */
+    :root {
+      --obsidian: #0F1117;
+      --charcoal: #1C1917;
+      --primary-blue: #1D4ED8;
+      --google-blue: #4285F4;
+      --google-green: #34A853;
+      --google-yellow: #FBBC05;
+      --google-red: #EA4335;
+      --meta-purple: #833AB4;
+      --meta-pink: #FD1D1D;
+      --meta-orange: #FCB045;
+      --amber: #D97706;
+      --gold: #F59E0B;
+      --burgundy: #991B1B;
+      --emerald: #16A34A;
+      --slate-bg: #F8FAFC;
+      --warm-bg: #FAF9F6;
+      --border: #E5E7EB;
+    }
+
+    /* Topbar da Página */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 18px;
+    }
+    .header-logo-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-badge {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--google-blue), var(--meta-purple));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 16px;
+    }
+    .header-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--charcoal);
+      letter-spacing: -0.01em;
+    }
+    .header-subtitle {
+      font-size: 10px;
+      color: #78716C;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .header-tag {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--primary-blue);
+      background: #EFF6FF;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #BFDBFE;
+    }
+
+    /* Rodapé da Página */
+    .page-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 10px;
+      color: #78716C;
+      margin-top: auto;
+    }
+    .footer-highlight {
+      font-weight: 800;
+      color: var(--primary-blue);
+    }
+
+    /* Conteúdo Principal */
+    .page-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Títulos de Seção */
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--amber);
+      margin-bottom: 4px;
+    }
+    .section-main-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+    .section-desc {
+      font-size: 12.5px;
+      color: #44403C;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    /* Cards e Grades */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      position: relative;
+    }
+    .card-highlight {
+      background: var(--warm-bg);
+      border-color: #E2D9CF;
+    }
+    .card-dark {
+      background: var(--obsidian);
+      color: #FFFFFF;
+      border-color: #292524;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-blue {
+      background: #EFF6FF;
+      color: #1E40AF;
+      border: 1px solid #BFDBFE;
+    }
+    .badge-purple {
+      background: #FAF5FF;
+      color: #6B21A8;
+      border: 1px solid #E9D5FF;
+    }
+    .badge-emerald {
+      background: #ECFDF5;
+      color: #065F46;
+      border: 1px solid #A7F3D0;
+    }
+    .badge-amber {
+      background: #FFFBEB;
+      color: #92400E;
+      border: 1px solid #FDE68A;
+    }
+
+    /* Listas com ícones */
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-top: 8px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 11.5px;
+      line-height: 1.5;
+    }
+    .feature-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: #EFF6FF;
+      color: var(--primary-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-weight: 800;
+    }
+
+    /* =========================================================================
+       CAPA ESPECÍFICA (PÁGINA 1)
+       ========================================================================= */
+    .page-cover {
+      background: linear-gradient(135deg, #0B0E14 0%, #161B26 50%, #1E1B2E 100%);
+      color: #FFFFFF;
+      padding: 24mm 22mm 22mm 22mm;
+      justify-content: space-between;
+    }
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .cover-badge-consultoria {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #FBBF24;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .cover-main {
+      margin-top: 36px;
+    }
+    .cover-tagline {
+      color: #60A5FA;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .cover-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      margin-bottom: 14px;
+    }
+    .cover-title span {
+      background: linear-gradient(135deg, #60A5FA, #C084FC);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+    .cover-desc {
+      font-size: 14.5px;
+      color: #CBD5E1;
+      line-height: 1.6;
+      max-width: 580px;
+      margin-bottom: 26px;
+    }
+    .cover-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .cover-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 14px;
+      backdrop-filter: blur(8px);
+    }
+    .cover-box-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      color: #FBBF24;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .cover-box-label {
+      font-size: 11px;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+    .cover-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .client-data-box {
+      font-size: 11px;
+      color: #94A3B8;
+      line-height: 1.6;
+    }
+    .client-data-box strong {
+      color: #FFFFFF;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       PÁGINA 1: CAPA EXECUTIVA
+       ========================================================================= -->
+  <div class="page page-cover">
+    <div class="cover-top">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div style="width:44px; height:44px; background:linear-gradient(135deg, #4285F4, #9333EA); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 4px 14px rgba(66,133,244,0.4);">
+          🚀
+        </div>
+        <div>
+          <div style="font-family:'Outfit', sans-serif; font-size:18px; font-weight:900; letter-spacing:-0.02em;">DOMINÂNCIA <span style="color:#60A5FA;">LOCAL</span></div>
+          <div style="font-size:10px; color:#94A3B8; letter-spacing:0.04em;">GESTÃO DE TRÁFEGO ORGÂNICO & PAGO • 2026</div>
+        </div>
+      </div>
+      <div class="cover-badge-consultoria">
+        PROPOSTA ESTRATÉGICA
+      </div>
+    </div>
+
+    <div class="cover-main">
+      <span class="cover-tagline">PLANO DE ATRAÇÃO, RECONHECIMENTO & VENDAS CONTÍNUAS</span>
+      <h1 class="cover-title">
+        Google Meu Negócio, <br>
+        <span>SEO Local Orgânico</span> & <br>
+        Anúncios de Alta Conversão.
+      </h1>
+      <p class="cover-desc">
+        Proposta de aceleração comercial com posicionamento de autoridade no <strong>Google Maps</strong>, ranqueamento orgânico mês a mês e campanhas patrocinadas no <strong>Google Ads & Instagram Ads</strong> para encher a loja e o WhatsApp toda semana.
+      </p>
+
+      <div class="cover-highlights">
+        <div class="cover-box">
+          <div class="cover-box-number">Top 3 Google</div>
+          <div class="cover-box-label">Apareça para quem pesquisa "perto de mim" sem pagar por clique.</div>
+        </div>
+        <div class="cover-box">
+          <div class="cover-box-number">Instagram Ads</div>
+          <div class="cover-box-label">Anúncios no raio de 3 a 5km nos dias e horários exatos de fome.</div>
+        </div>
+        <div class="cover-box">
+          <div class="cover-box-number">Google Ads</div>
+          <div class="cover-box-label">Captura direta de clientes prontos para comprar e encomendar.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <div class="client-data-box">
+        <strong>APRESENTADO PARA:</strong><br>
+        Diretoria & Gestão Geral<br>
+        Comércio Local / Boutique de Carnes & Rotisserie<br>
+        Região: <strong>Santo André & Grande ABC - SP</strong>
+      </div>
+      <div style="text-align:right; font-size:11px; color:#94A3B8; line-height:1.6;">
+        <strong>ESTRATÉGIA & GESTÃO:</strong><br>
+        Ricardo & Severino — Soluções Web & Tráfego Local<br>
+        Santo André - SP • Outubro de 2026<br>
+        Plano de Aceleração Contínua
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PÁGINA 2: O PODER DO ORGÂNICO & SEO LOCAL NO GOOGLE MEU NEGÓCIO
+       ========================================================================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="header-logo-group">
+        <div class="header-badge">📍</div>
+        <div>
+          <div class="header-title">TRÁFEGO ORGÂNICO & SEO LOCAL</div>
+          <div class="header-subtitle">Google Meu Negócio • Posicionamento Mês a Mês</div>
+        </div>
+      </div>
+      <span class="header-tag">01. Tráfego Orgânico</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-eyebrow">A VITRINE GRATUITA MAIS PODEROSA DO GOOGLE</div>
+      <h2 class="section-main-title">O que é o SEO Local e Como o Google Orgânico Vende Todo Dia</h2>
+      <p class="section-desc">
+        Quando alguém no seu bairro quer comprar carne de qualidade ou encomendar o almoço de domingo, a primeira atitude é abrir o celular e pesquisar: <em>"açougue perto de mim"</em>, <em>"frango assado domingo Santo André"</em> ou <em>"costela no bafo"</em>. Quem aparece nos 3 primeiros lugares do mapa ganha mais de <strong>70% das ligações e rotas</strong>.
+      </p>
+
+      <div class="grid-2" style="margin-bottom:16px;">
+        <div class="card card-highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:20px;">⭐</span>
+            <span class="badge-pill badge-emerald">RANQUEAMENTO OURO</span>
+          </div>
+          <h3 style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:800; color:var(--charcoal); margin-bottom:4px;">
+            Top 3 do Google Maps (Local Pack)
+          </h3>
+          <p style="font-size:11.5px; color:#57534E; line-height:1.55;">
+            Trabalhamos o algoritmo de SEO local para colocar sua ficha entre os três negócios em destaque no topo do Google. O cliente clica em "Ligar", "Como Chegar" ou "Abrir Cardápio" direto para o seu WhatsApp.
+          </p>
+        </div>
+
+        <div class="card card-highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:20px;">📈</span>
+            <span class="badge-pill badge-blue">TRABALHO CONTÍNUO</span>
+          </div>
+          <h3 style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:800; color:var(--charcoal); margin-bottom:4px;">
+            Trabalho Mês a Mês (Recorrência)
+          </h3>
+          <p style="font-size:11.5px; color:#57534E; line-height:1.55;">
+            O Google não ranqueia fichas abandonadas. Nosso trabalho é contínuo mês a mês: atualizamos produtos, horários de feriados, publicamos novidades semanais e alimentamos fotos apetitosas com metadados de geolocalização.
+          </p>
+        </div>
+      </div>
+
+      <!-- O que fazemos na Ficha do Google -->
+      <div class="card" style="border-left:4px solid var(--google-blue); margin-bottom:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13.5px; font-weight:900; color:var(--primary-blue);">
+            O QUE ESTÁ INCLUSO NA GESTÃO DO SEU GOOGLE MEU NEGÓCIO:
+          </h4>
+          <span class="badge-pill badge-blue">GESTÃO COMPLETA</span>
+        </div>
+
+        <div class="grid-2" style="gap:10px;">
+          <div class="feature-item">
+            <span class="feature-icon">✔</span>
+            <div>
+              <strong>Otimização de Categorias & Serviços:</strong> Configuração precisa de palavras-chave locais estratégicas para seu bairro.
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✔</span>
+            <div>
+              <strong>Catálogo de Produtos com Preços:</strong> Seus kits de churrasco e assados expostos na vitrine de produtos do Google.
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✔</span>
+            <div>
+              <strong>Postagens Semanais de Promoções:</strong> Atualizações com link direto para o cardápio ou WhatsApp toda semana.
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✔</span>
+            <div>
+              <strong>Gestão de Avaliações 5 Estrelas:</strong> Estratégia de respostas profissionais e incentivo a depoimentos que geram confiança.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Por que o Orgânico é tão valioso -->
+      <div class="card card-dark" style="padding:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-family:'Outfit', sans-serif; font-weight:800; font-size:13px; color:#FBBF24;">
+              O CLIENTE ORGÂNICO NÃO CUSTA POR CLIQUE
+            </div>
+            <div style="font-size:11px; color:#D6D3D1; margin-top:3px;">
+              Diferente dos anúncios que param quando você pausa o saldo, o trabalho de SEO Local cria um <strong>patrimônio digital permanente</strong>: sua loja continua recebendo dezenas de cliques e visitas gratuitas todos os dias.
+            </div>
+          </div>
+          <span class="badge-pill badge-emerald">PATRIMÔNIO DIGITAL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>Proposta de Gestão de Tráfego • Ricardo & Severino</div>
+      <div class="footer-highlight">Página 02 / 06</div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PÁGINA 3: TRÁFEGO PAGO — GOOGLE ADS (INTENÇÃO IMEDIATA DE COMPRA)
+       ========================================================================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="header-logo-group">
+        <div class="header-badge" style="background:var(--google-blue);">🔍</div>
+        <div>
+          <div class="header-title">GOOGLE ADS LOCAL</div>
+          <div class="header-subtitle">Tráfego Pago por Intenção de Compra</div>
+        </div>
+      </div>
+      <span class="header-tag">02. Google Ads</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-eyebrow">QUEM PESQUISA NO GOOGLE JÁ QUER COMPRAR</div>
+      <h2 class="section-main-title">Google Ads: Apareça no Topo Exato Quando o Cliente Procura</h2>
+      <p class="section-desc">
+        O Google Ads é a ferramenta de maior conversão do mundo porque atinge a pessoa no <strong>momento exato da necessidade</strong>. Se um morador do bairro pesquisar no celular às 10h de domingo *"encomenda de frango assado"* ou na sexta *"melhor picanha para churrasco"*, o seu açougue será a primeira opção destacada:
+      </p>
+
+      <div class="grid-3" style="margin-bottom:16px;">
+        <div class="card">
+          <div style="font-size:20px; margin-bottom:8px;">🎯</div>
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800; margin-bottom:4px;">Pesquisa no Google</h4>
+          <p style="font-size:11px; color:#57534E; line-height:1.5;">Anúncios de texto nas primeiras posições para termos estratégicos de alta intenção comercial.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-size:20px; margin-bottom:8px;">🗺️</div>
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800; margin-bottom:4px;">Pinos Patrocinados Maps</h4>
+          <p style="font-size:11px; color:#57534E; line-height:1.5;">Destaque com pino roxo/azul no mapa quando motoristas e moradores buscam comércios próximos.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-size:20px; margin-bottom:8px;">⚡</div>
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800; margin-bottom:4px;">Extensões de Chamada</h4>
+          <p style="font-size:11px; color:#57534E; line-height:1.5;">Botões de "Ligue Agora" e "Falar no WhatsApp" direto no anúncio sem precisar entrar no site.</p>
+        </div>
+      </div>
+
+      <!-- Estratégia de Segmentação Geográfica -->
+      <div class="card card-highlight" style="margin-bottom:16px; padding:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13.5px; font-weight:900; color:var(--charcoal);">
+            📍 SEGMENTAÇÃO HIPERLOCAL: DINHEIRO INVESTIDO APENAS NO SEU PÚBLICO
+          </h4>
+          <span class="badge-pill badge-amber">SEM DESPERDÍCIO</span>
+        </div>
+        <p style="font-size:11.5px; color:#57534E; line-height:1.6; margin-bottom:10px;">
+          Não queimamos verba com pessoas de outras cidades. Configuramos o anúncio com <strong>raio de 3km a 7km</strong> focado estritamente na Cidade São Jorge, Parque Marajoara, Vila Homero Thon, Jardim Santo André e bairros adjacentes onde seu balcão ou delivery atendem com perfeição.
+        </p>
+        <div style="background:#FFFFFF; border:1px solid #E2D9CF; border-radius:10px; padding:10px; display:flex; gap:16px; font-size:11px;">
+          <div><strong>Palavras-Chave Focadas:</strong></div>
+          <div style="color:var(--burgundy); font-weight:700;">• "açougue santo andré" • "kit churrasco são jorge" • "costela no bafo encomenda" • "frango assado domingo"</div>
+        </div>
+      </div>
+
+      <!-- Como o Clique Converte -->
+      <div class="card" style="border-left:4px solid var(--emerald); background:#F0FDF4; padding:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800; color:#166534;">
+            ROTA DIRETA PARA O SEU WHATSAPP
+          </h4>
+          <span class="badge-pill badge-emerald">CONVERSÃO INSTANTÂNEA</span>
+        </div>
+        <p style="font-size:11px; color:#166534; line-height:1.55;">
+          Ao clicar no anúncio, o cliente é direcionado imediatamente para o <strong>Web App Próprio</strong> da loja ou para o WhatsApp com a mensagem pronta: <em>"Olá! Vi seu anúncio no Google e gostaria de ver os kits de churrasco e assados de hoje"</em>.
+        </p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>Proposta de Gestão de Tráfego • Ricardo & Severino</div>
+      <div class="footer-highlight">Página 03 / 06</div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PÁGINA 4: TRÁFEGO PAGO — INSTAGRAM ADS (O GATILHO VISUAL DA FOME)
+       ========================================================================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="header-logo-group">
+        <div class="header-badge" style="background:linear-gradient(135deg, #FD1D1D, #833AB4);">📸</div>
+        <div>
+          <div class="header-title">INSTAGRAM & META ADS</div>
+          <div class="header-subtitle">Tráfego Pago por Desejo Visual & Fome</div>
+        </div>
+      </div>
+      <span class="header-tag">03. Instagram Ads</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-eyebrow">O CLIENTE COME PRIMEIRO COM OS OLHOS</div>
+      <h2 class="section-main-title">Instagram Ads: Criando Desejo Incontrolável no Celular do Cliente</h2>
+      <p class="section-desc">
+        Ninguém resiste a um bom vídeo de costela saindo fumegante do bafo, desmanchando no garfo, ou uma picanha suculenta fatiada na tábua. O Instagram Ads é a máquina de gerar desejo imediato nos moradores da sua região:
+      </p>
+
+      <div class="card card-dark" style="margin-bottom:16px; padding:18px; border-left:4px solid #EC4899;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h4 style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:900; color:#F472B6;">
+            A ESTRATÉGIA DE TIMING PERFEITO (DIAS & HORÁRIOS CRÍTICOS):
+          </h4>
+          <span class="badge-pill badge-purple">CALENDÁRIO INTELIGENTE</span>
+        </div>
+        <p style="font-size:11.5px; color:#E2E8F0; line-height:1.6; margin-bottom:12px;">
+          Não rodamos anúncios no escuro. Nossos anúncios sobem com precisão cirúrgica nos momentos em que as pessoas estão planejando as refeições e o lazer:
+        </p>
+
+        <div class="grid-3" style="gap:10px;">
+          <div style="background:rgba(255,255,255,0.06); padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.1);">
+            <div style="color:#FBBF24; font-weight:800; font-size:11px; margin-bottom:3px;">QUINTA & SEXTA</div>
+            <p style="font-size:10px; color:#CBD5E1; line-height:1.4;">Anúncios de Combos de Churrasco de fim de semana (carnes, carvão e bebidas).</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.06); padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.1);">
+            <div style="color:#FBBF24; font-weight:800; font-size:11px; margin-bottom:3px;">SÁBADO DE MANHÃ</div>
+            <p style="font-size:10px; color:#CBD5E1; line-height:1.4;">Reserva antecipada dos assados de domingo: <em>"Garanta seu frango e costela antes que esgote"</em>.</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.06); padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.1);">
+            <div style="color:#FBBF24; font-weight:800; font-size:11px; margin-bottom:3px;">DOMINGO ATÉ 11H</div>
+            <p style="font-size:10px; color:#CBD5E1; line-height:1.4;">Almoço de domingo quentinho sem sujar panela com retirada ágil ou delivery.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:16px;">
+        <div class="card">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+            <span style="font-size:18px;">🎬</span>
+            <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800;">Vídeos Curtos nos Reels & Stories</h4>
+          </div>
+          <p style="font-size:11px; color:#57534E; line-height:1.5;">
+            Formatos que retêm a atenção: cortes de carnes de primeira no balcão, churrasqueira acesa e o aroma visual dos assados dourando no forno.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+            <span style="font-size:18px;">🔁</span>
+            <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800;">Campanhas de Remarketing</h4>
+          </div>
+          <p style="font-size:11px; color:#57534E; line-height:1.5;">
+            Quem já visitou o Instagram da loja ou abriu o cardápio uma vez volta a ver ofertas especiais, mantendo o açougue sempre como a primeira escolha da família.
+          </p>
+        </div>
+      </div>
+
+      <div class="card card-highlight">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <div>
+            <h4 style="font-family:'Outfit', sans-serif; font-size:12.5px; font-weight:800; color:var(--charcoal);">
+              📲 Botão "Pedir no WhatsApp" com 1 Toque no Instagram
+            </h4>
+            <p style="font-size:11px; color:#57534E; margin-top:2px;">
+              O cliente não se perde em cadastros difíceis. Ele toca no anúncio e já cai direto conversando com seu balcão.
+            </p>
+          </div>
+          <span class="badge-pill badge-emerald">SEM FRICÇÃO</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>Proposta de Gestão de Tráfego • Ricardo & Severino</div>
+      <div class="footer-highlight">Página 04 / 06</div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PÁGINA 5: O ECOSSISTEMA COMPLETO (ORGÂNICO + PAGO + WEB APP)
+       ========================================================================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="header-logo-group">
+        <div class="header-badge" style="background:var(--emerald);">⚙️</div>
+        <div>
+          <div class="header-title">O ECOSSISTEMA COMPLETO</div>
+          <div class="header-subtitle">Como Todas as Peças se Conectam para Vender Mais</div>
+        </div>
+      </div>
+      <span class="header-tag">04. O Ciclo de Vendas</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-eyebrow">A MÁQUINA DE CRESCIMENTO CONTÍNUO</div>
+      <h2 class="section-main-title">A Integração que Transforma Visualizações em Vendas Reais</h2>
+      <p class="section-desc">
+        Tráfego isolado não resolve se o cliente não tiver onde comprar com facilidade. Quando unimos a <strong>gestão de tráfego (Google + Instagram)</strong> com o <strong>Web App Próprio</strong> e a <strong>automação de disparos</strong>, criamos um ciclo fechado e lucrativo:
+      </p>
+
+      <div class="card card-dark" style="padding:18px; margin-bottom:16px;">
+        <h4 style="font-family:'Outfit', sans-serif; font-size:13.5px; font-weight:900; color:#FBBF24; margin-bottom:12px;">
+          O FUNIL DE VENDAS DO SEU COMÉRCIO EM 3 ETAPAS:
+        </h4>
+
+        <div class="grid-3" style="gap:12px;">
+          <div style="background:rgba(255,255,255,0.06); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.12);">
+            <div style="font-family:'Outfit', sans-serif; font-weight:900; font-size:13px; color:#60A5FA; margin-bottom:4px;">1. ATRAÇÃO (Tráfego)</div>
+            <p style="font-size:10.5px; color:#CBD5E1; line-height:1.5;">
+              O <strong>Google Meu Negócio</strong> e os <strong>Anúncios no Instagram/Google</strong> capturam centenas de moradores do bairro com vontade de comer carne de qualidade.
+            </p>
+          </div>
+
+          <div style="background:rgba(255,255,255,0.06); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.12);">
+            <div style="font-family:'Outfit', sans-serif; font-weight:900; font-size:13px; color:#34D399; margin-bottom:4px;">2. CONVERSÃO (Web App)</div>
+            <p style="font-size:10.5px; color:#CBD5E1; line-height:1.5;">
+              O cliente abre o <strong>Web App Próprio</strong>, vê as fotos apetitosas com IA, monta a sacola em segundos e manda o pedido pronto no WhatsApp (0% de taxa iFood).
+            </p>
+          </div>
+
+          <div style="background:rgba(255,255,255,0.06); padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.12);">
+            <div style="font-family:'Outfit', sans-serif; font-weight:900; font-size:13px; color:#FBBF24; margin-bottom:4px;">3. RETENÇÃO (Disparos)</div>
+            <p style="font-size:10.5px; color:#CBD5E1; line-height:1.5;">
+              O cliente entra para a base da loja e recebe ofertas automáticas toda semana no WhatsApp, transformando-se em um comprador fiel e recorrente.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Relatórios e Acompanhamento Mensal -->
+      <div class="card card-highlight" style="margin-bottom:16px;">
+        <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800; color:var(--charcoal); margin-bottom:6px;">
+          📊 Relatórios Mensais de Desempenho e Retorno
+        </h4>
+        <p style="font-size:11.5px; color:#57534E; line-height:1.55; margin-bottom:10px;">
+          Todo mês apresentamos um relatório claro e transparente mostrando os números que realmente importam para o caixa da loja:
+        </p>
+        <div class="grid-3" style="gap:10px;">
+          <div style="background:#FFFFFF; border:1px solid #E2D9CF; padding:8px 12px; border-radius:8px; text-align:center;">
+            <div style="font-weight:900; font-size:13px; color:var(--primary-blue);">Chamadas & Rotas</div>
+            <div style="font-size:10px; color:#78716C;">Quantos clientes pediram endereço no Google</div>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid #E2D9CF; padding:8px 12px; border-radius:8px; text-align:center;">
+            <div style="font-weight:900; font-size:13px; color:var(--emerald);">Cliques no WhatsApp</div>
+            <div style="font-size:10px; color:#78716C;">Quantas conversas novas foram abertas</div>
+          </div>
+          <div style="background:#FFFFFF; border:1px solid #E2D9CF; padding:8px 12px; border-radius:8px; text-align:center;">
+            <div style="font-weight:900; font-size:13px; color:var(--amber);">Custo por Mensagem</div>
+            <div style="font-size:10px; color:#78716C;">Otimização para pagar menos por cada cliente</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="border-left:4px solid var(--primary-blue);">
+        <p style="font-size:11.5px; color:#1E3A8A; line-height:1.5; font-weight:600;">
+          💡 Nosso foco não é "métrica de vaidade" (apenas curtidas). Nosso trabalho é gerar pedidos no balcão, retiradas aos domingos e mensagens no WhatsApp da loja.
+        </p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>Proposta de Gestão de Tráfego • Ricardo & Severino</div>
+      <div class="footer-highlight">Página 05 / 06</div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PÁGINA 6: METODOLOGIA, VALORES PERSONALIZADOS & PRÓXIMOS PASSOS
+       ========================================================================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="header-logo-group">
+        <div class="header-badge" style="background:var(--gold);">🤝</div>
+        <div>
+          <div class="header-title">PLANO DE TRABALHO & ALINHAMENTO</div>
+          <div class="header-subtitle">Como Iniciamos & Proposta Sob Medida</div>
+        </div>
+      </div>
+      <span class="header-tag">05. Alinhamento de Investimento</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-eyebrow">ACOMPANHAMENTO ESPECIALIZADO MÊS A MÊS</div>
+      <h2 class="section-main-title">Tudo o que Está Incluso na Gestão Mensal de Tráfego</h2>
+      <p class="section-desc">
+        Você cuida da qualidade das carnes e do atendimento ao cliente no balcão. Nós cuidamos de toda a engenharia digital para trazer clientes novos todos os dias:
+      </p>
+
+      <div class="card card-highlight" style="margin-bottom:18px; padding:18px;">
+        <h4 style="font-family:'Outfit', sans-serif; font-size:13.5px; font-weight:900; color:var(--charcoal); margin-bottom:8px;">
+          ESCOPO COMPLETO DE SERVIÇOS MENSAIS:
+        </h4>
+        <div class="grid-2" style="gap:10px;">
+          <div class="feature-item">
+            <span class="feature-icon">✔</span>
+            <div><strong>Google Meu Negócio:</strong> Otimização da ficha, SEO local contínuo, catálogo de produtos e postagens semanais.</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✔</span>
+            <div><strong>Campanhas no Google Ads:</strong> Gestão de anúncios na Rede de Pesquisa e Google Maps focado em Santo André.</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✔</span>
+            <div><strong>Campanhas no Instagram Ads:</strong> Criação e veiculação de anúncios nos Stories e Feed com foco em fim de semana e domingo.</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✔</span>
+            <div><strong>Criação de Copies e Textos Persuasivos:</strong> Textos que dão água na boca e chamam para ação direta.</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✔</span>
+            <div><strong>Relatórios e Alinhamento:</strong> Monitoramento mensal de resultados e sugestões de novos combos e ofertas.</div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">✔</span>
+            <div><strong>Suporte Direto com Ricardo:</strong> Atendimento próximo para tirar dúvidas e calibrar promoções rápidas.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Caixa de Investimento / Reunião sob Medida -->
+      <div class="card card-dark" style="padding:22px; border-left:4px solid var(--gold); margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h4 style="font-family:'Outfit', sans-serif; font-size:15px; font-weight:900; color:#FBBF24;">
+            INVESTIMENTO & PLANOS PERSONALIZADOS
+          </h4>
+          <span class="badge-pill badge-amber">SOB MEDIDA</span>
+        </div>
+        <p style="font-size:12.5px; color:#E2E8F0; line-height:1.6; margin-bottom:12px;">
+          Cada comércio possui um momento e um objetivo diferente: alguns querem focar em lotar a rotisserie de domingo, outros em dobrar as vendas de kits de churrasco na semana.
+        </p>
+        <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(251,191,36,0.3); border-radius:10px; padding:12px; font-size:12px; color:#FEF08A; line-height:1.5;">
+          <strong>Valores e planos de investimento sob medida:</strong> Vamos combinar uma breve reunião presencial com o Ricardo para apresentar o plano ideal para a capacidade e metas da sua loja, ajustando a verba e os canais certos.
+        </div>
+      </div>
+
+      <!-- Convite Executivo para Reunião -->
+      <div class="card" style="border:1px solid var(--border); padding:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:900; color:var(--charcoal);">
+              VAMOS MARCAR UMA BREVE CONVERSA?
+            </h4>
+            <p style="font-size:11px; color:#57534E; margin-top:2px;">
+              Ricardo está à sua disposição para visitar a sua loja, avaliar seu raio de atendimento e montar a estratégia perfeita.
+            </p>
+          </div>
+          <span class="badge-pill badge-emerald">DISPONÍVEL</span>
+        </div>
+        <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:10px; font-size:11px; color:#78716C;">
+          <div>Contato Direto com <strong>Ricardo</strong>: WhatsApp / Telefone</div>
+          <div style="color:var(--charcoal); font-weight:700;">Ricardo & Severino — Gestão de Tráfego & Soluções Digitais</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>Proposta de Gestão de Tráfego • Ricardo & Severino</div>
+      <div class="footer-highlight">Página 06 / 06</div>
+    </div>
+  </div>
+
+</body>
+</html>
