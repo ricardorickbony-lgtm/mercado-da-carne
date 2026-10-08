@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mercado da Carne — Boutique de Carnes Nobres, Parrilla & Cortes Especiais</title>
+  
+  <!-- SEO & Metadados -->
+  <meta name="description" content="Boutique de Carnes Nobres, cortes Black Angus, Wagyu, Dry Aged e kits de churrasco com entrega rápida refrigerada. Qualidade superior e consultoria de mestre churrasqueiro.">
+  <meta name="keywords" content="boutique de carnes, casa de carnes nobres, churrasco gourmet, picanha angus, wagyu, tomahawk, dry aged, entrega de carne, kits para churrasco">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Redes Sociais / WhatsApp -->
+  <meta property="og:title" content="Mercado da Carne — Boutique de Carnes Nobres & Parrilla">
+  <meta property="og:description" content="Cortes nobres selecionados, marmoreio superior e kits de churrasco gourmet com entrega expressa refrigerada.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80">
+
+  <!-- Tipografia Google Fonts: Syne & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Folha de Estilos Oficial -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. TOPBAR DE STATUS EM TEMPO REAL & CONTATO
+       ========================================================================= -->
+  <div class="topbar">
+    <div class="container topbar-content">
+      <div class="topbar-status">
+        <span id="topbar-status-dot" class="status-dot-mini"></span>
+        <span id="topbar-status-text">Verificando horário de atendimento...</span>
+      </div>
+      <div class="topbar-links">
+        <span class="topbar-link">
+          📍 Atendimento Balcão & Delivery Express
+        </span>
+        <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="topbar-link">
+          💬 Televendas WhatsApp: (11) 99999-9999
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. HEADER / NAVBAR
+       ========================================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-container">
+      <a href="#inicio" class="brand-logo" aria-label="Mercado da Carne Início">
+        <div class="logo-badge">
+          <!-- Ícone Fogo & Carne -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+        </div>
+        <div class="logo-text-group">
+          <span class="logo-title">MERCADO DA <span>CARNE</span></span>
+          <span class="logo-subtitle">Boutique & Parrilla Gourmet</span>
+        </div>
+      </a>
+
+      <!-- Menu Desktop -->
+      <nav class="nav-menu" aria-label="Navegação Principal">
+        <a href="#inicio" class="nav-link">Início</a>
+        <a href="#diferenciais" class="nav-link">Diferenciais</a>
+        <a href="#cortes" class="nav-link">Cortes Nobres</a>
+        <a href="#calculadora" class="nav-link">Calculadora</a>
+        <a href="#kits" class="nav-link">Kits Churrasco</a>
+        <a href="#localizacao" class="nav-link">Localização</a>
+        <a href="#faq" class="nav-link">Dúvidas</a>
+      </nav>
+
+      <!-- Ações do Header -->
+      <div class="nav-actions">
+        <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20pedido%20no%20Mercado%20da%20Carne." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+          <span>Fazer Pedido</span>
+        </a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir Menu">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Menu Mobile">
+    <div class="drawer-header">
+      <div class="logo-text-group">
+        <span class="logo-title">MERCADO DA <span>CARNE</span></span>
+        <span class="logo-subtitle">Boutique & Parrilla</span>
+      </div>
+      <button id="drawerClose" style="background:transparent; color:#fff; font-size:1.5rem; cursor:pointer;">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="#inicio">Início</a>
+      <a href="#diferenciais">Diferenciais de Elite</a>
+      <a href="#cortes">Vitrine de Cortes</a>
+      <a href="#calculadora">Calculadora de Churrasco</a>
+      <a href="#kits">Kits Prontos</a>
+      <a href="#depoimentos">Avaliações de Clientes</a>
+      <a href="#localizacao">Onde Estamos & Horários</a>
+      <a href="#faq">Perguntas Frequentes</a>
+    </nav>
+    <div style="margin-top:auto; padding-top:24px;">
+      <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-cta" style="width:100%;">
+        Chamar no WhatsApp
+      </a>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       3. HERO SECTION (IMPACTO & ALTA CONVERSÃO)
+       ========================================================================= -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text-content">
+          <div class="hero-badge-live">
+            <span class="pulsing-fire"></span>
+            <span class="hero-badge-text">SELEÇÃO BLACK ANGUS & MATURAÇÃO DRY AGED</span>
+          </div>
+
+          <h1 class="hero-title">
+            A Experiência Definitiva em <span class="gradient-text">Cortes Nobres</span> & Parrilla.
+          </h1>
+
+          <p class="hero-description">
+            Cortes selecionados com marmoreio superior, porcionamento artesanal a vácuo e atendimento de especialista. Do fogo de chão à grelha de alta gastronomia, seu churrasco começa aqui.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido%20de%20cortes%20nobres." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-cta">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2z"/>
+              </svg>
+              <span>Pedir pelo WhatsApp</span>
+            </a>
+            <a href="#cortes" class="btn btn-secondary">
+              <span>Ver Vitrine de Cortes</span>
+            </a>
+          </div>
+
+          <div class="hero-stats-row">
+            <div class="hero-stat-item">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Origem Certificada</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="stat-number">60 min</span>
+              <span class="stat-label">Delivery Refrigerado</span>
+            </div>
+            <div class="hero-stat-item">
+              <span class="stat-number">4.9 ★</span>
+              <span class="stat-label">Avaliação Google</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Visual da Hero -->
+        <div class="hero-image-wrapper">
+          <div class="hero-main-card">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Cortes Nobres e Parrilla" class="hero-img">
+            <div class="hero-overlay-tag">
+              <span>🥩 Linha Signature Black Angus</span>
+            </div>
+          </div>
+
+          <div class="hero-floating-card">
+            <div class="floating-icon">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div>
+              <div class="floating-title">Entrega Expressa no Gelo</div>
+              <div class="floating-subtitle">Temperatura controlada até sua casa</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       4. DIFERENCIAIS DE ELITE
+       ========================================================================= -->
+  <section class="differentials" id="diferenciais">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Padrão Inegociável</span>
+        <h2 class="section-title">Por que o Mercado da Carne é Diferente</h2>
+        <p class="section-desc">Não vendemos apenas carnes; entregamos a experiência e a precisão técnica que todo assador apaixonado exige.</p>
+      </div>
+
+      <div class="diff-grid">
+        <div class="diff-card">
+          <div class="diff-icon-box">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3>Origem 100% Rastreada</h3>
+          <p>Trabalhamos com os melhores frigoríficos artesanais de gado Angus, Wagyu e raças britânicas de pastejo controlado.</p>
+        </div>
+
+        <div class="diff-card">
+          <div class="diff-icon-box">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+            </svg>
+          </div>
+          <h3>Porcionamento Cryovac</h3>
+          <p>Peças limpas, toalete impecável e seladas a vácuo para manter o suco da fibra e garantir maciez prolongada sem aditivos.</p>
+        </div>
+
+        <div class="diff-card">
+          <div class="diff-icon-box">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3>Câmara Dry Aged Própria</h3>
+          <p>Processo de maturação a seco de 30 a 60 dias sob umidade e frio controlados, concentrando sabores amadeirados e textura aveludada.</p>
+        </div>
+
+        <div class="diff-card">
+          <div class="diff-icon-box">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3>Delivery Térmico Express</h3>
+          <p>Seus cortes chegam refrigerados na temperatura ideal em embalagem selada e higiênica pronta para ir à grelha.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. VITRINE DE CORTES NOBRES (CATÁLOGO INTERATIVO)
+       ========================================================================= -->
+  <section class="showcase" id="cortes">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Vitrine de Cortes</span>
+        <h2 class="section-title">Nossos Cortes Mais Desejados</h2>
+        <p class="section-desc">Selecione por categoria e clique no corte para pedir diretamente pelo WhatsApp no ponto e peso que você desejar.</p>
+      </div>
+
+      <!-- Abas de Categoria -->
+      <div class="category-tabs">
+        <button class="tab-btn active" data-filter="todos">Todos os Cortes</button>
+        <button class="tab-btn" data-filter="parrilla">Linha Parrilla</button>
+        <button class="tab-btn" data-filter="angus">Angus & Prime</button>
+        <button class="tab-btn" data-filter="especiais">Wagyu & Dry Aged</button>
+        <button class="tab-btn" data-filter="suinos">Cordeiro & Suínos</button>
+      </div>
+
+      <!-- Grade de Cortes -->
+      <div class="cuts-grid">
+        <!-- Corte 1: Picanha Black Angus -->
+        <div class="cut-card" data-category="angus">
+          <div class="cut-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80" alt="Picanha Black Angus" class="cut-img">
+            <span class="cut-tag">Mais Vendida</span>
+            <span class="cut-marbling">Marmoreio 4+</span>
+          </div>
+          <div class="cut-content">
+            <h3 class="cut-title">Picanha Black Angus Reserva</h3>
+            <p class="cut-desc">Capa de gordura uniforme, maciez incomparável e fibras suculentas. Ideal para bifes de tira na grelha ou assada inteira.</p>
+            <div class="cut-footer">
+              <div class="cut-price-box">
+                <span class="cut-price-label">Preço Médio</span>
+                <span class="cut-price">R$ 139,90 <small style="font-size:0.75rem; color:var(--text-muted)">/kg</small></span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20pedir%20a%20Picanha%20Black%20Angus%20Reserva." target="_blank" rel="noopener noreferrer" class="btn-card-order">
+                <span>Pedir</span> ➔
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Corte 2: Tomahawk Steak -->
+        <div class="cut-card" data-category="parrilla">
+          <div class="cut-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="Tomahawk Steak Prime" class="cut-img">
+            <span class="cut-tag">Visual Imponente</span>
+            <span class="cut-marbling">Osso Longo</span>
+          </div>
+          <div class="cut-content">
+            <h3 class="cut-title">Tomahawk Steak Angus</h3>
+            <p class="cut-desc">O rei da grelha: corte da ponta da costela com ancho e osso limpo de até 30cm. Sabor potente e apresentação de cinema.</p>
+            <div class="cut-footer">
+              <div class="cut-price-box">
+                <span class="cut-price-label">Preço Médio</span>
+                <span class="cut-price">R$ 149,00 <small style="font-size:0.75rem; color:var(--text-muted)">/kg</small></span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20pedir%20o%20Tomahawk%20Steak%20Angus." target="_blank" rel="noopener noreferrer" class="btn-card-order">
+                <span>Pedir</span> ➔
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Corte 3: Bife Ancho Premium -->
+        <div class="cut-card" data-category="parrilla">
+          <div class="cut-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?auto=format&fit=crop&w=600&q=80" alt="Bife Ancho Premium" class="cut-img">
+            <span class="cut-tag">Parrilla Clássica</span>
+            <span class="cut-marbling">Marmoreio 5</span>
+          </div>
+          <div class="cut-content">
+            <h3 class="cut-title">Bife de Ancho (Ribeye)</h3>
+            <p class="cut-desc">Filé de costela com o famoso olho de gordura entremeada que derrete na brasa viva, conferindo maciez extrema.</p>
+            <div class="cut-footer">
+              <div class="cut-price-box">
+                <span class="cut-price-label">Preço Médio</span>
+                <span class="cut-price">R$ 119,90 <small style="font-size:0.75rem; color:var(--text-muted)">/kg</small></span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20pedir%20o%20Bife%20de%20Ancho." target="_blank" rel="noopener noreferrer" class="btn-card-order">
+                <span>Pedir</span> ➔
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Corte 4: Picanha Wagyu A5 -->
+        <div class="cut-card" data-category="especiais">
+          <div class="cut-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=600&q=80" alt="Wagyu A5 Japonês" class="cut-img">
+            <span class="cut-tag" style="border-color:#F59E0B; color:#FCD34D;">Ultra Luxo</span>
+            <span class="cut-marbling">BMS 8-9</span>
+          </div>
+          <div class="cut-content">
+            <h3 class="cut-title">Cortes Especiais Wagyu</h3>
+            <p class="cut-desc">A mais alta expressão de marmoreio mundial. Gordura rica em ômega com ponto de fusão baixo que desmancha na boca.</p>
+            <div class="cut-footer">
+              <div class="cut-price-box">
+                <span class="cut-price-label">Sob Consulta</span>
+                <span class="cut-price">Linha Gold</span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20disponibilidade%20da%20linha%20Wagyu." target="_blank" rel="noopener noreferrer" class="btn-card-order">
+                <span>Consultar</span> ➔
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Corte 5: Carré de Cordeiro -->
+        <div class="cut-card" data-category="suinos">
+          <div class="cut-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80" alt="Carré de Cordeiro" class="cut-img">
+            <span class="cut-tag">Seleção Patagônia</span>
+            <span class="cut-marbling">French Rack</span>
+          </div>
+          <div class="cut-content">
+            <h3 class="cut-title">Carré de Cordeiro Especial</h3>
+            <p class="cut-desc">Costeletas francesas com toalete perfeita. Carne tenra, aroma suave e delicado, ideal com crosta de ervas e alho confit.</p>
+            <div class="cut-footer">
+              <div class="cut-price-box">
+                <span class="cut-price-label">Preço Médio</span>
+                <span class="cut-price">R$ 158,00 <small style="font-size:0.75rem; color:var(--text-muted)">/kg</small></span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20pedir%20o%20Carr%C3%A9%20de%20Cordeiro." target="_blank" rel="noopener noreferrer" class="btn-card-order">
+                <span>Pedir</span> ➔
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Corte 6: Prime Rib Dry Aged -->
+        <div class="cut-card" data-category="especiais">
+          <div class="cut-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80" alt="Prime Rib Dry Aged" class="cut-img">
+            <span class="cut-tag">35 Dias Maturação</span>
+            <span class="cut-marbling">Umami Puro</span>
+          </div>
+          <div class="cut-content">
+            <h3 class="cut-title">Prime Rib Dry Aged 35d</h3>
+            <p class="cut-desc">Maturação a seco artesanal em nossa câmara. Notas de nozes, queijo curado e uma maciez que apenas o tempo produz.</p>
+            <div class="cut-footer">
+              <div class="cut-price-box">
+                <span class="cut-price-label">Preço Médio</span>
+                <span class="cut-price">R$ 185,00 <small style="font-size:0.75rem; color:var(--text-muted)">/kg</small></span>
+              </div>
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20pedir%20o%20Prime%20Rib%20Dry%20Aged." target="_blank" rel="noopener noreferrer" class="btn-card-order">
+                <span>Pedir</span> ➔
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. CALCULADORA INTELIGENTE DE CHURRASCO
+       ========================================================================= -->
+  <section class="calculator-section" id="calculadora">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Planejamento Perfeito</span>
+        <h2 class="section-title">Calculadora de Churrasco Inteligente</h2>
+        <p class="section-desc">Informe a quantidade de convidados e nossa ferramenta calcula as quantidades exatas de carnes nobres, acompanhamentos e carvão para não faltar nada!</p>
+      </div>
+
+      <div class="calc-box">
+        <!-- Controles de Entrada -->
+        <div class="calc-inputs">
+          <!-- Homens -->
+          <div class="input-group">
+            <div class="input-header">
+              <span class="input-label">
+                <span>👨 Homens</span>
+              </span>
+              <div class="input-counter">
+                <button class="btn-counter" id="calc-men-minus">-</button>
+                <span class="counter-val" id="calc-men-val">4</span>
+                <button class="btn-counter" id="calc-men-plus">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mulheres -->
+          <div class="input-group">
+            <div class="input-header">
+              <span class="input-label">
+                <span>👩 Mulheres</span>
+              </span>
+              <div class="input-counter">
+                <button class="btn-counter" id="calc-women-minus">-</button>
+                <span class="counter-val" id="calc-women-val">4</span>
+                <button class="btn-counter" id="calc-women-plus">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Crianças -->
+          <div class="input-group">
+            <div class="input-header">
+              <span class="input-label">
+                <span>👦 Crianças</span>
+              </span>
+              <div class="input-counter">
+                <button class="btn-counter" id="calc-kids-minus">-</button>
+                <span class="counter-val" id="calc-kids-val">2</span>
+                <button class="btn-counter" id="calc-kids-plus">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Seletor de Estilo -->
+          <div class="input-group">
+            <span class="input-label">Estilo do Evento</span>
+            <div class="churrasco-style-group">
+              <div class="style-option" id="style-trad">
+                <span class="style-title">Tradicional</span>
+                <span class="style-desc">Churrasco equilibrado e descontraído</span>
+              </div>
+              <div class="style-option active" id="style-prime">
+                <span class="style-title">Parrilla Prime 🔥</span>
+                <span class="style-desc">Cortes nobres e porções generosas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resultado e Envio para WhatsApp -->
+        <div class="calc-results">
+          <div class="results-header">
+            <h3>Lista Recomendada</h3>
+            <p>Calculado com precisão por mestres assadores</p>
+          </div>
+
+          <div class="results-list">
+            <div class="result-row">
+              <span class="result-name">🥩 Cortes Nobres:</span>
+              <span class="result-qty" id="res-carne">3.6 kg de Cortes Nobres</span>
+            </div>
+            <div class="result-row">
+              <span class="result-name">🌭 Linguiça Artesanal:</span>
+              <span class="result-qty" id="res-linguica">1.4 kg de Linguiça</span>
+            </div>
+            <div class="result-row">
+              <span class="result-name">🥖 Pão de Alho & Coalho:</span>
+              <span class="result-qty" id="res-acomp">3 pct(s) Pão de Alho & Coalho</span>
+            </div>
+            <div class="result-row">
+              <span class="result-name">🪵 Carvão de Eucalipto:</span>
+              <span class="result-qty" id="res-carvao">1 saco(s) 4kg</span>
+            </div>
+            <div class="result-row">
+              <span class="result-name">🍺 Bebidas Estimadas:</span>
+              <span class="result-qty" id="res-bebidas">32 latas + 5L refri</span>
+            </div>
+          </div>
+
+          <a href="#" id="btn-order-calc" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-cta" style="width:100%;">
+            <span>Enviar Pedido Pronto no WhatsApp</span> ➔
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. KITS DE CHURRASCO PRONTOS
+       ========================================================================= -->
+  <section class="kits-section" id="kits">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Praticidade Máxima</span>
+        <h2 class="section-title">Kits Fechados para seu Fim de Semana</h2>
+        <p class="section-desc">Cortes combinados por especialistas para garantir variedade, sabor e economia. Embalados a vácuo individualmente.</p>
+      </div>
+
+      <div class="kits-grid">
+        <!-- Kit 1: Parrilla Amigos -->
+        <div class="kit-card">
+          <h3 class="kit-name">Kit Resenha & Parrilla</h3>
+          <span class="kit-serves">Serve 6 a 8 convidados</span>
+          <div class="kit-items-list">
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1kg Bife de Chorizo Black Angus</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1kg Fraldinha Red Reserva</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>600g Linguiça Campeira de Pernil</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1 Pcte Pão de Alho Picante Especial</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1 Sal de Parrilla com Ervas Finas</span>
+            </div>
+          </div>
+          <div class="kit-price-row">
+            <span class="kit-price-val">R$ 299,00</span>
+            <span class="kit-price-period">kit completo</span>
+          </div>
+          <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20encomendar%20o%20Kit%20Resenha%20%26%20Parrilla." target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;">
+            Pedir Este Kit
+          </a>
+        </div>
+
+        <!-- Kit 2: Prime Signature (Destaque) -->
+        <div class="kit-card featured">
+          <span class="kit-badge-featured">Mais Escolhido</span>
+          <h3 class="kit-name">Kit Mestre Churrasqueiro</h3>
+          <span class="kit-serves">Serve 10 a 12 convidados</span>
+          <div class="kit-items-list">
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1 Peça Picanha Black Angus (~1.2kg)</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1 Peça Tomahawk Steak Prime (~1.1kg)</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1kg Bife de Ancho Premium</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>800g Linguiça com Queijo Coalho</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>2 Pctes Pão de Alho Especial</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1 Saco Carvão de Eucalipto 4kg</span>
+            </div>
+          </div>
+          <div class="kit-price-row">
+            <span class="kit-price-val">R$ 549,00</span>
+            <span class="kit-price-period">kit completo</span>
+          </div>
+          <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20encomendar%20o%20Kit%20Mestre%20Churrasqueiro." target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;">
+            Pedir Este Kit
+          </a>
+        </div>
+
+        <!-- Kit 3: Grand Cru Dry Aged & Wagyu -->
+        <div class="kit-card">
+          <h3 class="kit-name">Kit Experiência Imperial</h3>
+          <span class="kit-serves">Alta gastronomia em casa</span>
+          <div class="kit-items-list">
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1 Prime Rib Dry Aged 35 dias (~900g)</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>2 Steaks de Wagyu BMS 8+ (~600g)</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1 Carré de Cordeiro Francês (~800g)</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1 Sal Rosa Maldon em Flocos</span>
+            </div>
+            <div class="kit-item">
+              <span class="kit-item-icon">✔</span>
+              <span>1 Azeite Trufado Artesanal</span>
+            </div>
+          </div>
+          <div class="kit-price-row">
+            <span class="kit-price-val">R$ 680,00</span>
+            <span class="kit-price-period">kit exclusivo</span>
+          </div>
+          <a href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20encomendar%20o%20Kit%20Experi%C3%AAncia%20Imperial." target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;">
+            Pedir Este Kit
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       8. PROVA SOCIAL & DEPOIMENTOS
+       ========================================================================= -->
+  <section class="testimonials-section" id="depoimentos">
+    <div class="container">
+      <div class="section-header">
+        <div class="google-rating-badge">
+          <div class="rating-stars">★★★★★</div>
+          <span style="font-size:0.9rem; font-weight:700;">4.9 de 5 estrelas no Google (+340 avaliações)</span>
+        </div>
+        <h2 class="section-title">O Que Dizem Nossos Clientes</h2>
+        <p class="section-desc">A confiança de quem já transformou seu churrasco com nossos cortes selecionados.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="test-card">
+          <p>"A Picanha Black Angus foi a melhor que já assei na vida. Capa de gordura impecável e textura que desmancha na boca. Entrega super rápida e muito bem embalada."</p>
+          <div class="test-author-box">
+            <div class="test-avatar">MR</div>
+            <div>
+              <div class="test-name">Marcelo Ramos</div>
+              <div class="test-sub">Cliente Frequente • Santo André</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p>"O Prime Rib Dry Aged é um espetáculo à parte. Quem entende de carne nota a diferença no primeiro corte. O atendimento pelo WhatsApp também é impecável, tiram todas as dúvidas."</p>
+          <div class="test-author-box">
+            <div class="test-avatar">FS</div>
+            <div>
+              <div class="test-name">Felipe Silveira</div>
+              <div class="test-sub">Assador Amador • São Bernardo</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-card">
+          <p>"Usei a calculadora do site para o aniversário do meu marido e foi na mosca! Pedimos o Kit Mestre Churrasqueiro e todo mundo elogiou. Não sobrou nada!"</p>
+          <div class="test-author-box">
+            <div class="test-avatar">CP</div>
+            <div>
+              <div class="test-name">Camila Prado</div>
+              <div class="test-sub">Festa de Família • São Caetano</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       9. LOCALIZAÇÃO & HORÁRIOS
+       ========================================================================= -->
+  <section class="location-section" id="localizacao">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Venha nos Visitar</span>
+        <h2 class="section-title">Loja Física & Raio de Entrega</h2>
+        <p class="section-desc">Visite nossa boutique com câmara Dry Aged à vista ou receba no conforto de casa.</p>
+      </div>
+
+      <div class="location-grid">
+        <div class="info-cards-stack">
+          <div class="info-box">
+            <div class="info-icon">📍</div>
+            <div>
+              <div class="info-title">Endereço & Retirada</div>
+              <div class="info-desc">
+                Av. das Carnes Nobres, 1200 — Bairro Jardim<br>
+                Estacionamento próprio com manobrista cortesia.
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <div class="info-icon">⏰</div>
+            <div>
+              <div class="info-title">Horário de Funcionamento</div>
+              <div class="info-desc">
+                <strong>Segunda a Sábado:</strong> 08:00 às 20:00<br>
+                <strong>Domingos e Feriados:</strong> 08:00 às 14:00
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <div class="info-icon">🛵</div>
+            <div>
+              <div class="info-title">Área de Delivery Express</div>
+              <div class="info-desc">
+                Entregas rápidas para todo o ABC e Grande São Paulo. Consulte frete e previsão em tempo real pelo WhatsApp.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-wrapper">
+          <iframe title="Mapa de Localização" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d116983.33610023617!2d-46.59378129598285!3d-23.655979207904254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce42e039e1f58b%3A0x6bbfda21bf44ef06!2sSanto%20Andr%C3%A9%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       10. FAQ (DÚVIDAS FREQUENTES)
+       ========================================================================= -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Tire suas Dúvidas</span>
+        <h2 class="section-title">Perguntas Frequentes</h2>
+        <p class="section-desc">Tudo o que você precisa saber sobre nossos cortes, embalagens e entrega.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>As carnes são entregues frescas ou congeladas?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>A grande maioria dos nossos cortes é mantida rigorosamente fresca, resfriada e selada a vácuo Cryovac entre 0°C e 2°C, pronta para ir à grelha sem necessidade de descongelar. Apenas cortes pontuais e importações específicas contam com opção ultracongelada.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Vocês fatiam a carne na espessura que eu desejar?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Com certeza! Nosso mestre carniceiro porciona os bifes exatamente na espessura de dedos que você solicitar (ex: 2 dedos para grelha alta, 3 dedos para ponto malpassado de parrilla) e sela as porções separadamente a vácuo.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Como funciona o processo de maturação Dry Aged?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>O processo Dry Aged mantém peças inteiras de carne em câmara fria especial com temperatura entre 0°C e 1°C e umidade controlada em ~80% por 30 a 60 dias. Enzimas naturais quebram as fibras, tornando a carne extraordinariamente macia e concentrando notas únicas de umami.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Quais as formas de pagamento aceitas?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Aceitamos Pix com confirmação instantânea, cartões de crédito e débito das principais bandeiras e cartões de benefícios/alimentação (consultar bandeiras no WhatsApp).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       11. RODAPÉ OFICIAL
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom:16px;">
+            <div class="logo-badge">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+            </div>
+            <div class="logo-text-group">
+              <span class="logo-title">MERCADO DA <span>CARNE</span></span>
+              <span class="logo-subtitle">Boutique & Parrilla Gourmet</span>
+            </div>
+          </div>
+          <p style="font-size:0.9rem; line-height:1.6; color:var(--text-secondary); margin-bottom:16px;">
+            A boutique definitiva para apreciadores do verdadeiro churrasco. Cortes de raças britânicas, maturação nobre e entrega com frescor inigualável.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <div class="footer-links">
+            <a href="#inicio" class="footer-link">Início</a>
+            <a href="#diferenciais" class="footer-link">Diferenciais</a>
+            <a href="#cortes" class="footer-link">Cortes Nobres</a>
+            <a href="#calculadora" class="footer-link">Calculadora de Churrasco</a>
+            <a href="#kits" class="footer-link">Kits Prontos</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Atendimento</h4>
+          <div class="footer-links">
+            <span class="footer-link">Seg a Sáb: 08:00 – 20:00</span>
+            <span class="footer-link">Domingo: 08:00 – 14:00</span>
+            <span class="footer-link">Tel: (11) 99999-9999</span>
+            <span class="footer-link">contato@mercadodacarne.com.br</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Entrega Rápida</h4>
+          <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
+            Faça seu pedido diretamente pelo WhatsApp e receba com caixa térmica e controle de temperatura.
+          </p>
+          <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-cta btn-sm">
+            Falar com Atendente
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 Mercado da Carne Boutique. Todos os direitos reservados.
+        </div>
+        <div>
+          Desenvolvido com excelência no padrão oficial Ricardo & Severino.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       12. WIDGET FLUTUANTE WHATSAPP INTELIGENTE (PADRÃO OFICIAL)
+       ========================================================================= -->
+  <div id="whatsapp-widget" class="wa-widget" aria-label="Atendimento via WhatsApp">
+    <a id="wa-link" href="#" target="_blank" rel="noopener noreferrer" class="wa-btn">
+      <div class="wa-icon-container">
+        <svg class="wa-icon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        <span id="wa-status-dot" class="wa-status-dot online"></span>
+      </div>
+      <div class="wa-text-box">
+        <span class="wa-title">Falar no WhatsApp</span>
+        <span id="wa-status-text" class="wa-status-text">Online Agora</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Script Oficial -->
+  <script src="js/main.js"></script>
+</body>
+</html>
