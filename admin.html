@@ -61,7 +61,20 @@
         </div>
         <div>
           <label class="block text-xs font-bold text-stone-300 uppercase mb-1">Senha de Acesso</label>
-          <input type="password" id="login-senha" required placeholder="••••••••" class="w-full text-sm px-4 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <div class="relative flex items-center">
+            <input type="password" id="login-senha" required placeholder="••••••••" class="w-full text-sm px-4 py-2.5 pr-11 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <button type="button" id="btn-toggle-senha" class="absolute right-3 text-stone-400 hover:text-amber-400 focus:outline-none transition p-1" title="Mostrar/Ocultar Senha" aria-label="Mostrar ou ocultar senha">
+              <!-- Olho Aberto (quando a senha está oculta) -->
+              <svg id="icone-olho-aberto" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              <!-- Olho Fechado / Riscado (quando a senha está visível) -->
+              <svg id="icone-olho-fechado" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-black py-3 rounded-xl transition shadow-lg text-sm mt-2">

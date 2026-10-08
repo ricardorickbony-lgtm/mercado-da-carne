@@ -58,6 +58,27 @@ function configurarAuth() {
     });
   }
 
+  // Alternar Visibilidade da Senha (Olhinho)
+  const btnToggleSenha = document.getElementById('btn-toggle-senha');
+  const inputSenha = document.getElementById('login-senha');
+  const iconeAberto = document.getElementById('icone-olho-aberto');
+  const iconeFechado = document.getElementById('icone-olho-fechado');
+
+  if (btnToggleSenha && inputSenha) {
+    btnToggleSenha.addEventListener('click', () => {
+      const tipoAtual = inputSenha.getAttribute('type');
+      if (tipoAtual === 'password') {
+        inputSenha.setAttribute('type', 'text');
+        if (iconeAberto) iconeAberto.classList.add('hidden');
+        if (iconeFechado) iconeFechado.classList.remove('hidden');
+      } else {
+        inputSenha.setAttribute('type', 'password');
+        if (iconeAberto) iconeAberto.classList.remove('hidden');
+        if (iconeFechado) iconeFechado.classList.add('hidden');
+      }
+    });
+  }
+
   if (formLogin) {
     formLogin.addEventListener('submit', (e) => {
       e.preventDefault();
