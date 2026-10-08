@@ -1,11 +1,11 @@
 /**
- * MERCADO DA CARNE — SHOP BUTCHER & ROTISSERIE (Mauá - SP)
+ * MERCADO DA CARNE — SHOP BUTCHER & ROTISSERIE
+ * Av. São Paulo, 584 - Cidade São Jorge, Santo André - SP
  * Scripts Oficiais de Alta Conversão & Renderização Dinâmica
  * Padrão Ricardo & Severino
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Carrega configurações da loja a partir do banco de dados local
   const configLoja = (typeof EstoqueDB !== 'undefined') ? EstoqueDB.obterConfigLoja() : {
     whatsapp: '5511963336938',
     telefone: '(11) 96333-6938',
@@ -15,22 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     horaFimDomingo: 14
   };
 
-  // 1. Inicializar Botão WhatsApp Inteligente e Status da Loja
   initStoreStatusAndWhatsApp(configLoja);
-
-  // 2. Renderizar Vitrine Dinâmica de Carnes & Rotisserie
   renderShowcaseProducts();
-
-  // 3. Inicializar Calculadora de Churrasco
   initChurrascoCalculator(configLoja.whatsapp);
-
-  // 4. Inicializar Filtros da Vitrine
   initShowcaseFilter();
-
-  // 5. Inicializar FAQ Accordion
   initFaqAccordion();
-
-  // 6. Inicializar Mobile Drawer
   initMobileDrawer();
 });
 
@@ -47,26 +36,24 @@ function initStoreStatusAndWhatsApp(config) {
   } = config;
 
   const agora = new Date();
-  const diaSemana = agora.getDay(); // 0 = Domingo, 1 = Segunda ... 6 = Sábado
+  const diaSemana = agora.getDay();
   const hora = agora.getHours();
   const minutos = agora.getMinutes();
   const horaDecimal = hora + (minutos / 60);
 
   let isOnline = false;
 
-  // Verificação de funcionamento (Seg a Sáb: 7h às 20h | Dom: 7h às 14h)
+  // Seg a Sáb: 7h às 20h | Dom: 7h às 14h
   if (diaSemana >= 1 && diaSemana <= 6 && horaDecimal >= horaInicioSemana && horaDecimal < horaFimSemana) {
     isOnline = true;
   } else if (diaSemana === 0 && horaDecimal >= horaInicioDomingo && horaDecimal < horaFimDomingo) {
     isOnline = true;
   }
 
-  // Elementos do Widget Flutuante
   const waLink = document.getElementById('wa-link');
   const waDot = document.getElementById('wa-status-dot');
   const waText = document.getElementById('wa-status-text');
 
-  // Elementos da Topbar
   const topbarDot = document.getElementById('topbar-status-dot');
   const topbarText = document.getElementById('topbar-status-text');
 
@@ -74,9 +61,9 @@ function initStoreStatusAndWhatsApp(config) {
     if (waDot) waDot.className = 'wa-status-dot online';
     if (waText) waText.textContent = 'Online Agora';
     if (topbarDot) topbarDot.className = 'status-dot-mini';
-    if (topbarText) topbarText.textContent = 'Aberto Agora • Atendimento no Balcão & Delivery';
+    if (topbarText) topbarText.textContent = 'Aberto Agora • Atendimento na Av. São Paulo & Delivery';
     
-    const msg = encodeURIComponent("Olá! Vim pelo site do Mercado da Carne (Mauá) e gostaria de consultar os cortes e assados disponíveis.");
+    const msg = encodeURIComponent("Olá! Vim pelo site do Mercado da Carne (Cidade São Jorge, Santo André) e gostaria de consultar os cortes e assados disponíveis.");
     if (waLink) waLink.href = `https://wa.me/${whatsapp}?text=${msg}`;
   } else {
     if (waLink) waLink.classList.add('offline-mode');
@@ -85,13 +72,13 @@ function initStoreStatusAndWhatsApp(config) {
     if (topbarDot) topbarDot.className = 'status-dot-mini closed';
     if (topbarText) topbarText.textContent = 'Fechado Agora • Deixe sua encomenda pelo WhatsApp para o próximo expediente';
 
-    const msg = encodeURIComponent("Olá! Vi o site do Mercado da Carne fora do horário de atendimento e gostaria de encomendar carnes/assados.");
+    const msg = encodeURIComponent("Olá! Vi o site do Mercado da Carne fora do horário comercial e gostaria de deixar um pedido encomendado.");
     if (waLink) waLink.href = `https://wa.me/${whatsapp}?text=${msg}`;
   }
 }
 
 /**
- * Renderiza os produtos na Vitrine dinamicamente do EstoqueDB
+ * Renderiza produtos da Vitrine dinamicamente do EstoqueDB
  */
 function renderShowcaseProducts() {
   const container = document.getElementById('grid-cortes-dinamico');
@@ -197,8 +184,8 @@ function initChurrascoCalculator(waNumero = "5511963336938") {
 
     if (btnOrderCalc) {
       const estiloNome = estilo === 'prime' ? 'Parrilla Prime & Especiais' : 'Tradicional';
-      const textoPedido = `*PEDIDO CALCULADORA DE CHURRASCO — MERCADO DA CARNE MAUÁ*%0A%0A` +
-        `📍 *Retirada / Delivery:* Parque São Vicente, Mauá - SP%0A` +
+      const textoPedido = `*PEDIDO CALCULADORA DE CHURRASCO — MERCADO DA CARNE*%0A%0A` +
+        `📍 *Retirada / Delivery:* Av. São Paulo, 584 - Cidade São Jorge, Santo André - SP%0A` +
         `👥 *Convidados:* ${homens} homens, ${mulheres} mulheres, ${criancas} crianças%0A` +
         `🔥 *Estilo:* ${estiloNome}%0A%0A` +
         `🥩 *Cortes Bovinos:* ${carneKg} kg%0A` +

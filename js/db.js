@@ -1,33 +1,32 @@
 /**
- * MERCADO DA CARNE — SHOP BUTCHER & ROTISSERIE (Mauá - SP)
+ * MERCADO DA CARNE — SHOP BUTCHER & ROTISSERIE
+ * Av. São Paulo, 584 - Cidade São Jorge, Santo André - SP
  * Camada de Dados, Catálogo e Configurações da Loja
  * Padrão Oficial Ricardo & Severino
  */
 
-const STORAGE_CARNES_KEY = 'mercado_carne_produtos_v1';
-const STORAGE_CONFIG_KEY = 'mercado_carne_config_v1';
+const STORAGE_CARNES_KEY = 'mercado_carne_produtos_v2';
+const STORAGE_CONFIG_KEY = 'mercado_carne_config_v2';
 const STORAGE_SENHA_KEY = 'mercado_carne_senha_admin';
 
-// 1. Configurações Oficiais da Loja (Extraídas do Google Business Oficial)
+// 1. Configurações Oficiais da Loja (Endereço Oficial Santo André)
 const CONFIG_LOJA_PADRAO = {
   nome: 'Mercado da Carne',
   subtitulo: 'Shop Butcher & Rotisserie Gourmet',
-  razaoSocial: 'Mercado da Carne SB Ltda',
-  cnpj: '40.779.193/0001-45',
   telefone: '(11) 96333-6938',
   whatsapp: '5511963336938',
-  endereco: 'Rua Presidente Nereu Ramos, 51',
-  bairro: 'Parque São Vicente',
-  cidade: 'Mauá - SP',
-  cep: '09371-210',
-  googleMapsUrl: 'https://maps.app.goo.gl/dMcyRrwKSxvfiZb78',
+  endereco: 'Av. São Paulo, 584',
+  bairro: 'Cidade São Jorge',
+  cidade: 'Santo André - SP',
+  cep: '09111-410',
+  googleMapsUrl: 'https://maps.google.com/?q=Av.+S%C3%A3o+Paulo,+584+-+Cidade+S%C3%A3o+Jorge,+Santo+Andr%C3%A9+-+SP,+09111-410',
   horarioSemana: 'Segunda a Sábado: 07:00 às 20:00',
   horarioDomingo: 'Domingos e Feriados: 07:00 às 14:00',
   horaInicioSemana: 7,
   horaFimSemana: 20,
   horaInicioDomingo: 7,
   horaFimDomingo: 14,
-  taxaEntregaBairro: 'Consulte frete grátis para Parque São Vicente e região'
+  taxaEntregaBairro: 'Entregas na Cidade São Jorge, Parque Marajoara e região de Santo André'
 };
 
 // 2. Catálogo Oficial de Cortes, Assados de Rotisserie & Churrasco
@@ -84,7 +83,7 @@ const PRODUTOS_INICIAIS = [
     unidade: 'kg',
     marmoreio: 'Marmoreio 4',
     tag: 'Corte Nobre',
-    descricao: 'Miolo do contrafilé argentino com faixa externa de gordura dourada e sabor marcante para grelha alta.',
+    descricao: 'Miolo do contrafilé nobre com faixa externa de gordura dourada e sabor marcante para grelha alta.',
     foto: 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80',
     destaque: false,
     disponivel: true
@@ -112,7 +111,7 @@ const PRODUTOS_INICIAIS = [
     unidade: 'kg',
     marmoreio: 'Umami Puro',
     tag: 'Maturação a Seco',
-    descricao: 'Maturação em câmara fria própria. Sabor concentrado de avelãs e queijo curado, textura de veludo.',
+    descricao: 'Maturação em câmara própria. Sabor concentrado de avelãs e queijo curado, textura aveludada.',
     foto: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80',
     destaque: true,
     disponivel: true
@@ -132,7 +131,7 @@ const PRODUTOS_INICIAIS = [
     disponivel: true
   },
 
-  // --- ROTISSERIE & ASSADOS DE FIM DE SEMANA (DIFERENCIAL FORTE DA LOJA) ---
+  // --- ROTISSERIE & ASSADOS DE FIM DE SEMANA ---
   {
     id: 'rot-1',
     nome: 'Costela Gaúcha no Bafo (Assada)',
@@ -142,7 +141,7 @@ const PRODUTOS_INICIAIS = [
     unidade: 'kg',
     marmoreio: 'Desmancha no Osso',
     tag: 'Tradição Domingo',
-    descricao: 'Costela bovina selecionada assada lentamente por 8 horas no bafo com tempero especial da casa. Derrete na boca.',
+    descricao: 'Costela bovina selecionada assada lentamente por 8 horas no bafo com tempero especial da casa.',
     foto: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80',
     destaque: true,
     disponivel: true
@@ -156,7 +155,7 @@ const PRODUTOS_INICIAIS = [
     unidade: 'unidade',
     marmoreio: 'Pele Crocante',
     tag: 'Clássico da Rotisserie',
-    descricao: 'Frango inteiro marinado por 24 horas, recheado com farofa rica de bacon e calabresa. Acompanha batatas douradas.',
+    descricao: 'Frango inteiro marinado por 24 horas, recheado com farofa rica de bacon e calabresa com batatas douradas.',
     foto: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=600&q=80',
     destaque: true,
     disponivel: true
@@ -170,7 +169,7 @@ const PRODUTOS_INICIAIS = [
     unidade: 'kg',
     marmoreio: 'Super Macio',
     tag: 'Favorito dos Assadores',
-    descricao: 'Cupim assado lentamente no ponto perfeito, casqueirado na hora e servido suculento com molho chimichurri.',
+    descricao: 'Cupim assado lentamente no ponto perfeito, casqueirado na hora e servido suculento.',
     foto: 'https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80',
     destaque: false,
     disponivel: true
@@ -193,20 +192,31 @@ const PRODUTOS_INICIAIS = [
 
 // 3. API do Banco de Dados Local (EstoqueDB)
 const EstoqueDB = {
-  // Inicialização
   init() {
     if (!localStorage.getItem(STORAGE_CARNES_KEY)) {
       localStorage.setItem(STORAGE_CARNES_KEY, JSON.stringify(PRODUTOS_INICIAIS));
     }
+    // Sempre garante os dados oficiais de Santo André se for versão inicial
     if (!localStorage.getItem(STORAGE_CONFIG_KEY)) {
       localStorage.setItem(STORAGE_CONFIG_KEY, JSON.stringify(CONFIG_LOJA_PADRAO));
+    } else {
+      const cfg = JSON.parse(localStorage.getItem(STORAGE_CONFIG_KEY));
+      // Atualiza o endereço para Av. São Paulo 584 se ainda estiver no anterior
+      if (!cfg.endereco || cfg.endereco.includes('Nereu Ramos')) {
+        cfg.endereco = CONFIG_LOJA_PADRAO.endereco;
+        cfg.bairro = CONFIG_LOJA_PADRAO.bairro;
+        cfg.cidade = CONFIG_LOJA_PADRAO.cidade;
+        cfg.cep = CONFIG_LOJA_PADRAO.cep;
+        cfg.googleMapsUrl = CONFIG_LOJA_PADRAO.googleMapsUrl;
+        cfg.taxaEntregaBairro = CONFIG_LOJA_PADRAO.taxaEntregaBairro;
+        localStorage.setItem(STORAGE_CONFIG_KEY, JSON.stringify(cfg));
+      }
     }
     if (!localStorage.getItem(STORAGE_SENHA_KEY)) {
       localStorage.setItem(STORAGE_SENHA_KEY, 'admin123');
     }
   },
 
-  // Obter Lista de Produtos
   obterProdutos() {
     this.init();
     try {
@@ -216,12 +226,10 @@ const EstoqueDB = {
     }
   },
 
-  // Salvar Lista de Produtos
   salvarProdutos(produtos) {
     localStorage.setItem(STORAGE_CARNES_KEY, JSON.stringify(produtos));
   },
 
-  // Adicionar ou Atualizar Produto
   salvarItem(item) {
     const produtos = this.obterProdutos();
     const index = produtos.findIndex(p => p.id === item.id);
@@ -234,14 +242,12 @@ const EstoqueDB = {
     return item;
   },
 
-  // Excluir Produto
   excluirItem(id) {
     let produtos = this.obterProdutos();
     produtos = produtos.filter(p => p.id !== id);
     this.salvarProdutos(produtos);
   },
 
-  // Obter Configurações da Loja
   obterConfigLoja() {
     this.init();
     try {
@@ -251,12 +257,10 @@ const EstoqueDB = {
     }
   },
 
-  // Salvar Configurações da Loja
   salvarConfigLoja(config) {
     localStorage.setItem(STORAGE_CONFIG_KEY, JSON.stringify(config));
   },
 
-  // Autenticação do Admin
   verificarSenha(senha) {
     this.init();
     const salva = localStorage.getItem(STORAGE_SENHA_KEY) || 'admin123';
@@ -267,11 +271,9 @@ const EstoqueDB = {
     localStorage.setItem(STORAGE_SENHA_KEY, novaSenha);
   },
 
-  // Formatação de Preço
   formatarPreco(valor) {
     return Number(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 };
 
-// Executa inicialização
 EstoqueDB.init();
