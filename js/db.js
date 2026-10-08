@@ -9,6 +9,18 @@ const STORAGE_CARNES_KEY = 'mercado_carne_produtos_v3';
 const STORAGE_CONFIG_KEY = 'mercado_carne_config_v3';
 const STORAGE_CLIENTES_KEY = 'mercado_carne_clientes_v1';
 const STORAGE_SENHA_KEY = 'mercado_carne_senha_admin';
+const STORAGE_AGENDAMENTO_KEY = 'mercado_carne_agendamento_v1';
+
+// Configuração Padrão do Robô Agendador de Disparos
+const AGENDAMENTO_PADRAO = {
+  ativo: true,
+  diaSemana: '5', // 4=Quinta, 5=Sexta, 6=Sábado, 0=Domingo, todos=Todos os dias
+  hora: '10:00',
+  intervaloSegundos: 8,
+  tipoCampanha: 'sexta',
+  webhookUrl: '',
+  ultimoDisparo: null
+};
 
 // 1. Galeria Pronta de Estúdio Gastronômico (Fotos de Alta Definição)
 const GALERIA_FOTOS_ESTUDIO = [
@@ -325,6 +337,9 @@ const EstoqueDB = {
     if (!localStorage.getItem(STORAGE_SENHA_KEY)) {
       localStorage.setItem(STORAGE_SENHA_KEY, 'admin123');
     }
+    if (!localStorage.getItem(STORAGE_AGENDAMENTO_KEY)) {
+      localStorage.setItem(STORAGE_AGENDAMENTO_KEY, JSON.stringify(AGENDAMENTO_PADRAO));
+    }
   },
 
   // Produtos
@@ -418,6 +433,21 @@ const EstoqueDB = {
 
   alterarSenha(novaSenha) {
     localStorage.setItem(STORAGE_SENHA_KEY, novaSenha);
+  },
+
+  // Robô Agendador de Disparos de WhatsApp
+  obterAgendamento() {
+    this.init();
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_AGENDAMENTO_KEY)) || AGENDAMENTO_PADRAO;
+    } catch (e) {
+      return AGENDAMENTO_PADRAO;
+    }
+  },
+
+  salvarAgendamento(config) {
+    localStorage.setItem(STORAGE_AGENDAMENTO_KEY, JSON.stringify(config));
+    return config;
   },
 
   formatarPreco(valor) {

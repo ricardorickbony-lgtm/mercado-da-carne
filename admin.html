@@ -250,7 +250,119 @@
          ABA 2: CLIENTES & DISPAROS WHATSAPP (AUTOMAÇÃO QUINTA A DOMINGO)
          ========================================================================= -->
     <div id="secao-clientes" class="hidden space-y-6">
-      <!-- Importador & Gerador de Campanhas -->
+
+      <!-- 1. PAINEL DE CONTROLE DO ROBÔ DE AGENDAMENTO (CONFIGURAÇÃO DE DIA E HORA) -->
+      <div class="bg-gradient-to-br from-stone-900 via-stone-900 to-amber-950/40 rounded-3xl border-2 border-amber-500/40 p-6 shadow-2xl space-y-5">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-stone-800 pb-4">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">⏰</span>
+              <h3 class="text-lg sm:text-xl font-black text-white font-outfit">Agendador de Disparos Automáticos</h3>
+              <span id="badge-status-robo" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span id="texto-status-robo">Robô Ativo</span>
+              </span>
+            </div>
+            <p class="text-xs text-stone-300">
+              Configure o dia e o horário exato para o disparo automático das promoções e combos para toda a sua lista de clientes.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto flex-wrap">
+            <button type="button" id="btn-toggle-robo" class="bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 text-xs font-bold px-4 py-2.5 rounded-xl transition">
+              ⏸️ Pausar Robô
+            </button>
+            <button type="button" id="btn-disparo-massa-agora" class="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black text-xs px-5 py-2.5 rounded-xl shadow-lg transition flex items-center gap-2">
+              <span>🚀 Disparar para Todos Agora</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Formulário de Configuração de Dia e Hora -->
+        <form id="form-agendamento-disparos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <!-- Campo 1: Dia da Semana -->
+          <div>
+            <label class="block font-bold text-stone-300 uppercase mb-1.5 flex items-center gap-1.5">
+              <span>📅 Dia da Semana</span>
+            </label>
+            <select id="agendador-dia" class="w-full px-3.5 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white font-bold focus:ring-2 focus:ring-amber-500">
+              <option value="4">Quinta-feira (Carne Moída & Dia a Dia)</option>
+              <option value="5" selected>Sexta-feira (Combos de Churrasco do FDS)</option>
+              <option value="6">Sábado (Parrilla Prime & Picanha)</option>
+              <option value="0">Domingo (Costela no Bafo & Rotisserie)</option>
+              <option value="todos">Todos os Dias (Disparo Diário)</option>
+            </select>
+          </div>
+
+          <!-- Campo 2: Hora Exata do Disparo -->
+          <div>
+            <label class="block font-bold text-stone-300 uppercase mb-1.5 flex items-center gap-1.5">
+              <span>⏰ Horário Exato do Disparo</span>
+            </label>
+            <input type="time" id="agendador-hora" value="10:00" required class="w-full px-3.5 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white font-bold text-sm focus:ring-2 focus:ring-amber-500">
+          </div>
+
+          <!-- Campo 3: Intervalo Seguro Anti-Bloqueio -->
+          <div>
+            <label class="block font-bold text-stone-300 uppercase mb-1.5 flex items-center gap-1.5">
+              <span>⏱️ Intervalo Anti-Bloqueio</span>
+            </label>
+            <select id="agendador-intervalo" class="w-full px-3.5 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500">
+              <option value="5">5 segundos (Mais rápido)</option>
+              <option value="8" selected>8 segundos (Recomendado)</option>
+              <option value="12">12 segundos (Mais seguro)</option>
+              <option value="15">15 segundos (Para listas grandes)</option>
+            </select>
+          </div>
+
+          <!-- Campo 4: Botão Salvar Agendamento -->
+          <div class="flex items-end">
+            <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-black py-2.5 rounded-xl transition shadow text-xs">
+              💾 Salvar Dia & Horário
+            </button>
+          </div>
+        </form>
+
+        <!-- Banner com o Resumo do Próximo Disparo Programado -->
+        <div class="bg-stone-950/80 border border-stone-800 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-base flex-shrink-0">
+              🔔
+            </div>
+            <div>
+              <span class="text-stone-400 block">Status da Programação Automática:</span>
+              <strong id="texto-proximo-disparo" class="text-white text-sm">
+                Disparo agendado para toda Sexta-feira às 10:00
+              </strong>
+            </div>
+          </div>
+          <div class="text-right sm:text-left">
+            <span class="text-stone-400 block">Destinatários na Fila:</span>
+            <span id="destinatarios-fila" class="text-amber-400 font-bold">3 clientes cadastrados</span>
+          </div>
+        </div>
+
+        <!-- Integração Webhook Opcional (n8n / Nuvem 24h) -->
+        <details class="text-xs text-stone-400 group">
+          <summary class="cursor-pointer font-bold text-amber-400/90 hover:text-amber-300 select-none flex items-center gap-1.5">
+            <span>⚙️ Modo Avançado: Automação 100% em Nuvem 24h (Webhook / n8n / API)</span>
+            <span class="text-[10px]">▼</span>
+          </summary>
+          <div class="pt-3 space-y-2">
+            <p>
+              Se você quiser que o disparo ocorra mesmo com o computador e navegador totalmente fechados, insira a URL do Webhook do seu n8n ou da Evolution API:
+            </p>
+            <div class="flex gap-2">
+              <input type="url" id="agendador-webhook" placeholder="https://seu-n8n.com/webhook/disparo-mercado-carne" class="flex-grow px-3 py-2 bg-stone-800 border border-stone-700 rounded-xl text-white font-mono text-[11px]">
+              <button type="button" id="btn-testar-webhook" class="bg-stone-800 hover:bg-stone-700 text-stone-200 px-3 py-2 rounded-xl border border-stone-700 font-bold">
+                Testar Webhook
+              </button>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 2. MODELOS DE MENSAGENS & IMPORTADOR DE CONTATOS -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         <!-- Caixa de Importação de Contatos -->
@@ -281,22 +393,22 @@
         <!-- Gerador de Campanhas Promocionais WhatsApp -->
         <div class="bg-stone-900 rounded-2xl border border-stone-800 p-6 space-y-4">
           <div>
-            <h3 class="text-base font-black text-white font-outfit">📢 Automação de Promoções (Quinta a Domingo)</h3>
-            <p class="text-xs text-stone-400">Selecione o dia e gere mensagens personalizadas para seus clientes</p>
+            <h3 class="text-base font-black text-white font-outfit">📢 Modelos de Mensagens por Dia</h3>
+            <p class="text-xs text-stone-400">Escolha o modelo da promoção que será enviada no agendamento</p>
           </div>
 
           <div class="grid grid-cols-2 gap-2 text-xs">
             <button type="button" class="btn-modelo-campanha bg-stone-800 text-amber-300 border border-stone-700 p-2 rounded-xl font-bold text-left hover:border-amber-500" data-tipo="quinta">
-              🍖 Quinta do Churrasco & Moída
+              🍖 Quinta: Carne Moída & Dia a Dia
             </button>
             <button type="button" class="btn-modelo-campanha bg-stone-800 text-amber-300 border border-stone-700 p-2 rounded-xl font-bold text-left hover:border-amber-500" data-tipo="sexta">
-              🔥 Sexta dos Combos de FDS
+              🔥 Sexta: Combos de Churrasco FDS
             </button>
             <button type="button" class="btn-modelo-campanha bg-stone-800 text-amber-300 border border-stone-700 p-2 rounded-xl font-bold text-left hover:border-amber-500" data-tipo="sabado">
-              🥩 Sábado da Parrilla & Picanha
+              🥩 Sábado: Parrilla & Picanha Prime
             </button>
             <button type="button" class="btn-modelo-campanha bg-stone-800 text-amber-300 border border-stone-700 p-2 rounded-xl font-bold text-left hover:border-amber-500" data-tipo="domingo">
-              🍗 Domingo da Costela & Frango
+              🍗 Domingo: Costela no Bafo & Frango
             </button>
           </div>
 
@@ -307,11 +419,16 @@
         </div>
       </div>
 
-      <!-- Tabela de Clientes Cadastrados & Disparos 1-Clique -->
+      <!-- 3. TABELA DE CLIENTES CADASTRADOS & DISPAROS -->
       <div class="bg-stone-900 rounded-2xl border border-stone-800 overflow-hidden shadow-sm">
-        <div class="p-4 border-b border-stone-800 flex items-center justify-between">
-          <h4 class="text-sm font-black text-white font-outfit">Base de Clientes Ativa (<span id="contagem-clientes-tabela">0</span> contatos)</h4>
-          <span class="text-xs text-stone-400">Clique em <strong>Disparar WhatsApp</strong> para enviar mensagem personalizada</span>
+        <div class="p-4 border-b border-stone-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <h4 class="text-sm font-black text-white font-outfit">Base de Clientes Ativa (<span id="contagem-clientes-tabela">0</span> contatos)</h4>
+            <span class="text-xs text-stone-400">Você pode disparar para um cliente individual ou usar a fila automática acima</span>
+          </div>
+          <button type="button" id="btn-disparar-todos-tabela" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black px-4 py-2 rounded-xl shadow transition flex items-center gap-2">
+            <span>🚀 Iniciar Disparo da Lista Completa</span>
+          </button>
         </div>
 
         <div class="overflow-x-auto">
@@ -321,7 +438,7 @@
                 <th class="p-4">Cliente</th>
                 <th class="p-4">WhatsApp / Telefone</th>
                 <th class="p-4">Bairro</th>
-                <th class="p-4 text-right">Disparo no WhatsApp</th>
+                <th class="p-4 text-right">Disparo Individual</th>
               </tr>
             </thead>
             <tbody id="tabela-corpo-clientes" class="divide-y divide-stone-800/60">
@@ -503,6 +620,64 @@
 
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="grade-fotos-estudio">
         <!-- Preenchido via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL DE FILA AUTOMÁTICA DE DISPARO EM MASSA (WHATSAPP)
+       ========================================================================= -->
+  <div id="modal-fila-disparo" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/85 backdrop-blur-sm hidden">
+    <div class="bg-stone-900 border border-emerald-500/40 rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-stone-800">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🚀</span>
+          <div>
+            <h3 class="text-base font-black text-white font-outfit">Fila de Disparos em Massa</h3>
+            <span id="fila-progresso-texto" class="text-xs text-stone-400">Preparando envio...</span>
+          </div>
+        </div>
+        <button id="btn-fechar-fila" class="text-stone-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <!-- Barra de Progresso Visual -->
+      <div class="space-y-1">
+        <div class="flex justify-between text-[11px] font-bold text-stone-300">
+          <span>Progresso dos Envios</span>
+          <span id="fila-porcentagem" class="text-emerald-400 font-mono">0%</span>
+        </div>
+        <div class="w-full bg-stone-800 h-3 rounded-full overflow-hidden p-0.5">
+          <div id="fila-progresso-barra" class="bg-gradient-to-r from-emerald-500 to-amber-500 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Cliente Atual da Fila -->
+      <div class="bg-stone-950 p-4 rounded-2xl border border-stone-800 text-xs space-y-2.5">
+        <div class="flex justify-between items-center">
+          <span class="text-stone-400">Destinatário:</span>
+          <strong id="fila-cliente-nome" class="text-white text-sm">Carlos Alberto</strong>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-stone-400">WhatsApp:</span>
+          <span id="fila-cliente-tel" class="text-amber-400 font-mono font-bold">5511999990001</span>
+        </div>
+        <div>
+          <span class="text-stone-400 block mb-1">Prévia da Mensagem Personalizada:</span>
+          <div id="fila-cliente-previa" class="p-2.5 bg-stone-900 rounded-xl text-stone-300 text-[11px] max-h-24 overflow-y-auto whitespace-pre-wrap font-sans border border-stone-800"></div>
+        </div>
+      </div>
+
+      <!-- Controles da Fila -->
+      <div class="flex items-center justify-between pt-2">
+        <span id="fila-timer-contagem" class="text-xs font-bold text-amber-400">Aguardando início...</span>
+        <div class="flex gap-2">
+          <button type="button" id="btn-pausar-fila" class="bg-stone-800 hover:bg-stone-700 text-stone-200 px-3.5 py-2 rounded-xl text-xs font-bold border border-stone-700">
+            ⏸️ Pausar
+          </button>
+          <button type="button" id="btn-avancar-fila" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-black shadow flex items-center gap-1.5">
+            <span>Enviar Próximo</span> ➔
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
   configurarSofiaVoz();
   configurarCampanhasWhatsApp();
   configurarGaleriaEstudio();
+  configurarAgendadorDisparos();
+  configurarFilaDisparoMassa();
 });
 
 /* ==========================================================================
@@ -90,6 +92,7 @@ function carregarPainel() {
   renderizarTabelaProdutos();
   renderizarTabelaClientes();
   carregarConfigLoja();
+  carregarConfigAgendamento();
 }
 
 function atualizarMetricas() {
@@ -758,7 +761,350 @@ function salvarConfigLoja() {
 }
 
 /* ==========================================================================
-   9. ALERTA FLUTUANTE
+   9. ROBÔ DE AGENDAMENTO AUTOMÁTICO (DIA E HORA)
+   ========================================================================== */
+const DIAS_SEMANA_NOMES = {
+  '0': 'Domingo (Rotisserie & Costela no Bafo)',
+  '4': 'Quinta-feira (Carne Moída & Dia a Dia)',
+  '5': 'Sexta-feira (Combos de Churrasco do FDS)',
+  '6': 'Sábado (Parrilla Prime & Picanha)',
+  'todos': 'Todos os Dias'
+};
+
+function carregarConfigAgendamento() {
+  if (typeof EstoqueDB === 'undefined') return;
+  const config = EstoqueDB.obterAgendamento();
+  const clientes = EstoqueDB.obterClientes();
+
+  const selectDia = document.getElementById('agendador-dia');
+  const inputHora = document.getElementById('agendador-hora');
+  const selectIntervalo = document.getElementById('agendador-intervalo');
+  const inputWebhook = document.getElementById('agendador-webhook');
+
+  if (selectDia) selectDia.value = config.diaSemana || '5';
+  if (inputHora) inputHora.value = config.hora || '10:00';
+  if (selectIntervalo) selectIntervalo.value = config.intervaloSegundos || '8';
+  if (inputWebhook) inputWebhook.value = config.webhookUrl || '';
+
+  atualizarBadgeStatusRobo(config.ativo);
+  atualizarTextoResumoAgendamento(config);
+
+  const destinatariosFila = document.getElementById('destinatarios-fila');
+  if (destinatariosFila) {
+    destinatariosFila.textContent = `${clientes.length} clientes cadastrados`;
+  }
+}
+
+function atualizarBadgeStatusRobo(ativo) {
+  const badge = document.getElementById('badge-status-robo');
+  const texto = document.getElementById('texto-status-robo');
+  const btnToggle = document.getElementById('btn-toggle-robo');
+
+  if (ativo) {
+    if (badge) {
+      badge.className = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1.5';
+    }
+    if (texto) texto.textContent = 'Robô Ativo';
+    if (btnToggle) {
+      btnToggle.textContent = '⏸️ Pausar Robô';
+      btnToggle.className = 'bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 text-xs font-bold px-4 py-2.5 rounded-xl transition';
+    }
+  } else {
+    if (badge) {
+      badge.className = 'bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1.5';
+    }
+    if (texto) texto.textContent = 'Robô Pausado';
+    if (btnToggle) {
+      btnToggle.textContent = '▶️ Ativar Robô';
+      btnToggle.className = 'bg-emerald-600/30 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/40 text-xs font-bold px-4 py-2.5 rounded-xl transition';
+    }
+  }
+}
+
+function atualizarTextoResumoAgendamento(config) {
+  const resumo = document.getElementById('texto-proximo-disparo');
+  if (!resumo) return;
+
+  if (!config.ativo) {
+    resumo.textContent = 'Robô pausado. Nenhum disparo agendado no momento.';
+    resumo.className = 'text-amber-400 text-sm font-semibold';
+    return;
+  }
+
+  const nomeDia = DIAS_SEMANA_NOMES[config.diaSemana] || 'Sexta-feira';
+  resumo.textContent = `Disparo automático agendado para: Toda ${nomeDia} às ${config.hora}`;
+  resumo.className = 'text-white text-sm font-bold';
+}
+
+function configurarAgendadorDisparos() {
+  const formAgendamento = document.getElementById('form-agendamento-disparos');
+  const btnToggleRobo = document.getElementById('btn-toggle-robo');
+  const btnTestarWebhook = document.getElementById('btn-testar-webhook');
+
+  if (formAgendamento) {
+    formAgendamento.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const diaSemana = document.getElementById('agendador-dia').value;
+      const hora = document.getElementById('agendador-hora').value;
+      const intervaloSegundos = parseInt(document.getElementById('agendador-intervalo').value, 10) || 8;
+      const webhookUrl = document.getElementById('agendador-webhook')?.value.trim() || '';
+
+      const configAtual = EstoqueDB.obterAgendamento();
+      configAtual.diaSemana = diaSemana;
+      configAtual.hora = hora;
+      configAtual.intervaloSegundos = intervaloSegundos;
+      configAtual.webhookUrl = webhookUrl;
+      configAtual.ativo = true;
+
+      EstoqueDB.salvarAgendamento(configAtual);
+      atualizarBadgeStatusRobo(true);
+      atualizarTextoResumoAgendamento(configAtual);
+
+      const nomeDia = DIAS_SEMANA_NOMES[diaSemana] || diaSemana;
+      mostrarAlerta(`✅ Agendamento salvo! O robô disparará toda ${nomeDia} às ${hora}.`);
+    });
+  }
+
+  if (btnToggleRobo) {
+    btnToggleRobo.addEventListener('click', () => {
+      const configAtual = EstoqueDB.obterAgendamento();
+      configAtual.ativo = !configAtual.ativo;
+      EstoqueDB.salvarAgendamento(configAtual);
+      atualizarBadgeStatusRobo(configAtual.ativo);
+      atualizarTextoResumoAgendamento(configAtual);
+      mostrarAlerta(configAtual.ativo ? '🟢 Robô de agendamento ativado!' : '⏸️ Robô de agendamento pausado.');
+    });
+  }
+
+  if (btnTestarWebhook) {
+    btnTestarWebhook.addEventListener('click', async () => {
+      const webhookUrl = document.getElementById('agendador-webhook')?.value.trim();
+      if (!webhookUrl) {
+        alert('Por favor, insira uma URL de Webhook válida primeiro.');
+        return;
+      }
+      btnTestarWebhook.textContent = 'Enviando...';
+      try {
+        const payload = {
+          evento: 'teste_agendamento',
+          loja: 'Mercado da Carne',
+          mensagem: 'Disparo de teste da automação de WhatsApp',
+          data: new Date().toISOString()
+        };
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        alert('✅ Webhook disparado com sucesso! Verifique a execução no seu n8n.');
+      } catch (err) {
+        alert('⚠️ Webhook enviado! (Verifique se o webhook do n8n permite requisições externas).');
+      } finally {
+        btnTestarWebhook.textContent = 'Testar Webhook';
+      }
+    });
+  }
+
+  // Verificador Contínuo de Horário (Checa a cada 30 segundos)
+  setInterval(verificarHorarioAgendado, 30000);
+}
+
+function verificarHorarioAgendado() {
+  if (typeof EstoqueDB === 'undefined') return;
+  const config = EstoqueDB.obterAgendamento();
+  if (!config || !config.ativo) return;
+
+  const agora = new Date();
+  const diaSemanaAtual = agora.getDay().toString();
+  const horas = String(agora.getHours()).padStart(2, '0');
+  const minutos = String(agora.getMinutes()).padStart(2, '0');
+  const horaMinutoAtual = `${horas}:${minutos}`;
+  const dataHoje = agora.toISOString().slice(0, 10);
+
+  const diaBate = (config.diaSemana === 'todos' || config.diaSemana === diaSemanaAtual);
+  const horaBate = (config.hora === horaMinutoAtual);
+
+  if (diaBate && horaBate && config.ultimoDisparo !== dataHoje) {
+    console.log('[Robô Disparo] Horário agendado atingido!', horaMinutoAtual);
+    config.ultimoDisparo = dataHoje;
+    EstoqueDB.salvarAgendamento(config);
+
+    if (config.webhookUrl) {
+      fetch(config.webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          evento: 'disparo_programado',
+          dia: config.diaSemana,
+          hora: config.hora,
+          clientes: EstoqueDB.obterClientes()
+        })
+      }).catch(e => console.warn(e));
+    }
+
+    iniciarFilaDisparoMassa();
+    mostrarAlerta('⏰ Horário programado atingido! Fila de disparos iniciada.');
+  }
+}
+
+/* ==========================================================================
+   10. FILA AUTOMÁTICA DE DISPAROS EM MASSA
+   ========================================================================== */
+let filaClientes = [];
+let indiceFilaAtual = 0;
+let filaPausada = false;
+let timerContagemFila = null;
+let segundosContador = 0;
+
+function configurarFilaDisparoMassa() {
+  const btnDisparoMassa = document.getElementById('btn-disparo-massa-agora');
+  const btnDisparoTodosTabela = document.getElementById('btn-disparar-todos-tabela');
+  const btnFecharFila = document.getElementById('btn-fechar-fila');
+  const btnPausarFila = document.getElementById('btn-pausar-fila');
+  const btnAvancarFila = document.getElementById('btn-avancar-fila');
+
+  if (btnDisparoMassa) btnDisparoMassa.addEventListener('click', iniciarFilaDisparoMassa);
+  if (btnDisparoTodosTabela) btnDisparoTodosTabela.addEventListener('click', iniciarFilaDisparoMassa);
+  if (btnFecharFila) btnFecharFila.addEventListener('click', fecharModalFila);
+
+  if (btnPausarFila) {
+    btnPausarFila.addEventListener('click', () => {
+      filaPausada = !filaPausada;
+      if (filaPausada) {
+        clearInterval(timerContagemFila);
+        btnPausarFila.textContent = '▶️ Continuar';
+        btnPausarFila.className = 'bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold';
+        document.getElementById('fila-timer-contagem').textContent = 'Fila pausada.';
+      } else {
+        btnPausarFila.textContent = '⏸️ Pausar';
+        btnPausarFila.className = 'bg-stone-800 hover:bg-stone-700 text-stone-200 px-3.5 py-2 rounded-xl text-xs font-bold border border-stone-700';
+        iniciarContadorProximoEnvio();
+      }
+    });
+  }
+
+  if (btnAvancarFila) {
+    btnAvancarFila.addEventListener('click', () => {
+      clearInterval(timerContagemFila);
+      enviarClienteAtualEAvancar();
+    });
+  }
+}
+
+function iniciarFilaDisparoMassa() {
+  filaClientes = EstoqueDB.obterClientes();
+  if (filaClientes.length === 0) {
+    alert('Nenhum cliente cadastrado na base! Cole seus contatos na caixa de importação antes de iniciar o disparo.');
+    return;
+  }
+
+  indiceFilaAtual = 0;
+  filaPausada = false;
+  clearInterval(timerContagemFila);
+
+  const modal = document.getElementById('modal-fila-disparo');
+  if (modal) modal.classList.remove('hidden');
+
+  const btnPausar = document.getElementById('btn-pausar-fila');
+  if (btnPausar) {
+    btnPausar.textContent = '⏸️ Pausar';
+    btnPausar.className = 'bg-stone-800 hover:bg-stone-700 text-stone-200 px-3.5 py-2 rounded-xl text-xs font-bold border border-stone-700';
+  }
+
+  renderizarPassoAtualFila();
+}
+
+function fecharModalFila() {
+  clearInterval(timerContagemFila);
+  const modal = document.getElementById('modal-fila-disparo');
+  if (modal) modal.classList.add('hidden');
+}
+
+function renderizarPassoAtualFila() {
+  if (indiceFilaAtual >= filaClientes.length) {
+    clearInterval(timerContagemFila);
+    document.getElementById('fila-progresso-texto').textContent = '✅ Disparos Concluídos!';
+    document.getElementById('fila-porcentagem').textContent = '100%';
+    document.getElementById('fila-progresso-barra').style.width = '100%';
+    document.getElementById('fila-cliente-nome').textContent = 'Todos os clientes notificados!';
+    document.getElementById('fila-cliente-tel').textContent = `${filaClientes.length} enviados`;
+    document.getElementById('fila-cliente-previa').textContent = 'Todas as mensagens foram abertas e encaminhadas com sucesso!';
+    document.getElementById('fila-timer-contagem').textContent = 'Fila finalizada.';
+    document.getElementById('btn-avancar-fila').textContent = 'Concluir';
+    document.getElementById('btn-avancar-fila').onclick = fecharModalFila;
+    mostrarAlerta(`🎉 Fila concluída! ${filaClientes.length} clientes receberam as promoções.`);
+    return;
+  }
+
+  const cliente = filaClientes[indiceFilaAtual];
+  const total = filaClientes.length;
+  const porcentagem = Math.round((indiceFilaAtual / total) * 100);
+
+  document.getElementById('fila-progresso-texto').textContent = `Enviando ${indiceFilaAtual + 1} de ${total} clientes`;
+  document.getElementById('fila-porcentagem').textContent = `${porcentagem}%`;
+  document.getElementById('fila-progresso-barra').style.width = `${porcentagem}%`;
+
+  document.getElementById('fila-cliente-nome').textContent = cliente.nome;
+  document.getElementById('fila-cliente-tel').textContent = cliente.telefone;
+
+  const textareaCampanha = document.getElementById('texto-campanha-whatsapp');
+  let textoBase = (textareaCampanha && textareaCampanha.value) ? textareaCampanha.value : MODELOS_CAMPANHAS.sexta;
+  const linkWebapp = 'https://ricardorickbony-lgtm.github.io/mercado-da-carne/';
+  const textoPersonalizado = textoBase
+    .replace('{nome}', cliente.nome)
+    .replace('{link}', linkWebapp);
+
+  document.getElementById('fila-cliente-previa').textContent = textoPersonalizado;
+  document.getElementById('btn-avancar-fila').textContent = 'Enviar Agora ➔';
+  document.getElementById('btn-avancar-fila').onclick = () => {
+    clearInterval(timerContagemFila);
+    enviarClienteAtualEAvancar();
+  };
+
+  iniciarContadorProximoEnvio();
+}
+
+function iniciarContadorProximoEnvio() {
+  const config = EstoqueDB.obterAgendamento();
+  segundosContador = config.intervaloSegundos || 8;
+  const timerTexto = document.getElementById('fila-timer-contagem');
+
+  if (timerTexto) timerTexto.textContent = `Próximo envio automático em ${segundosContador}s...`;
+
+  clearInterval(timerContagemFila);
+  timerContagemFila = setInterval(() => {
+    if (filaPausada) return;
+
+    segundosContador--;
+    if (timerTexto) timerTexto.textContent = `Próximo envio automático em ${segundosContador}s...`;
+
+    if (segundosContador <= 0) {
+      clearInterval(timerContagemFila);
+      enviarClienteAtualEAvancar();
+    }
+  }, 1000);
+}
+
+function enviarClienteAtualEAvancar() {
+  if (indiceFilaAtual >= filaClientes.length) return;
+
+  const cliente = filaClientes[indiceFilaAtual];
+  const textareaCampanha = document.getElementById('texto-campanha-whatsapp');
+  let textoBase = (textareaCampanha && textareaCampanha.value) ? textareaCampanha.value : MODELOS_CAMPANHAS.sexta;
+  const linkWebapp = 'https://ricardorickbony-lgtm.github.io/mercado-da-carne/';
+  const textoPersonalizado = textoBase
+    .replace('{nome}', cliente.nome)
+    .replace('{link}', linkWebapp);
+
+  const urlWa = `https://wa.me/${cliente.telefone}?text=${encodeURIComponent(textoPersonalizado)}`;
+  window.open(urlWa, '_blank');
+
+  indiceFilaAtual++;
+  renderizarPassoAtualFila();
+}
+
+/* ==========================================================================
+   11. ALERTA FLUTUANTE
    ========================================================================== */
 function mostrarAlerta(mensagem) {
   const alerta = document.getElementById('admin-alerta-sucesso');
