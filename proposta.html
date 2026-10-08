@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Proposta Comercial & Estratégica — Mercado da Carne | Ricardo & Severino</title>
+  
+  <!-- Tipografia de Alto Padrão -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* Configuração de Impressão A4 Exata */
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #E5E7EB;
+      color: #1C1917;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      margin: 0 auto;
+      background: #FFFFFF;
+      position: relative;
+      padding: 20mm 20mm 18mm 20mm;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    /* Cores de Marca */
+    :root {
+      --wine: #881337;
+      --burgundy: #991B1B;
+      --burgundy-dark: #6B0E0E;
+      --obsidian: #121110;
+      --charcoal: #1C1917;
+      --amber: #D97706;
+      --gold: #F59E0B;
+      --gold-light: #FDE68A;
+      --emerald: #16A34A;
+      --wa-green: #25D366;
+      --slate-bg: #F8FAFC;
+      --warm-bg: #FAF8F5;
+      --border: #E5E7EB;
+    }
+
+    /* Utilitários Tipográficos */
+    .font-serif { font-family: 'Playfair Display', serif; }
+    .font-heading { font-family: 'Outfit', sans-serif; }
+
+    /* Topbar da Página */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .header-logo-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-badge {
+      width: 32px;
+      height: 32px;
+      background: var(--burgundy);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 16px;
+    }
+    .header-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--charcoal);
+      letter-spacing: -0.01em;
+    }
+    .header-subtitle {
+      font-size: 10px;
+      color: #78716C;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .header-tag {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      background: #FEF2F2;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #FECACA;
+    }
+
+    /* Rodapé da Página */
+    .page-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 10px;
+      color: #78716C;
+      margin-top: auto;
+    }
+    .footer-highlight {
+      font-weight: 800;
+      color: var(--burgundy);
+    }
+
+    /* Conteúdo Principal */
+    .page-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Títulos de Seção */
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--amber);
+      margin-bottom: 4px;
+    }
+    .section-main-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .section-desc {
+      font-size: 12.5px;
+      color: #44403C;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* Cards e Grades */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      position: relative;
+    }
+    .card-highlight {
+      background: var(--warm-bg);
+      border-color: #E2D9CF;
+    }
+    .card-dark {
+      background: var(--obsidian);
+      color: #FFFFFF;
+      border-color: #292524;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-amber {
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FDE68A;
+    }
+    .badge-emerald {
+      background: #DCFCE7;
+      color: #166534;
+      border: 1px solid #BBF7D0;
+    }
+    .badge-wine {
+      background: #FEE2E2;
+      color: var(--burgundy);
+      border: 1px solid #FECACA;
+    }
+
+    /* Listas com ícones */
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .feature-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: #FEF2F2;
+      color: var(--burgundy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-weight: 800;
+    }
+
+    /* Tabelas Comparativas */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 11.5px;
+    }
+    .compare-table th {
+      background: var(--obsidian);
+      color: #FFFFFF;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .compare-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-table tr:nth-child(even) td {
+      background: var(--slate-bg);
+    }
+    .compare-table tr.highlight-row td {
+      background: #FEF2F2;
+      font-weight: 700;
+      color: var(--burgundy);
+    }
+
+    /* =========================================================================
+       CAPA ESPECÍFICA (PÁGINA 1)
+       ========================================================================= */
+    .page-cover {
+      background: linear-gradient(135deg, #121110 0%, #1C1917 50%, #2A1015 100%);
+      color: #FFFFFF;
+      padding: 24mm 22mm 22mm 22mm;
+      justify-content: space-between;
+    }
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .cover-badge-consultoria {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #FBBF24;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .cover-main {
+      margin-top: 40px;
+    }
+    .cover-tagline {
+      color: #F59E0B;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .cover-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      margin-bottom: 14px;
+    }
+    .cover-title span {
+      color: #F87171;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+    .cover-desc {
+      font-size: 15px;
+      color: #D6D3D1;
+      line-height: 1.6;
+      max-width: 580px;
+      margin-bottom: 28px;
+    }
+    .cover-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .cover-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 14px;
+      backdrop-filter: blur(8px);
+    }
+    .cover-box-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: #FBBF24;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .cover-box-label {
+      font-size: 11px;
+      color: #A8A29E;
+      font-weight: 600;
+    }
+    .cover-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .client-data-box {
+      font-size: 11px;
+      color: #A8A29E;
+      line-height: 1.6;
+    }
+    .client-data-box strong {
+      color: #FFFFFF;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       PÁGINA 1: CAPA EXECUTIVA
+       ========================================================================= -->
+  <div class="page page-cover">
+    <div class="cover-top">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div style="width:44px; height:44px; background:linear-gradient(135deg, #991B1B, #4C0519); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 4px 14px rgba(153,27,27,0.4);">
+          🥩
+        </div>
+        <div>
+          <div style="font-family:'Outfit', sans-serif; font-size:18px; font-weight:900; letter-spacing:-0.02em;">MERCADO DA <span style="color:#F87171;">CARNE</span></div>
+          <div style="font-size:10px; color:#A8A29E; letter-spacing:0.04em;">SHOP BUTCHER & ROTISSERIE • SANTO ANDRÉ</div>
+        </div>
+      </div>
+      <div class="cover-badge-consultoria">
+        PROPOSTA EXCLUSIVA 2026
+      </div>
+    </div>
+
+    <div class="cover-main">
+      <span class="cover-tagline">PLANO DE TRANSFORMAÇÃO DIGITAL & VENDAS AUTOMATIZADAS</span>
+      <h1 class="cover-title">
+        Web App Próprio, <br>
+        <span>Sofia IA por Voz</span> & <br>
+        Disparos no WhatsApp.
+      </h1>
+      <p class="cover-desc">
+        Apresentação executiva do ecossistema tecnológico completo desenvolvido para eliminar taxas de aplicativos terceiros, agilizar pedidos no balcão e maximizar as vendas de combos de carnes e assados de domingo na <strong>Cidade São Jorge, Santo André</strong>.
+      </p>
+
+      <div class="cover-highlights">
+        <div class="cover-box">
+          <div class="cover-box-number">0% Taxa</div>
+          <div class="cover-box-label">Lucro 100% livre sem repasses ao iFood ou intermediários.</div>
+        </div>
+        <div class="cover-box">
+          <div class="cover-box-number">Sofia IA</div>
+          <div class="cover-box-label">Comando por voz para atualizar preços e criar kits em segundos.</div>
+        </div>
+        <div class="cover-box">
+          <div class="cover-box-number">1 Clique</div>
+          <div class="cover-box-label">Pedido pronto formatado direto no WhatsApp da sua loja.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <div class="client-data-box">
+        <strong>CLIENTE / UNIDADE:</strong><br>
+        Mercado da Carne — Shop Butcher & Rotisserie<br>
+        Av. São Paulo, 584 - Cidade São Jorge, Santo André - SP<br>
+        Aos cuidados: <strong>Diretoria & Gestão Geral</strong>
+      </div>
+      <div style="text-align:right; font-size:11px; color:#A8A29E; line-height:1.6;">
+        <strong>CONSULTORIA & ENGENHARIA:</strong><br>
+        Ricardo & Severino Soluções Digitais<br>
+        Santo André - SP • Outubro de 2026<br>
+        Versão Oficial da Plataforma: <strong>4.0</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PÁGINA 2: O CENÁRIO ATUAL & OS 4 GRANDES GARGALOS
+       ========================================================================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="header-logo-group">
+        <div class="header-badge">🥩</div>
+        <div>
+          <div class="header-title">MERCADO DA CARNE</div>
+          <div class="header-subtitle">Diagnóstico Estratégico</div>
+        </div>
+      </div>
+      <span class="header-tag">01. Diagnóstico do Negócio</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-eyebrow">ANÁLISE DE MERCADO & OPORTUNIDADE</div>
+      <h2 class="section-main-title">Os 4 Grandes Gargalos que Reduzem o Lucro dos Açougues Tradicionais</h2>
+      <p class="section-desc">
+        Identificamos com precisão os pontos críticos na operação de açougues e rotisseries no ABC Paulista. A dependência de métodos manuais e aplicativos terceiros corrói a margem líquida e sobrecarrega a equipe nos dias de maior movimento:
+      </p>
+
+      <div class="grid-2" style="margin-bottom:18px;">
+        <div class="card card-highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:18px;">📱</span>
+            <span class="badge-pill badge-wine">Gargalo #1</span>
+          </div>
+          <h3 style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:800; color:var(--burgundy); margin-bottom:6px;">
+            Atendimento Lento no WhatsApp & Balcão
+          </h3>
+          <p style="font-size:11.5px; color:#57534E; line-height:1.55;">
+            Aos sábados e domingos, os clientes perguntam preços um a um no WhatsApp. A equipe gasta minutos digitando tabelas e tirando dúvidas de peso, gerando filas de espera e perda de clientes apressados.
+          </p>
+        </div>
+
+        <div class="card card-highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:18px;">💸</span>
+            <span class="badge-pill badge-wine">Gargalo #2</span>
+          </div>
+          <h3 style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:800; color:var(--burgundy); margin-bottom:6px;">
+            O Sangramento das Taxas de iFood / Rappi
+          </h3>
+          <p style="font-size:11.5px; color:#57534E; line-height:1.55;">
+            Aplicativos terceiros cobram de <strong>18% a 27% sobre cada venda</strong>. Em carnes nobres e assados, essa taxa consome quase todo o lucro líquido da loja. Além disso, o iFood não fornece o contato do cliente ao açougue.
+          </p>
+        </div>
+
+        <div class="card card-highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:18px;">🍗</span>
+            <span class="badge-pill badge-wine">Gargalo #3</span>
+          </div>
+          <h3 style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:800; color:var(--burgundy); margin-bottom:6px;">
+            Perda de Encomendas na Rotisserie de Domingo
+          </h3>
+          <p style="font-size:11.5px; color:#57534E; line-height:1.55;">
+            A costela no bafo e o frango assado precisam de demanda previsível. Sem canal próprio de encomendas antecipadas na sexta e sábado, a loja corre o risco de faltar carne (perdendo dinheiro) ou sobrar (gerando prejuízo).
+          </p>
+        </div>
+
+        <div class="card card-highlight">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:18px;">💤</span>
+            <span class="badge-pill badge-wine">Gargalo #4</span>
+          </div>
+          <h3 style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:800; color:var(--burgundy); margin-bottom:6px;">
+            Base de Clientes Desaproveitada
+          </h3>
+          <p style="font-size:11.5px; color:#57534E; line-height:1.55;">
+            O açougue possui centenas de contatos de clientes cadastrados no sistema ou no histórico do celular, mas nunca faz disparos promocionais semanais programados para lembrar os moradores da região de comprarem antes do fim de semana.
+          </p>
+        </div>
+      </div>
+
+      <!-- Caixa de Conclusão Executiva -->
+      <div class="card card-dark" style="padding:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-family:'Outfit', sans-serif; font-weight:800; font-size:13px; color:#FBBF24;">A RESPOSTA ESTRATÉGICA: PLATAFORMA PROPRIETÁRIA</span>
+          <span class="badge-pill badge-amber">100% SEU</span>
+        </div>
+        <p style="font-size:12px; color:#D6D3D1; line-height:1.6;">
+          Desenvolvemos uma solução sob medida para o <strong>Mercado da Carne</strong> que substitui os aplicativos caros por um <strong>Web App próprio com IA</strong>, permitindo que os clientes comprem em poucos cliques e a loja receba o dinheiro limpo, direto na conta, com agendamento automático de encomendas.
+        </p>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>Proposta Comercial • Mercado da Carne (Santo André - SP)</div>
+      <div class="footer-highlight">Página 02 / 06</div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PÁGINA 3: MÓDULO 1 — O WEB APP DOS CLIENTES
+       ========================================================================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="header-logo-group">
+        <div class="header-badge">📱</div>
+        <div>
+          <div class="header-title">MERCADO DA CARNE</div>
+          <div class="header-subtitle">Módulo 01 — Experiência do Cliente</div>
+        </div>
+      </div>
+      <span class="header-tag">02. Web App do Cliente</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-eyebrow">INTERFACE DE ALTA CONVERSÃO</div>
+      <h2 class="section-main-title">O Web App do Cliente: Cardápio Apetitoso & Pedidos em 1 Clique</h2>
+      <p class="section-desc">
+        Uma vitrine digital de alto nível visual projetada para encantar os moradores da Cidade São Jorge e de Santo André. Funciona instantaneamente no navegador do celular ou computador, sem necessidade de baixar nada em lojas de aplicativos:
+      </p>
+
+      <div class="grid-3" style="margin-bottom:16px;">
+        <div class="card">
+          <div style="font-size:20px; margin-bottom:8px;">🛒</div>
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800; margin-bottom:4px;">Sacola Inteligente</h4>
+          <p style="font-size:11px; color:#57534E; line-height:1.5;">O cliente seleciona cortes e combos, escolhe ponto e observações de corte e finaliza com total clareza de valores.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-size:20px; margin-bottom:8px;">🍗</div>
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800; margin-bottom:4px;">Rotisserie de Domingo</h4>
+          <p style="font-size:11px; color:#57534E; line-height:1.5;">Banner exclusivo de reservas antecipadas de costela no bafo e frango assado, esgotando os assados ainda no sábado.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-size:20px; margin-bottom:8px;">🔥</div>
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800; margin-bottom:4px;">Calculadora Churrasco</h4>
+          <p style="font-size:11px; color:#57534E; line-height:1.5;">O cliente calcula quantidade exata de pessoas (homens, mulheres, crianças) e envia a lista pronta para a loja.</p>
+        </div>
+      </div>
+
+      <!-- Destaque: Fluxo de Pedido no WhatsApp -->
+      <div class="card" style="border-left: 4px solid var(--wa-green); background: #F0FDF4; margin-bottom:16px; padding:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:900; color:#166534;">
+            COMO CHEGA O PEDIDO NO WHATSAPP DA SUA LOJA:
+          </h4>
+          <span class="badge-pill badge-emerald">SEM ERRO DE ANOTAÇÃO</span>
+        </div>
+        <div style="background:#FFFFFF; border:1px solid #BBF7D0; border-radius:10px; padding:12px; font-family:monospace; font-size:10.5px; color:#1F2937; line-height:1.5;">
+          *🥩 NOVO PEDIDO — MERCADO DA CARNE*<br>
+          *Cliente:* Rodrigo Santos | *Tipo:* Retirada no Balcão<br>
+          ----------------------------------------<br>
+          • 1x Kit Churrasco Prime (Picanha + Fraldinha + Linguiça) — R$ 189,90<br>
+          • 1x Frango Assado Recheado com Farofa (Domingo) — R$ 48,00<br>
+          • 1x Saco Carvão 4kg — R$ 19,90<br>
+          *Observações:* Picanha fatiada grossa em 2 dedos.<br>
+          ----------------------------------------<br>
+          *TOTAL DO PEDIDO: R$ 257,80*
+        </div>
+        <p style="font-size:10.5px; color:#166534; margin-top:8px; font-weight:600;">
+          ✔ Seu atendente só precisa responder "Pedido confirmado! Já estamos separando seu corte!". Ganho de 80% no tempo de atendimento.
+        </p>
+      </div>
+
+      <!-- PWA e Atendimento em Tempo Real -->
+      <div class="grid-2">
+        <div class="card">
+          <h4 style="font-family:'Outfit', sans-serif; font-size:12.5px; font-weight:800; color:var(--charcoal); margin-bottom:4px;">
+            📲 Tecnologia PWA (Instalável no Celular)
+          </h4>
+          <p style="font-size:11px; color:#57534E; line-height:1.5;">
+            Com 1 toque, o cliente adiciona o ícone do <strong>Mercado da Carne</strong> na tela inicial do celular dele, exatamente como se fosse um aplicativo da Apple Store ou Google Play, sem ocupar memória.
+          </p>
+        </div>
+        <div class="card">
+          <h4 style="font-family:'Outfit', sans-serif; font-size:12.5px; font-weight:800; color:var(--charcoal); margin-bottom:4px;">
+            ⏰ Status em Tempo Real Sincronizado
+          </h4>
+          <p style="font-size:11px; color:#57534E; line-height:1.5;">
+            O site sabe quando a loja está aberta (Seg a Sáb 07h-20h, Dom 07h-14h). Fora do expediente, o botão muda para "Fora do Expediente" e convida o cliente a adiantar a encomenda para o dia seguinte.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>Proposta Comercial • Mercado da Carne (Santo André - SP)</div>
+      <div class="footer-highlight">Página 03 / 06</div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PÁGINA 4: MÓDULO 2 — O PAINEL DO DONO COM SOFIA IA
+       ========================================================================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="header-logo-group">
+        <div class="header-badge">🎙️</div>
+        <div>
+          <div class="header-title">MERCADO DA CARNE</div>
+          <div class="header-subtitle">Módulo 02 — Gestão com Inteligência Artificial</div>
+        </div>
+      </div>
+      <span class="header-tag">03. Sofia IA para o Dono</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-eyebrow">INDEPENDÊNCIA TOTAL DO GESTOR</div>
+      <h2 class="section-main-title">Painel do Dono com Sofia IA: Gestão por Comando de Voz</h2>
+      <p class="section-desc">
+        O dono do açougue não tem tempo a perder configurando computadores. Por isso, integramos a <strong>Sofia IA</strong> — uma inteligência artificial que obedece à sua voz diretamente no celular para criar kits, mudar preços e abastecer fotos:
+      </p>
+
+      <div class="card card-dark" style="margin-bottom:18px; padding:20px; border-left:4px solid #F59E0B;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:22px;">🎙️</span>
+            <span style="font-family:'Outfit', sans-serif; font-size:15px; font-weight:900; color:#FBBF24;">COMO FUNCIONA O COMANDO DE VOZ DA SOFIA:</span>
+          </div>
+          <span class="badge-pill badge-amber">RECONHECIMENTO EM TEMPO REAL</span>
+        </div>
+        <p style="font-size:12px; color:#E7E5E4; line-height:1.6; margin-bottom:12px;">
+          O dono abre a <strong>Área do Dono</strong> no celular, aperta o microfone e simplesmente diz:
+        </p>
+        <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:12px; font-style:italic; font-size:12px; color:#FEF08A; margin-bottom:12px;">
+          "Sofia, cadastra o Kit Churrasco Família com picanha, fraldinha, linguiça e carvão por 189 reais."
+        </div>
+        <p style="font-size:11.5px; color:#A8A29E; line-height:1.5;">
+          A Sofia IA transcreve a fala, identifica o nome do produto, preenche os itens, define o preço e adiciona o kit no cardápio na mesma hora. Sem precisar de teclado, sem depender de programador!
+        </p>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:16px;">
+        <div class="card">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <span style="font-size:18px;">📸</span>
+            <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800;">Estúdio Gastronômico com IA</h4>
+          </div>
+          <p style="font-size:11px; color:#57534E; line-height:1.55;">
+            Tirar fotos de carnes cruas no balcão costuma ficar escuro e pouco apetitoso. Nossa IA possui galeria de estúdio culinário com fotos profissionais de cortes nobres (Picanha, Ancho, Prime Rib, Frango Dourado) prontas para aplicar em 1 toque.
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <span style="font-size:18px;">⚡</span>
+            <h4 style="font-family:'Outfit', sans-serif; font-size:13px; font-weight:800;">Controle de Estoque & Esgotados</h4>
+          </div>
+          <p style="font-size:11px; color:#57534E; line-height:1.55;">
+            Acabou a costela no bafo no meio do domingo? O dono entra no painel e clica no botão "Marcar Esgotado". O produto sai imediatamente da sacola de compras dos clientes, evitando reclamações no balcão.
+          </p>
+        </div>
+      </div>
+
+      <div class="card card-highlight">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <div>
+            <h4 style="font-family:'Outfit', sans-serif; font-size:12.5px; font-weight:800; color:var(--charcoal);">
+              🔐 Segurança com Proteção por Senha & Ícone de Olhinho
+            </h4>
+            <p style="font-size:11px; color:#57534E; margin-top:2px;">
+              Apenas o dono ou quem ele autorizar consegue acessar a Área de Gestão. Senha protegida com botão para visualizar a digitação.
+            </p>
+          </div>
+          <span class="badge-pill badge-emerald">ACESSO RESTRITO</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>Proposta Comercial • Mercado da Carne (Santo André - SP)</div>
+      <div class="footer-highlight">Página 04 / 06</div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PÁGINA 5: MÓDULO 3 — DISPAROS EM MASSA PROGRAMADOS
+       ========================================================================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="header-logo-group">
+        <div class="header-badge">🚀</div>
+        <div>
+          <div class="header-title">MERCADO DA CARNE</div>
+          <div class="header-subtitle">Módulo 03 — Automação de Vendas</div>
+        </div>
+      </div>
+      <span class="header-tag">04. Motor de Disparos</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-eyebrow">REATIVAÇÃO DE CLIENTES DA REGIÃO</div>
+      <h2 class="section-main-title">Motor de Disparos no WhatsApp com Agendamento Semanal</h2>
+      <p class="section-desc">
+        A ferramenta mais poderosa para garantir casa cheia e encomendas esgotadas todo fim de semana. Permite baixar ou importar a lista de clientes que o açougue já possui e disparar mensagens automáticas no dia e hora certos:
+      </p>
+
+      <div class="grid-2" style="margin-bottom:16px;">
+        <div class="card card-highlight">
+          <span class="badge-pill badge-amber" style="margin-bottom:8px;">CONFIGURAÇÃO SIMPLES</span>
+          <h3 style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:800; color:var(--charcoal); margin-bottom:6px;">
+            Importador de Planilha ou Contatos
+          </h3>
+          <p style="font-size:11.5px; color:#57534E; line-height:1.55;">
+            Se o açougue já tiver uma planilha do sistema comercial ou contatos salvos no WhatsApp, basta subir o arquivo CSV ou colar os números na tela. O sistema limpa os telefones, adiciona o DDD (11) e prepara a lista automaticamente.
+          </p>
+        </div>
+
+        <div class="card card-highlight">
+          <span class="badge-pill badge-emerald" style="margin-bottom:8px;">DISPARO HUMANIZADO</span>
+          <h3 style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:800; color:var(--charcoal); margin-bottom:6px;">
+            Proteção Contra Bloqueio (Anti-Ban)
+          </h3>
+          <p style="font-size:11.5px; color:#57534E; line-height:1.55;">
+            O sistema não dispara tudo de uma vez como um spam robótico. Ele possui uma <strong>Fila Inteligente com pausas seguras de 3 a 5 segundos</strong> entre cada cliente, simulando o envio natural e protegendo o número comercial da loja.
+          </p>
+        </div>
+      </div>
+
+      <!-- Estratégia de Programação por Dia e Hora -->
+      <div class="card" style="border: 1px solid #F59E0B; background: #FFFBEB; margin-bottom:18px; padding:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h4 style="font-family:'Outfit', sans-serif; font-size:13.5px; font-weight:900; color:#92400E;">
+            📅 CALENDÁRIO AUTOMATIZADO DE VENDAS DA ROTISSERIE & CHURRASCO:
+          </h4>
+          <span class="badge-pill badge-amber">AGENDADO NO PAINEL</span>
+        </div>
+
+        <div class="grid-2" style="gap:12px;">
+          <div style="background:#FFFFFF; border:1px solid #FDE68A; border-radius:10px; padding:12px;">
+            <div style="font-weight:800; font-size:12px; color:var(--burgundy); margin-bottom:4px;">
+              🔥 SEXTA-FEIRA ÀS 15:00 — Promoção do Churrasco
+            </div>
+            <p style="font-size:10.5px; color:#57534E; line-height:1.45;">
+              "Olá, vizinho! O fim de semana chegou no Mercado da Carne. Montamos kits especiais de picanha e carvão com desconto para você retirar hoje sem fila. Toque no link para ver o cardápio..."
+            </p>
+          </div>
+
+          <div style="background:#FFFFFF; border:1px solid #FDE68A; border-radius:10px; padding:12px;">
+            <div style="font-weight:800; font-size:12px; color:var(--burgundy); margin-bottom:4px;">
+              🍗 SÁBADO ÀS 10:00 — Reserva dos Assados de Domingo
+            </div>
+            <p style="font-size:10.5px; color:#57534E; line-height:1.45;">
+              "Almoço de domingo garantido sem panela suja! Nossas costelas no bafo e frangos recheados já estão no forno. Reserve sua unidade agora pelo Web App antes que esgote..."
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-dark" style="padding:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-family:'Outfit', sans-serif; font-weight:800; font-size:13px; color:#FBBF24;">
+              DOMÍNIO PRÓPRIO COM A MARCA DO CLIENTE
+            </div>
+            <div style="font-size:11px; color:#D6D3D1; margin-top:2px;">
+              Podemos registrar o domínio exclusivo (ex: <strong>mercadodacarne.com.br</strong> ou <strong>mercadodacarnesantoandre.com.br</strong>) para fixar a autoridade da marca na região.
+            </div>
+          </div>
+          <span class="badge-pill badge-emerald">MARCA PRÓPRIA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>Proposta Comercial • Mercado da Carne (Santo André - SP)</div>
+      <div class="footer-highlight">Página 05 / 06</div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PÁGINA 6: COMPARATIVO COMERCIAL, RETORNO & PRÓXIMOS PASSOS
+       ========================================================================= -->
+  <div class="page">
+    <div class="page-header">
+      <div class="header-logo-group">
+        <div class="header-badge">📊</div>
+        <div>
+          <div class="header-title">MERCADO DA CARNE</div>
+          <div class="header-subtitle">Comparativo Estratégico & Conclusão</div>
+        </div>
+      </div>
+      <span class="header-tag">05. Viabilidade & Próximos Passos</span>
+    </div>
+
+    <div class="page-content">
+      <div class="section-eyebrow">RETORNO DO INVESTIMENTO (ROI)</div>
+      <h2 class="section-main-title">Comparativo Estratégico: Web App Próprio vs Aplicativos</h2>
+      <p class="section-desc">
+        Veja a comparação clara entre operar com a solução própria Ricardo & Severino e depender de aplicativos tradicionais de delivery:
+      </p>
+
+      <table class="compare-table" style="margin-bottom:20px;">
+        <thead>
+          <tr>
+            <th>Critério Operacional</th>
+            <th>Mercado da Carne (Web App Próprio)</th>
+            <th>iFood / Rappi</th>
+            <th>WhatsApp Manual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td><strong>Taxa por Pedido</strong></td>
+            <td><strong>0% (Lucro 100% da Loja)</strong></td>
+            <td>18% a 27% de comissão</td>
+            <td>0%</td>
+          </tr>
+          <tr>
+            <td><strong>Posse da Base de Clientes</strong></td>
+            <td><strong>100% sua (Telefones para disparos)</strong></td>
+            <td>O iFood esconde o cliente</td>
+            <td>Desorganizada</td>
+          </tr>
+          <tr>
+            <td><strong>Velocidade no Pedido</strong></td>
+            <td><strong>Formatado em 1 clique</strong></td>
+            <td>Requer app instalado</td>
+            <td>Demorado (digitação manual)</td>
+          </tr>
+          <tr>
+            <td><strong>Gestão de Preços</strong></td>
+            <td><strong>Sofia IA por Comando de Voz</strong></td>
+            <td>Painel burocrático</td>
+            <td>Anotações em papel</td>
+          </tr>
+          <tr>
+            <td><strong>Disparos Automáticos</strong></td>
+            <td><strong>Incluso (Agendamento semanal)</strong></td>
+            <td>Não possui disparos diretos</td>
+            <td>Manual e cansativo</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Próximos Passos / Cronograma de Entrega -->
+      <div class="section-eyebrow" style="margin-top:6px;">IMPLANTAÇÃO ÁGIL EM 3 ETAPAS</div>
+      <h3 style="font-family:'Outfit', sans-serif; font-size:16px; font-weight:900; margin-bottom:12px; color:var(--charcoal);">
+        Como Colocamos Tudo em Prática na Sua Loja:
+      </h3>
+
+      <div class="grid-3" style="margin-bottom:22px;">
+        <div class="card card-highlight">
+          <div style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:900; color:var(--burgundy); margin-bottom:4px;">1. Demonstração</div>
+          <p style="font-size:11px; color:#57534E; line-height:1.45;">Reunião presencial rápida com o Ricardo para o dono testar o Web App e falar com a Sofia IA no próprio celular.</p>
+        </div>
+        <div class="card card-highlight">
+          <div style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:900; color:var(--burgundy); margin-bottom:4px;">2. Ajuste Fino</div>
+          <p style="font-size:11px; color:#57534E; line-height:1.45;">Cadastramos os cortes, combos de carnes e assados de domingo favoritos com os preços vigentes do balcão.</p>
+        </div>
+        <div class="card card-highlight">
+          <div style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:900; color:var(--burgundy); margin-bottom:4px;">3. Lançamento</div>
+          <p style="font-size:11px; color:#57534E; line-height:1.45;">Iniciamos o primeiro disparo promocional no WhatsApp para os clientes já encomendarem para o fim de semana.</p>
+        </div>
+      </div>
+
+      <!-- Convite Executivo para Reunião Presencial -->
+      <div class="card card-dark" style="padding:20px; border-left:4px solid var(--gold);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h4 style="font-family:'Outfit', sans-serif; font-size:14px; font-weight:900; color:#FBBF24;">
+            VAMOS MARCAR UMA BREVE REUNIÃO PRESENCIAL?
+          </h4>
+          <span class="badge-pill badge-emerald">DISPONÍVEL</span>
+        </div>
+        <p style="font-size:12px; color:#E7E5E4; line-height:1.55;">
+          O sistema já está programado e funcionando em ambiente de demonstração. Ricardo está à disposição para ir até o <strong>Mercado da Carne na Av. São Paulo, 584</strong>, apresentar o funcionamento no celular da diretoria e alinhar os detalhes para colocar no ar.
+        </p>
+        <div style="margin-top:14px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.15); padding-top:10px; font-size:11px; color:#A8A29E;">
+          <div>Contato Direto com <strong>Ricardo</strong>: WhatsApp / Telefone</div>
+          <div style="color:#FFFFFF; font-weight:700;">Engenharia & Soluções: Ricardo & Severino</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div>Proposta Comercial • Mercado da Carne (Santo André - SP)</div>
+      <div class="footer-highlight">Página 06 / 06</div>
+    </div>
+  </div>
+
+</body>
+</html>
