@@ -1,0 +1,18 @@
+{
+  "name": "Mercado da Carne — Shop Butcher & Rotisserie",
+  "short_name": "Mercado da Carne",
+  "description": "Açougue boutique, cortes nobres e rotisserie de fim de semana na Cidade São Jorge, Santo André",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FBF9F5",
+  "theme_color": "#991B1B",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

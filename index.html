@@ -2,11 +2,11 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Mercado da Carne — Shop Butcher, Cortes Nobres & Rotisserie • Santo André (Cidade São Jorge)</title>
   
   <!-- SEO & Metadados Locais (Cidade São Jorge, Santo André - SP) -->
-  <meta name="description" content="Mercado da Carne na Av. São Paulo, 584 - Cidade São Jorge, Santo André - SP. Açougue completo, cortes nobres Black Angus, Wagyu, espetinhos e rotisserie com frango assado e costela no bafo.">
+  <meta name="description" content="Mercado da Carne na Av. São Paulo, 584 - Cidade São Jorge, Santo André - SP. Boutique de carnes, cortes nobres Black Angus, kits churrasco e rotisserie com frango assado e costela no bafo de domingo.">
   <meta name="keywords" content="mercado da carne santo andre, acougue cidade sao jorge, rotisserie santo andre, carnes nobres santo andre, frango assado santo andre, costela no bafo santo andre, av sao paulo santo andre, churrasco abc">
   <meta name="robots" content="index, follow">
   
@@ -15,16 +15,25 @@
   <meta name="geo.placename" content="Santo André">
 
   <!-- Open Graph / Redes Sociais / WhatsApp -->
-  <meta property="og:title" content="Mercado da Carne — Açougue, Cortes Nobres & Rotisserie em Santo André">
-  <meta property="og:description" content="Cortes de primeira, espetinhos, kits para churrasco e deliciosos assados de domingo na Av. São Paulo, 584 - Cidade São Jorge, Santo André.">
+  <meta property="og:title" content="Mercado da Carne — Boutique de Carnes & Rotisserie em Santo André">
+  <meta property="og:description" content="Kits churrasco, cortes nobres Black Angus e deliciosos assados de domingo. Peça pelo Web App na Av. São Paulo, 584 - Cidade São Jorge.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ricardorickbony-lgtm.github.io/mercado-da-carne/">
   <meta property="og:image" content="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80">
 
-  <!-- Tipografia Google Fonts: Syne & Plus Jakarta Sans -->
+  <!-- PWA & Mobile Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#991B1B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Mercado da Carne">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+  <link rel="apple-touch-icon" href="assets/icons/icon.svg">
+
+  <!-- Tipografia Google Fonts: Outfit, Plus Jakarta Sans & Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Folha de Estilos Oficial -->
   <link rel="stylesheet" href="css/style.css">
@@ -52,13 +61,12 @@
   </div>
 
   <!-- =========================================================================
-       2. HEADER / NAVBAR
+       2. HEADER / NAVBAR COM BOTÃO DE SACOLA E INSTALAR APP
        ========================================================================= -->
   <header class="site-header" id="siteHeader">
     <div class="container nav-container">
       <a href="#inicio" class="brand-logo" aria-label="Mercado da Carne Início">
         <div class="logo-badge">
-          <!-- Ícone Fogo & Carne -->
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
           </svg>
@@ -72,19 +80,29 @@
       <!-- Menu Desktop -->
       <nav class="nav-menu" aria-label="Navegação Principal">
         <a href="#inicio" class="nav-link">Início</a>
-        <a href="#diferenciais" class="nav-link">Diferenciais</a>
-        <a href="#cortes" class="nav-link">Vitrine & Assados</a>
-        <a href="#calculadora" class="nav-link">Calculadora</a>
-        <a href="#kits" class="nav-link">Kits Churrasco</a>
-        <a href="#localizacao" class="nav-link">Loja Física</a>
+        <a href="#cortes" class="nav-link">Cardápio & Combos</a>
+        <a href="#rotisserie-banner" class="nav-link">Rotisserie de Domingo</a>
+        <a href="#calculadora" class="nav-link">Calculadora Churrasco</a>
+        <a href="#localizacao" class="nav-link">Onde Estamos</a>
         <a href="#faq" class="nav-link">Dúvidas</a>
       </nav>
 
-      <!-- Ações do Header -->
+      <!-- Ações do Header: Sacola & Instalar App -->
       <div class="nav-actions">
-        <a href="https://wa.me/5511963336938?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20pedido%20no%20Mercado%20da%20Carne%20em%20Santo%20Andr%C3%A9." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-          <span>Fazer Pedido</span>
-        </a>
+        <!-- Botão PWA Instalar App (visível em navegadores compatíveis) -->
+        <button id="btn-install-app" class="btn btn-secondary btn-sm" style="display:none;" title="Instalar Aplicativo no Celular">
+          <span>📲 Instalar App</span>
+        </button>
+
+        <!-- Botão Abrir Sacola -->
+        <button id="btn-open-cart-header" class="btn btn-primary btn-sm" aria-label="Abrir Sacola de Compras">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span>Sacola (<span id="cart-header-count">0</span>)</span>
+        </button>
+
+        <!-- Mobile Drawer Toggle -->
         <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir Menu">
           <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
@@ -102,30 +120,32 @@
         <span class="logo-title">MERCADO DA <span>CARNE</span></span>
         <span class="logo-subtitle">Shop Butcher & Rotisserie</span>
       </div>
-      <button id="drawerClose" style="background:transparent; color:#fff; font-size:1.5rem; cursor:pointer;">✕</button>
+      <button id="drawerClose" style="background:transparent; color:#1C1917; font-size:1.5rem; cursor:pointer;">✕</button>
     </div>
     <nav class="drawer-nav">
       <a href="#inicio">Início</a>
-      <a href="#diferenciais">Diferenciais</a>
-      <a href="#cortes">Vitrine & Assados</a>
+      <a href="#cortes">Cardápio & Combos</a>
+      <a href="#rotisserie-banner">Rotisserie de Domingo</a>
       <a href="#calculadora">Calculadora de Churrasco</a>
-      <a href="#kits">Kits Prontos</a>
-      <a href="#depoimentos">Avaliações de Clientes</a>
+      <a href="#depoimentos">Avaliações</a>
       <a href="#localizacao">Como Chegar & Horários</a>
       <a href="#faq">Perguntas Frequentes</a>
     </nav>
-    <div style="margin-top:auto; padding-top:24px;">
-      <a href="https://wa.me/5511963336938" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-cta" style="width:100%;">
-        Chamar no WhatsApp
+    <div style="margin-top:auto; padding-top:24px; display:flex; flex-direction:column; gap:10px;">
+      <button id="btn-drawer-cart" class="btn btn-primary" style="width:100%;">
+        🛒 Ver Minha Sacola (<span id="cart-drawer-toggle-count">0</span>)
+      </button>
+      <a href="https://wa.me/5511963336938" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
+        Falar no WhatsApp
       </a>
-      <a href="admin.html" style="display:block; text-align:center; font-size:0.75rem; color:var(--text-muted); margin-top:16px;">
-        🔐 Acessar Painel do Gestor
+      <a href="admin.html" style="display:block; text-align:center; font-size:0.75rem; color:var(--text-muted); margin-top:10px;">
+        🔐 Painel do Dono (Sofia IA & Estoque)
       </a>
     </div>
   </aside>
 
   <!-- =========================================================================
-       3. HERO SECTION (IMPACTO & ALTA CONVERSÃO)
+       3. HERO SECTION (APETITOSA, ALTA CONVERSÃO & WEB APP)
        ========================================================================= -->
   <section class="hero" id="inicio">
     <div class="container">
@@ -133,26 +153,29 @@
         <div class="hero-text-content">
           <div class="hero-badge-live">
             <span class="pulsing-fire"></span>
-            <span class="hero-badge-text">CIDADE SÃO JORGE — SANTO ANDRÉ / ABC</span>
+            <span class="hero-badge-text">AV. SÃO PAULO, 584 — CIDADE SÃO JORGE, SANTO ANDRÉ</span>
           </div>
 
           <h1 class="hero-title">
-            Carnes Nobres, <span class="gradient-text">Rotisserie de Domingo</span> & Seu Churrasco Perfeito.
+            Combos para Churrasco, <span class="gradient-text">Rotisserie de Domingo</span> & Cortes Nobres.
           </h1>
 
           <p class="hero-description">
-            O açougue boutique mais completo de Santo André. Seleção rigorosa de cortes frescos bovinos, linha especial de Parrilla, espetinhos e os tradicionais assados de fim de semana na Av. São Paulo, 584.
+            Monte seu pedido pelo nosso Web App em poucos cliques: escolha seus combos de carnes, o frango assado com batatas ou a costela no bafo e envie tudo pronto direto para o nosso WhatsApp.
           </p>
 
           <div class="hero-cta-group">
-            <a href="https://wa.me/5511963336938?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido%20de%20carnes%20ou%20assados." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-cta">
+            <a href="#cortes" class="btn btn-primary">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+              </svg>
+              <span>Montar Pedido no Cardápio</span>
+            </a>
+            <a href="https://wa.me/5511963336938?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20consultar%20os%20combos%20e%20assados%20de%20hoje." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2z"/>
               </svg>
-              <span>Pedir no WhatsApp (11) 96333-6938</span>
-            </a>
-            <a href="#cortes" class="btn btn-secondary">
-              <span>Ver Vitrine & Assados</span>
+              <span>Pedir no WhatsApp</span>
             </a>
           </div>
 
@@ -163,11 +186,11 @@
             </div>
             <div class="hero-stat-item">
               <span class="stat-number">Rotisserie</span>
-              <span class="stat-label">Assados de Fim de Semana</span>
+              <span class="stat-label">Costela & Frango no Domingo</span>
             </div>
             <div class="hero-stat-item">
-              <span class="stat-number">4.9 ★</span>
-              <span class="stat-label">Google Avaliações</span>
+              <span class="stat-number">Santo André</span>
+              <span class="stat-label">Retirada & Delivery Rápido</span>
             </div>
           </div>
         </div>
@@ -189,7 +212,7 @@
             </div>
             <div>
               <div class="floating-title">Assados de Domingo</div>
-              <div class="floating-subtitle">Costela no bafo e Frango recheado</div>
+              <div class="floating-subtitle">Reserve com antecedência para não esgotar!</div>
             </div>
           </div>
         </div>
@@ -198,84 +221,55 @@
   </section>
 
   <!-- =========================================================================
-       4. DIFERENCIAIS DE ELITE
+       4. BANNER ROTISSERIE DE DOMINGO
        ========================================================================= -->
-  <section class="differentials" id="diferenciais">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Tradição & Qualidade</span>
-        <h2 class="section-title">O Que Você Encontra no Mercado da Carne</h2>
-        <p class="section-desc">Muito mais que um açougue: uma estrutura completa de carnes selecionadas, conveniência e gastronomia no coração da Cidade São Jorge, Santo André.</p>
+  <section class="rotisserie-banner" id="rotisserie-banner" style="background: linear-gradient(135deg, #7F1D1D 0%, #991B1B 100%); color:#FFFFFF; padding: 48px 0; border-top: 1px solid #FECACA; border-bottom: 1px solid #FECACA;">
+    <div class="container" style="display: flex; flex-direction: column; md:flex-row; align-items: center; justify-content: space-between; gap: 28px;">
+      <div style="max-width: 680px;">
+        <span style="background: rgba(255,255,255,0.2); color: #FEF08A; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; padding: 4px 12px; border-radius: 9999px; letter-spacing: 0.05em; display: inline-block; margin-bottom: 8px;">
+          🍗 Tradicional Rotisserie de Domingo
+        </span>
+        <h2 style="font-family: var(--font-heading); font-size: clamp(1.8rem, 3vw, 2.3rem); font-weight: 900; line-height: 1.2; margin-bottom: 10px;">
+          Almoço em Família sem Sujar Panela!
+        </h2>
+        <p style="font-size: 1rem; color: #FEE2E2; line-height: 1.5;">
+          Todo domingo temos <strong>Costela no Bafo desmanchando</strong>, <strong>Frango Assado recheado com farofa úmida</strong>, batatas douradas e lasanha à bolonhesa. Encomende com antecedência para garantir a sua!
+        </p>
       </div>
-
-      <div class="diff-grid">
-        <div class="diff-card">
-          <div class="diff-icon-box">
-            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-            </svg>
-          </div>
-          <h3>Cortes Frescos & Diários</h3>
-          <p>Peças bovinas selecionadas recebidas diariamente com procedência garantida e atendimento especializado no balcão.</p>
-        </div>
-
-        <div class="diff-card">
-          <div class="diff-icon-box">
-            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
-            </svg>
-          </div>
-          <h3>Rotisserie & Assados</h3>
-          <p>Aos finais de semana, a melhor costela no bafo, cupim casqueirado e frango assado crocante para seu almoço de domingo em família.</p>
-        </div>
-
-        <div class="diff-card">
-          <div class="diff-icon-box">
-            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-            </svg>
-          </div>
-          <h3>Linha Completa de Churrasco</h3>
-          <p>Espetinhos práticos, linguiças artesanais especiais, pão de alho crocante, queijo coalho e carvão de primeira qualidade.</p>
-        </div>
-
-        <div class="diff-card">
-          <div class="diff-icon-box">
-            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-            </svg>
-          </div>
-          <h3>Padaria, Adega & Mercearia</h3>
-          <p>Tudo o que você precisa em um só lugar: pães quentinhos, cervejas geladas, vinhos finos, massas frescas e temperos especiais.</p>
-        </div>
+      <div>
+        <a href="#cortes" class="btn" style="background: #FEF08A; color: #7F1D1D; font-weight: 900; box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
+          🍗 Ver Assados Disponíveis
+        </a>
       </div>
     </div>
   </section>
 
   <!-- =========================================================================
-       5. VITRINE DE CORTES & ROTISSERIE (DINÂMICA)
+       5. VITRINE DE CORTES, COMBOS & ROTISSERIE (CARDÁPIO DINÂMICO INTERATIVO)
        ========================================================================= -->
   <section class="showcase" id="cortes">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Vitrine & Cardápio</span>
-        <h2 class="section-title">Nossos Cortes & Assados da Rotisserie</h2>
-        <p class="section-desc">Selecione por categoria e clique no botão para reservar ou encomendar diretamente no WhatsApp da loja.</p>
+        <span class="section-tag">Cardápio & Web App</span>
+        <h2 class="section-title">Escolha Seus Produtos & Monte Seu Pedido</h2>
+        <p class="section-desc">
+          Clique em <strong>+ Adicionar à Sacola</strong> para montar seu combo completo (carnes, assados, carvão e bebidas) e enviar seu pedido formatado diretamente no WhatsApp da loja!
+        </p>
       </div>
 
-      <!-- Abas de Categoria -->
-      <div class="category-tabs">
+      <!-- Abas de Categoria com Filtro Inteligente -->
+      <div class="category-tabs" id="categoryTabs">
         <button class="tab-btn active" data-filter="todos">Todos os Itens</button>
-        <button class="tab-btn" data-filter="rotisserie">🍗 Assados & Rotisserie</button>
-        <button class="tab-btn" data-filter="parrilla">Linha Parrilla</button>
-        <button class="tab-btn" data-filter="angus">Black Angus & Prime</button>
-        <button class="tab-btn" data-filter="especiais">Wagyu & Dry Aged</button>
-        <button class="tab-btn" data-filter="suinos">Cordeiro & Suínos</button>
+        <button class="tab-btn" data-filter="combos">🔥 Combos & Kits</button>
+        <button class="tab-btn" data-filter="rotisserie">🍗 Assados de Domingo</button>
+        <button class="tab-btn" data-filter="bovinos">🥩 Carnes Nobres</button>
+        <button class="tab-btn" data-filter="churrasco">🍢 Espetos & Linguiças</button>
+        <button class="tab-btn" data-filter="acompanhamentos">🥖 Carvão & Acompanhamentos</button>
       </div>
 
       <!-- Grade Dinâmica Renderizada via js/main.js e js/db.js -->
       <div class="cuts-grid" id="grid-cortes-dinamico">
-        <!-- Renderizado dinamicamente -->
+        <!-- Renderizado dinamicamente pelo JavaScript com botões de adicionar à sacola -->
       </div>
     </div>
   </section>
@@ -286,9 +280,9 @@
   <section class="calculator-section" id="calculadora">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Facilidade Total</span>
+        <span class="section-tag">Sem Desperdício</span>
         <h2 class="section-title">Calculadora de Churrasco Inteligente</h2>
-        <p class="section-desc">Diga quantas pessoas vão participar e calcule na hora as quantidades ideais para seu churrasco em Santo André, sem desperdício e sem faltar carne boa!</p>
+        <p class="section-desc">Diga quantas pessoas vão participar e calcule na hora as quantidades ideais para seu churrasco em Santo André!</p>
       </div>
 
       <div class="calc-box">
@@ -328,7 +322,7 @@
           </div>
 
           <div class="input-group">
-            <span class="input-label">Estilo do Evento</span>
+            <span class="input-label">Estilo do Churrasco</span>
             <div class="churrasco-style-group">
               <div class="style-option" id="style-trad">
                 <span class="style-title">Tradicional</span>
@@ -346,7 +340,7 @@
         <div class="calc-results">
           <div class="results-header">
             <h3>Lista Recomendada de Compras</h3>
-            <p>Calculado com precisão para seu churrasco</p>
+            <p>Calculado com precisão para seu evento</p>
           </div>
 
           <div class="results-list">
@@ -372,8 +366,8 @@
             </div>
           </div>
 
-          <a href="#" id="btn-order-calc" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-cta" style="width:100%;">
-            <span>Enviar Pedido Pronto para o WhatsApp da Loja</span> ➔
+          <a href="#" id="btn-order-calc" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%;">
+            <span>Enviar Lista do Cálculo para o WhatsApp</span> ➔
           </a>
         </div>
       </div>
@@ -381,74 +375,55 @@
   </section>
 
   <!-- =========================================================================
-       7. KITS DE CHURRASCO PRONTOS
+       7. DIFERENCIAIS DE QUALIDADE
        ========================================================================= -->
-  <section class="kits-section" id="kits">
+  <section class="differentials" id="diferenciais">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Mais Praticidade</span>
-        <h2 class="section-title">Kits Fechados para seu Churrasco</h2>
-        <p class="section-desc">Passe na loja ou receba seu kit montado com os melhores cortes porcionados.</p>
+        <span class="section-tag">Tradição & Procedência</span>
+        <h2 class="section-title">O Que Você Encontra no Mercado da Carne</h2>
+        <p class="section-desc">Muito mais que um açougue comum: uma boutique completa de carnes com atendimento de confiança na Av. São Paulo, 584.</p>
       </div>
 
-      <div class="kits-grid">
-        <div class="kit-card">
-          <h3 class="kit-name">Kit Galera do Bairro</h3>
-          <span class="kit-serves">Serve 6 a 8 pessoas</span>
-          <div class="kit-items-list">
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1kg Bife de Chorizo Black Angus</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1kg Fraldinha Red Reserva</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>700g Linguiça de Pernil Especial</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1 Pcte Pão de Alho Crocante</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1 Sal de Parrilla Especial</span></div>
+      <div class="diff-grid">
+        <div class="diff-card">
+          <div class="diff-icon-box">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
           </div>
-          <div class="kit-price-row">
-            <span class="kit-price-val">R$ 299,00</span>
-            <span class="kit-price-period">kit completo</span>
-          </div>
-          <a href="https://wa.me/5511963336938?text=Ol%C3%A1!%20Gostaria%20de%20pedir%20o%20Kit%20Galera%20do%20Bairro." target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;">
-            Pedir Este Kit no WhatsApp
-          </a>
+          <h3>Cortes Nobres Frescos</h3>
+          <p>Peças selecionadas diariamente com toalete cuidadosa e cortes nobres preparados do seu jeito no balcão.</p>
         </div>
 
-        <div class="kit-card featured">
-          <span class="kit-badge-featured">Mais Vendido</span>
-          <h3 class="kit-name">Kit Mestre Churrasqueiro</h3>
-          <span class="kit-serves">Serve 10 a 12 pessoas</span>
-          <div class="kit-items-list">
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1 Peça Picanha Black Angus (~1.2kg)</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1 Peça Tomahawk Steak Prime (~1.1kg)</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1kg Bife de Ancho Premium</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>800g Linguiça com Queijo Coalho</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>2 Pctes Pão de Alho Especial</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1 Saco Carvão Especial 4kg</span></div>
+        <div class="diff-card">
+          <div class="diff-icon-box">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
+            </svg>
           </div>
-          <div class="kit-price-row">
-            <span class="kit-price-val">R$ 549,00</span>
-            <span class="kit-price-period">kit completo</span>
-          </div>
-          <a href="https://wa.me/5511963336938?text=Ol%C3%A1!%20Gostaria%20de%20pedir%20o%20Kit%20Mestre%20Churrasqueiro." target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;">
-            Pedir Este Kit no WhatsApp
-          </a>
+          <h3>Rotisserie aos Domingos</h3>
+          <p>Costela no bafo desmanchando, frango assado douradinho e lasanha da casa para seu almoço em família sem trabalho.</p>
         </div>
 
-        <div class="kit-card">
-          <h3 class="kit-name">Kit Família Domingo Feliz</h3>
-          <span class="kit-serves">Almoço Completo Pronto</span>
-          <div class="kit-items-list">
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1 Costela no Bafo Assada (~1.2kg)</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1 Frango Assado Recheado Inteiro</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1 Porção Lasanha Bolonhesa da Casa</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>Porção Farofa Especial & Batatas</span></div>
-            <div class="kit-item"><span class="kit-item-icon">✔</span><span>1 Refrigerante 2 Litros</span></div>
+        <div class="diff-card">
+          <div class="diff-icon-box">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+            </svg>
           </div>
-          <div class="kit-price-row">
-            <span class="kit-price-val">R$ 195,00</span>
-            <span class="kit-price-period">assados prontos</span>
+          <h3>Combos Econômicos Fechados</h3>
+          <p>Kits completos com carnes, linguiças, pão de alho e carvão com desconto especial para você só acender a grelha.</p>
+        </div>
+
+        <div class="diff-card">
+          <div class="diff-icon-box">
+            <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
           </div>
-          <a href="https://wa.me/5511963336938?text=Ol%C3%A1!%20Gostaria%20de%20reservar%20o%20Kit%20Fam%C3%ADlia%20Domingo%20Feliz%20(Rotisserie)." target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;">
-            Reservar Assados do Domingo
-          </a>
+          <h3>Retirada Ágil ou Delivery</h3>
+          <p>Peça pelo Web App e retire quentinho e embalado sem fila ou receba no conforto da sua casa em Santo André.</p>
         </div>
       </div>
     </div>
@@ -464,13 +439,13 @@
           <div class="rating-stars">★★★★★</div>
           <span style="font-size:0.9rem; font-weight:700;">4.9 de 5 estrelas no Google na Cidade São Jorge</span>
         </div>
-        <h2 class="section-title">O Que Dizem os Moradores de Santo André</h2>
-        <p class="section-desc">A confiança de quem compra carne de primeira e busca os melhores assados de fim de semana na Av. São Paulo.</p>
+        <h2 class="section-title">O Que Dizem Nossos Clientes</h2>
+        <p class="section-desc">A satisfação dos moradores da Cidade São Jorge, Parque Marajoara e Santo André.</p>
       </div>
 
       <div class="testimonials-grid">
         <div class="test-card">
-          <p>"Melhor açougue da Cidade São Jorge! Carnes com corte impecável, tudo muito limpo e organizado. O atendimento no balcão na Av. São Paulo é nota dez."</p>
+          <p>"Melhor açougue da Cidade São Jorge! Carnes com corte impecável, tudo limpo e organizado. O pedido pelo WhatsApp agiliza demais o atendimento."</p>
           <div class="test-author-box">
             <div class="test-avatar">RS</div>
             <div>
@@ -481,7 +456,7 @@
         </div>
 
         <div class="test-card">
-          <p>"A costela no bafo de domingo é um absurdo de boa! Derrete na boca e o frango assado bem temperadinho com farofa. Recomendo encomendar cedo no WhatsApp."</p>
+          <p>"A costela no bafo de domingo é um absurdo de macia! Derrete na boca e o frango assado bem recheado com farofa. Encomendo todo fim de semana."</p>
           <div class="test-author-box">
             <div class="test-avatar">AM</div>
             <div>
@@ -492,7 +467,7 @@
         </div>
 
         <div class="test-card">
-          <p>"A Picanha Angus e os espetinhos salvaram o churrasco da família no Parque Marajoara. Carne macia, atendimento ágil e cerveja trincando de gelada!"</p>
+          <p>"O combo de churrasco é super vantajoso. Carne de primeira, pão de alho e carvão tudo junto. Salvou a resenha com os amigos no fim de semana!"</p>
           <div class="test-author-box">
             <div class="test-avatar">CO</div>
             <div>
@@ -525,7 +500,7 @@
               <div class="info-desc">
                 <strong>Av. São Paulo, 584</strong><br>
                 Cidade São Jorge, Santo André – SP, CEP 09111-410<br>
-                <a href="https://maps.google.com/?q=Av.+S%C3%A3o+Paulo,+584+-+Cidade+S%C3%A3o+Jorge,+Santo+Andr%C3%A9+-+SP,+09111-410" target="_blank" rel="noopener noreferrer" style="color:var(--accent-gold); font-weight:700; display:inline-block; margin-top:6px;">
+                <a href="https://maps.google.com/?q=Av.+S%C3%A3o+Paulo,+584+-+Cidade+S%C3%A3o+Jorge,+Santo+Andr%C3%A9+-+SP,+09111-410" target="_blank" rel="noopener noreferrer" style="color:var(--brand-burgundy); font-weight:700; display:inline-block; margin-top:6px;">
                   Abrir no Google Maps ➔
                 </a>
               </div>
@@ -580,17 +555,17 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Recomendamos fortemente encomendar até sábado à noite pelo nosso WhatsApp (11) 96333-6938. Devido à alta procura aos domingos, nossos assados (costela no bafo e frango) costumam esgotar rápido!</p>
+            <p>Recomendamos fortemente encomendar até sábado à noite pelo nosso WhatsApp (11) 96333-6938 ou pelo Web App. Devido à alta procura aos domingos, nossos assados costumam esgotar antes das 12h!</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            <span>Vocês limpam e porcionam a carne do jeito que eu pedir?</span>
+            <span>Como funciona o pedido pelo Web App?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Sim! Nossos açougueiros cortam bifes na grossura desejada (para grelha alta, bife fino para o dia a dia, cubos para estrogonofe ou peças inteiras) com toalete cuidadosa.</p>
+            <p>Basta escolher os cortes ou combos aqui no cardápio, clicar em "Adicionar à Sacola" e finalizar o pedido. Uma mensagem já formatada com os itens, valores e seu endereço será gerada e enviada para nosso WhatsApp em 1 clique!</p>
           </div>
         </div>
 
@@ -600,7 +575,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Aceitamos Pix, cartões de crédito e débito das principais bandeiras e cartões alimentação/refeição (Alelo, VR, Sodexo, Ticket - consultar bandeiras disponíveis no balcão).</p>
+            <p>Aceitamos Pix, dinheiro, cartões de crédito e débito das principais bandeiras e cartões alimentação/refeição (Alelo, VR, Sodexo, Ticket).</p>
           </div>
         </div>
 
@@ -610,7 +585,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Sim! Entregamos na Cidade São Jorge, Parque Marajoara e bairros próximos de Santo André. Consulte a taxa de entrega e tempo estimado chamando nossa equipe no WhatsApp.</p>
+            <p>Sim! Entregamos na Cidade São Jorge, Parque Marajoara e bairros próximos de Santo André. Consulte a taxa de entrega selecionando a opção Delivery na sua Sacola.</p>
           </div>
         </div>
       </div>
@@ -631,11 +606,11 @@
               </svg>
             </div>
             <div class="logo-text-group">
-              <span class="logo-title">MERCADO DA <span>CARNE</span></span>
+              <span class="logo-title" style="color:#FFFFFF;">MERCADO DA <span style="color:#FBBF24;">CARNE</span></span>
               <span class="logo-subtitle">Shop Butcher & Rotisserie • Santo André</span>
             </div>
           </div>
-          <p style="font-size:0.9rem; line-height:1.6; color:var(--text-secondary); margin-bottom:16px;">
+          <p style="font-size:0.9rem; line-height:1.6; color:#A8A29E; margin-bottom:16px;">
             Açougue completo, cortes nobres para churrasco, rotisserie com assados aos fins de semana e mercearia na Av. São Paulo, 584 - Cidade São Jorge, Santo André - SP.
           </p>
         </div>
@@ -644,10 +619,9 @@
           <h4>Navegação</h4>
           <div class="footer-links">
             <a href="#inicio" class="footer-link">Início</a>
-            <a href="#diferenciais" class="footer-link">Diferenciais</a>
-            <a href="#cortes" class="footer-link">Vitrine & Assados</a>
+            <a href="#cortes" class="footer-link">Cardápio & Combos</a>
+            <a href="#rotisserie-banner" class="footer-link">Rotisserie de Domingo</a>
             <a href="#calculadora" class="footer-link">Calculadora de Churrasco</a>
-            <a href="#kits" class="footer-link">Kits Prontos</a>
             <a href="#localizacao" class="footer-link">Onde Estamos</a>
           </div>
         </div>
@@ -663,16 +637,16 @@
         </div>
 
         <div class="footer-col">
-          <h4>Área do Cliente & Gestor</h4>
-          <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin-bottom:16px;">
-            Atendimento humanizado pelo WhatsApp. Gestores da loja podem gerenciar carnes, assados e preços pelo painel restrito.
+          <h4>Área do Dono & Gestão</h4>
+          <p style="font-size:0.88rem; color:#A8A29E; line-height:1.6; margin-bottom:16px;">
+            Painel com Sofia IA por comando de voz, gerador de fotos e automação de disparos de promoções para clientes.
           </p>
           <div style="display:flex; flex-direction:column; gap:10px;">
-            <a href="https://wa.me/5511963336938" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-cta btn-sm">
-              Chamar no WhatsApp
+            <a href="admin.html" class="btn btn-secondary btn-sm" style="font-size:0.85rem; border-color:#44403C; color:#FFFFFF;">
+              🔐 Acessar Painel do Dono (Sofia IA)
             </a>
-            <a href="admin.html" class="btn btn-secondary btn-sm" style="font-size:0.8rem;">
-              🔐 Acessar Painel do Lojista
+            <a href="https://wa.me/5511963336938" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
+              Chamar no WhatsApp
             </a>
           </div>
         </div>
@@ -690,7 +664,83 @@
   </footer>
 
   <!-- =========================================================================
-       12. WIDGET FLUTUANTE WHATSAPP INTELIGENTE (PADRÃO OFICIAL)
+       12. BARRA FLUTUANTE DA SACOLA (FOOTER PILL PARA MOBILE & DESKTOP)
+       ========================================================================= -->
+  <div id="floating-cart-bar" class="floating-cart-bar" aria-label="Resumo da Sacola">
+    <div class="cart-bar-info">
+      <span class="cart-bar-count" id="cart-bar-count">0</span>
+      <div>
+        <div style="font-size:0.75rem; color:#D6D3D1; text-transform:uppercase; font-weight:700;">Sua Sacola</div>
+        <div class="cart-bar-total" id="cart-bar-total">R$ 0,00</div>
+      </div>
+    </div>
+    <div class="cart-bar-btn">
+      <span>Ver Pedido ➔</span>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       13. CART DRAWER (SLIDE-OVER LATERAL DA SACOLA DE COMPRAS)
+       ========================================================================= -->
+  <div id="cart-drawer-backdrop" class="cart-drawer-backdrop"></div>
+  <aside id="cart-drawer" class="cart-drawer" aria-label="Sacola de Compras">
+    <div class="cart-drawer-header">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size:1.4rem;">🥩</span>
+        <h3 class="cart-drawer-title">Minha Sacola de Carnes</h3>
+      </div>
+      <button id="cart-drawer-close" style="background:transparent; font-size:1.4rem; cursor:pointer; color:#78716C;">✕</button>
+    </div>
+
+    <!-- Lista de Itens do Carrinho -->
+    <div class="cart-drawer-items" id="cart-drawer-items">
+      <!-- Preenchido via JavaScript -->
+    </div>
+
+    <!-- Opções de Entrega & Dados do Cliente -->
+    <div class="cart-drawer-footer">
+      <!-- Opção de Entrega ou Retirada -->
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <label style="font-size:0.8rem; font-weight:800; color:var(--text-heading); text-transform:uppercase;">Tipo de Pedido</label>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <button type="button" id="btn-tipo-retirada" class="btn-sm" style="background:var(--brand-burgundy); color:#FFFFFF; border-radius:8px; font-weight:800; border:none; cursor:pointer; padding:8px;">
+            🏬 Retirada na Loja
+          </button>
+          <button type="button" id="btn-tipo-entrega" class="btn-sm" style="background:var(--bg-subtle); color:var(--text-body); border-radius:8px; font-weight:700; border:1px solid var(--border-light); cursor:pointer; padding:8px;">
+            🛵 Delivery Santo André
+          </button>
+        </div>
+      </div>
+
+      <!-- Campos de Nome e Endereço -->
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <input type="text" id="cart-cliente-nome" placeholder="Seu Nome Completo" style="width:100%; padding:10px 14px; border-radius:8px; border:1px solid var(--border-light); font-size:0.88rem; background:#FFFFFF;">
+        <input type="text" id="cart-cliente-endereco" placeholder="Endereço de Entrega (se for delivery)" style="width:100%; padding:10px 14px; border-radius:8px; border:1px solid var(--border-light); font-size:0.88rem; background:#FFFFFF; display:none;">
+        <input type="text" id="cart-cliente-obs" placeholder="Observações (ex: bife grosso, ponto bem passado)" style="width:100%; padding:10px 14px; border-radius:8px; border:1px solid var(--border-light); font-size:0.88rem; background:#FFFFFF;">
+      </div>
+
+      <!-- Resumo Total -->
+      <div class="cart-drawer-total-row">
+        <span class="total-label">Total do Pedido:</span>
+        <span class="total-val" id="cart-drawer-total">R$ 0,00</span>
+      </div>
+
+      <!-- Botão de Finalização no WhatsApp -->
+      <button id="btn-finalizar-whatsapp" class="btn btn-whatsapp" style="width:100%; padding:14px; font-size:1rem;">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2z"/>
+        </svg>
+        <span>Enviar Pedido no WhatsApp</span>
+      </button>
+
+      <span style="font-size:0.75rem; color:var(--text-muted); text-align:center;">
+        Av. São Paulo, 584 - Cidade São Jorge • Santo André
+      </span>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       14. WIDGET FLUTUANTE WHATSAPP INTELIGENTE (PADRÃO OFICIAL)
        ========================================================================= -->
   <div id="whatsapp-widget" class="wa-widget" aria-label="Atendimento via WhatsApp">
     <a id="wa-link" href="#" target="_blank" rel="noopener noreferrer" class="wa-btn">

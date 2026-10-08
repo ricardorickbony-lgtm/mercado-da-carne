@@ -2,37 +2,50 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel do Gestor | Mercado da Carne Mauá</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Painel do Dono & Sofia IA | Mercado da Carne (Santo André - SP)</title>
   
+  <!-- PWA Manifest & Favicon -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#991B1B">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Plus Jakarta Sans & Syne -->
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .font-syne { font-family: 'Syne', sans-serif; }
+    .font-outfit { font-family: 'Outfit', sans-serif; }
+    .pulse-mic {
+      animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+<body class="bg-stone-900 text-stone-100 min-h-screen flex flex-col antialiased">
 
   <!-- =========================================================================
-       1. TELA DE LOGIN DO GESTOR (BLOQUEIO INICIAL)
+       1. TELA DE LOGIN DO DONO (PROTEÇÃO POR SENHA)
        ========================================================================= -->
-  <div id="tela-login" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md">
-    <div class="relative bg-slate-900 border border-amber-500/30 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl">
+  <div id="tela-login" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/90 backdrop-blur-md">
+    <div class="relative bg-stone-900 border border-amber-600/30 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl">
       <div class="text-center space-y-3 mb-6">
-        <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl flex items-center justify-center text-slate-950 mx-auto shadow-lg font-black text-2xl font-syne">
+        <div class="w-16 h-16 bg-gradient-to-br from-red-600 to-amber-600 rounded-2xl flex items-center justify-center text-white mx-auto shadow-lg text-3xl font-outfit font-black">
           🥩
         </div>
         <div>
-          <span class="text-xs font-black uppercase tracking-widest text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">Área Restrita</span>
-          <h2 class="text-2xl font-black text-white tracking-tight mt-2 font-syne">Mercado da Carne</h2>
-          <p class="text-xs text-slate-400 mt-1">Gestão de Cortes, Rotisserie & Atendimento • Santo André</p>
+          <span class="text-xs font-black uppercase tracking-widest text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30">Área Exclusiva do Dono</span>
+          <h2 class="text-2xl font-black text-white tracking-tight mt-2 font-outfit">Mercado da Carne</h2>
+          <p class="text-xs text-stone-400 mt-1">Gestão com Sofia IA, Combos & WhatsApp • Santo André</p>
         </div>
       </div>
 
@@ -43,22 +56,22 @@
 
       <form id="form-login" class="space-y-4">
         <div>
-          <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Usuário</label>
-          <input type="text" id="login-usuario" required value="admin" class="w-full text-sm px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <label class="block text-xs font-bold text-stone-300 uppercase mb-1">Usuário</label>
+          <input type="text" id="login-usuario" required value="admin" class="w-full text-sm px-4 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
         <div>
-          <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Senha de Acesso</label>
-          <input type="password" id="login-senha" required placeholder="••••••••" class="w-full text-sm px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <label class="block text-xs font-bold text-stone-300 uppercase mb-1">Senha de Acesso</label>
+          <input type="password" id="login-senha" required placeholder="••••••••" class="w-full text-sm px-4 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
         </div>
 
-        <button type="submit" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black py-3 rounded-xl transition shadow-lg text-sm mt-2">
-          Entrar no Painel Gestor
+        <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-black py-3 rounded-xl transition shadow-lg text-sm mt-2">
+          Entrar no Painel do Dono
         </button>
       </form>
 
-      <div class="mt-6 pt-4 border-t border-slate-800 bg-slate-800/40 p-3 rounded-2xl flex items-center justify-between text-xs">
+      <div class="mt-6 pt-4 border-t border-stone-800 bg-stone-800/40 p-3 rounded-2xl flex items-center justify-between text-xs">
         <div>
-          <span class="text-slate-400">Senha padrão:</span>
+          <span class="text-stone-400">Senha padrão:</span>
           <code class="text-amber-400 font-bold ml-1">admin123</code>
         </div>
         <button type="button" id="btn-preencher-demo" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-[11px] font-bold px-2 py-1 rounded-lg transition">
@@ -67,35 +80,35 @@
       </div>
 
       <div class="mt-4 text-center">
-        <a href="index.html" class="text-xs text-slate-500 hover:text-slate-300 transition">
-          ← Voltar para o Site Oficial
+        <a href="index.html" class="text-xs text-stone-400 hover:text-white transition">
+          ← Voltar para o Web App da Loja
         </a>
       </div>
     </div>
   </div>
 
   <!-- =========================================================================
-       2. TOPO DO PAINEL DE CONTROLE
+       2. HEADER DO PAINEL DE CONTROLE
        ========================================================================= -->
-  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40">
+  <header class="bg-stone-900 border-b border-stone-800 sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 sm:h-20">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-slate-950 font-black text-xl shadow">
+          <div class="w-10 h-10 bg-gradient-to-br from-red-600 to-amber-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow">
             🥩
           </div>
           <div>
-            <span class="text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-2 font-syne">
-              MERCADO DA CARNE <span class="text-[10px] bg-amber-500/20 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/30">GESTOR</span>
+            <span class="text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-2 font-outfit">
+              MERCADO DA CARNE <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded border border-red-500/30">DONO & SOFIA IA</span>
             </span>
-            <span class="block text-[11px] font-semibold text-slate-400">Shop Butcher & Rotisserie • Santo André (Cidade São Jorge)</span>
+            <span class="block text-[11px] font-semibold text-stone-400">Av. São Paulo, 584 • Cidade São Jorge, Santo André</span>
           </div>
         </div>
 
-        <div class="flex items-center gap-3">
-          <a href="index.html" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-2 rounded-xl transition border border-slate-700">
+        <div class="flex items-center gap-2 sm:gap-3">
+          <a href="index.html" target="_blank" class="inline-flex items-center gap-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-bold px-3 py-2 rounded-xl transition border border-stone-700">
             <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-            <span>Ver Site da Loja</span>
+            <span class="hidden sm:inline">Ver Web App</span>
           </a>
           <button id="btn-logout" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-bold px-3 py-2 rounded-xl transition">
             Sair
@@ -110,7 +123,7 @@
        ========================================================================= -->
   <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
     
-    <!-- Alertas e Avisos -->
+    <!-- Alertas de Feedback -->
     <div id="admin-alerta-sucesso" class="hidden p-4 bg-emerald-950/80 border border-emerald-500/50 rounded-2xl text-emerald-300 text-sm font-semibold flex items-center justify-between shadow-lg">
       <span id="admin-alerta-texto">Operação realizada com sucesso!</span>
       <button onclick="this.parentElement.classList.add('hidden')" class="text-emerald-400 hover:text-white">✕</button>
@@ -118,54 +131,97 @@
 
     <!-- CARDS DE ESTATÍSTICAS / VISÃO GERAL -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800">
-        <span class="block text-xs font-bold uppercase text-slate-400">Total de Produtos</span>
-        <span id="stat-total" class="text-2xl font-black text-white mt-1 block font-syne">0</span>
+      <div class="bg-stone-900/90 p-5 rounded-2xl border border-stone-800">
+        <span class="block text-xs font-bold uppercase text-stone-400">Total de Produtos</span>
+        <span id="stat-total" class="text-2xl font-black text-white mt-1 block font-outfit">0</span>
       </div>
-      <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800">
-        <span class="block text-xs font-bold uppercase text-emerald-400">Cortes Ativos</span>
-        <span id="stat-ativos" class="text-2xl font-black text-emerald-400 mt-1 block font-syne">0</span>
+      <div class="bg-stone-900/90 p-5 rounded-2xl border border-stone-800">
+        <span class="block text-xs font-bold uppercase text-amber-400">Combos & Kits Ativos</span>
+        <span id="stat-combos" class="text-2xl font-black text-amber-400 mt-1 block font-outfit">0</span>
       </div>
-      <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800">
-        <span class="block text-xs font-bold uppercase text-amber-400">Rotisserie & Assados</span>
-        <span id="stat-rotisserie" class="text-2xl font-black text-amber-400 mt-1 block font-syne">0</span>
+      <div class="bg-stone-900/90 p-5 rounded-2xl border border-stone-800">
+        <span class="block text-xs font-bold uppercase text-red-400">Rotisserie de Domingo</span>
+        <span id="stat-rotisserie" class="text-2xl font-black text-red-400 mt-1 block font-outfit">0</span>
       </div>
-      <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800">
-        <span class="block text-xs font-bold uppercase text-red-400">Esgotados Hoje</span>
-        <span id="stat-esgotados" class="text-2xl font-black text-red-400 mt-1 block font-syne">0</span>
+      <div class="bg-stone-900/90 p-5 rounded-2xl border border-stone-800">
+        <span class="block text-xs font-bold uppercase text-emerald-400">Clientes Cadastrados</span>
+        <span id="stat-clientes" class="text-2xl font-black text-emerald-400 mt-1 block font-outfit">0</span>
       </div>
     </div>
 
-    <!-- ABAS DO PAINEL: GESTÃO DE PRODUTOS VS CONFIGURAÇÃO DA LOJA -->
-    <div class="flex items-center justify-between border-b border-slate-800 pb-3 flex-wrap gap-3">
-      <div class="flex items-center gap-2">
-        <button id="tab-nav-produtos" class="bg-amber-500 text-slate-950 text-xs font-bold px-4 py-2 rounded-xl transition">
-          🥩 Gestão de Carnes & Assados
+    <!-- CAIXA RÁPIDA: SOFIA IA COMANDO DE VOZ (HERO DO PAINEL) -->
+    <div class="bg-gradient-to-r from-red-950/60 via-stone-900 to-amber-950/60 border border-amber-600/40 rounded-3xl p-5 sm:p-6 shadow-xl relative overflow-hidden">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-5">
+        <div class="space-y-1 text-center md:text-left">
+          <div class="inline-flex items-center gap-2 bg-red-500/20 text-red-300 border border-red-500/30 text-[11px] font-bold px-3 py-1 rounded-full uppercase">
+            <span>✨ Assistente Inteligente Sofia IA</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black text-white font-outfit">
+            Adicione Kits ou Altere Preços com a Sua Voz!
+          </h3>
+          <p class="text-xs sm:text-sm text-stone-300 max-w-xl">
+            Clique no microfone e fale normalmente (ex: <em>"Sofia, cadastrar Combo Fraldinha Completo por 149 reais com carvão e pão de alho"</em>). Não precisa digitar com a mão engordurada!
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+          <button id="btn-sofia-voz" class="w-full sm:w-auto bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-black text-sm px-6 py-3.5 rounded-2xl transition shadow-xl flex items-center justify-center gap-3">
+            <span id="sofia-mic-icon" class="text-xl">🎙️</span>
+            <span id="sofia-mic-status">Falar com a Sofia</span>
+          </button>
+          <button id="btn-abrir-galeria" class="w-full sm:w-auto bg-stone-800 hover:bg-stone-700 text-amber-300 border border-amber-500/30 text-xs font-bold px-4 py-3.5 rounded-2xl transition flex items-center justify-center gap-2">
+            <span>🖼️ Galeria de Estúdio</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Feedback ao Vivo da Voz de Sofia -->
+      <div id="sofia-feedback-box" class="hidden mt-4 p-3 bg-stone-950/80 border border-stone-800 rounded-xl text-xs text-stone-300 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+          <span id="sofia-transcricao" class="italic font-medium">Ouvindo você falar...</span>
+        </div>
+        <button id="btn-cancelar-voz" class="text-stone-400 hover:text-white text-xs">Cancelar</button>
+      </div>
+    </div>
+
+    <!-- ABAS DO PAINEL DO DONO -->
+    <div class="flex items-center justify-between border-b border-stone-800 pb-3 flex-wrap gap-3">
+      <div class="flex items-center gap-2 flex-wrap">
+        <button id="tab-nav-produtos" class="tab-btn-nav bg-amber-500 text-stone-950 text-xs font-bold px-4 py-2 rounded-xl transition">
+          🥩 Catálogo, Combos & Estoque
         </button>
-        <button id="tab-nav-config" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl transition border border-slate-700">
+        <button id="tab-nav-clientes" class="tab-btn-nav bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-bold px-4 py-2 rounded-xl transition border border-stone-700">
+          👥 Clientes & Disparos WhatsApp
+        </button>
+        <button id="tab-nav-config" class="tab-btn-nav bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-bold px-4 py-2 rounded-xl transition border border-stone-700">
           ⚙️ Dados da Loja & WhatsApp
         </button>
       </div>
 
-      <button id="btn-novo-produto" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow flex items-center gap-2">
+      <button id="btn-novo-produto" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow flex items-center gap-2">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-        <span>Adicionar Novo Corte ou Assado</span>
+        <span>+ Novo Produto ou Combo</span>
       </button>
     </div>
 
-    <!-- SEÇÃO 1: TABELA DE CARNES & ASSADOS -->
+    <!-- =========================================================================
+         ABA 1: TABELA DE PRODUTOS & COMBOS
+         ========================================================================= -->
     <div id="secao-produtos" class="space-y-4">
-      <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-sm">
+      <div class="bg-stone-900 rounded-2xl border border-stone-800 overflow-hidden shadow-sm">
         
         <!-- Barra de Busca & Filtros -->
-        <div class="p-4 border-b border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900/60">
+        <div class="p-4 border-b border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-3 bg-stone-900/60">
           <div class="w-full sm:w-80">
-            <input type="text" id="admin-busca" placeholder="Buscar por corte, picanha, frango..." class="w-full bg-slate-800 border border-slate-700 text-white text-xs px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <input type="text" id="admin-busca" placeholder="Buscar por corte, combo, picanha, frango..." class="w-full bg-stone-800 border border-stone-700 text-white text-xs px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
           </div>
           <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
-            <button data-filtro="todos" class="filtro-btn active bg-slate-800 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-700 whitespace-nowrap">Todos</button>
-            <button data-filtro="corte" class="filtro-btn bg-slate-900 text-slate-400 hover:text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap">Açougue</button>
-            <button data-filtro="rotisserie" class="filtro-btn bg-slate-900 text-slate-400 hover:text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap">Rotisserie</button>
+            <button data-filtro="todos" class="filtro-btn active bg-stone-800 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-lg border border-stone-700 whitespace-nowrap">Todos</button>
+            <button data-filtro="combos" class="filtro-btn bg-stone-900 text-stone-400 hover:text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap">Combos & Kits</button>
+            <button data-filtro="rotisserie" class="filtro-btn bg-stone-900 text-stone-400 hover:text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap">Rotisserie</button>
+            <button data-filtro="bovinos" class="filtro-btn bg-stone-900 text-stone-400 hover:text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap">Carnes Nobres</button>
+            <button data-filtro="churrasco" class="filtro-btn bg-stone-900 text-stone-400 hover:text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap">Espetos & Acomp.</button>
           </div>
         </div>
 
@@ -173,16 +229,16 @@
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs">
             <thead>
-              <tr class="bg-slate-950/50 border-b border-slate-800 text-slate-400 uppercase tracking-wider">
+              <tr class="bg-stone-950/60 border-b border-stone-800 text-stone-400 uppercase tracking-wider">
                 <th class="p-4">Foto / Item</th>
                 <th class="p-4">Categoria</th>
                 <th class="p-4">Preço (R$)</th>
-                <th class="p-4">Status</th>
+                <th class="p-4">Disponibilidade (1-Clique)</th>
                 <th class="p-4 text-right">Ações</th>
               </tr>
             </thead>
-            <tbody id="tabela-corpo-produtos" class="divide-y divide-slate-800/60">
-              <!-- Renderizado via js/admin.js -->
+            <tbody id="tabela-corpo-produtos" class="divide-y divide-stone-800/60">
+              <!-- Renderizado dinamicamente via js/admin.js -->
             </tbody>
           </table>
         </div>
@@ -190,43 +246,131 @@
       </div>
     </div>
 
-    <!-- SEÇÃO 2: CONFIGURAÇÕES DA LOJA (ENDEREÇO, WHATSAPP, HORÁRIOS) -->
-    <div id="secao-config" class="hidden">
-      <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 max-w-2xl mx-auto shadow-sm">
-        <h3 class="text-lg font-black text-white font-syne mb-1">Configurações Oficiais da Loja</h3>
-        <p class="text-xs text-slate-400 mb-6">Altere o número de WhatsApp que recebe os pedidos e o horário de atendimento.</p>
+    <!-- =========================================================================
+         ABA 2: CLIENTES & DISPAROS WHATSAPP (AUTOMAÇÃO QUINTA A DOMINGO)
+         ========================================================================= -->
+    <div id="secao-clientes" class="hidden space-y-6">
+      <!-- Importador & Gerador de Campanhas -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Caixa de Importação de Contatos -->
+        <div class="bg-stone-900 rounded-2xl border border-stone-800 p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-black text-white font-outfit">📥 Importar Lista de Clientes</h3>
+              <p class="text-xs text-stone-400">Cole contatos do seu sistema, Excel ou WhatsApp</p>
+            </div>
+            <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full font-bold">CSV / Texto</span>
+          </div>
 
-        <form id="form-config-loja" class="space-y-4">
+          <p class="text-xs text-stone-300">
+            Formato aceito (uma linha por cliente):<br>
+            <code class="text-amber-400">Nome, Telefone, Bairro</code> ou apenas <code class="text-amber-400">Nome, Telefone</code>
+          </p>
+
+          <textarea id="importar-contatos-texto" rows="4" placeholder="Carlos Silva, 11999990001, Cidade São Jorge&#10;Mariana Souza, 11988880002, Parque Marajoara&#10;Felipe Santos, 11977770003" class="w-full bg-stone-800 border border-stone-700 text-white text-xs p-3 rounded-xl focus:ring-2 focus:ring-amber-500 font-mono"></textarea>
+
+          <div class="flex justify-between items-center">
+            <span id="importar-status" class="text-xs text-stone-400">Pronto para importar</span>
+            <button id="btn-processar-importacao" class="bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs px-4 py-2.5 rounded-xl transition">
+              Adicionar Clientes à Base
+            </button>
+          </div>
+        </div>
+
+        <!-- Gerador de Campanhas Promocionais WhatsApp -->
+        <div class="bg-stone-900 rounded-2xl border border-stone-800 p-6 space-y-4">
+          <div>
+            <h3 class="text-base font-black text-white font-outfit">📢 Automação de Promoções (Quinta a Domingo)</h3>
+            <p class="text-xs text-stone-400">Selecione o dia e gere mensagens personalizadas para seus clientes</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <button type="button" class="btn-modelo-campanha bg-stone-800 text-amber-300 border border-stone-700 p-2 rounded-xl font-bold text-left hover:border-amber-500" data-tipo="quinta">
+              🍖 Quinta do Churrasco & Moída
+            </button>
+            <button type="button" class="btn-modelo-campanha bg-stone-800 text-amber-300 border border-stone-700 p-2 rounded-xl font-bold text-left hover:border-amber-500" data-tipo="sexta">
+              🔥 Sexta dos Combos de FDS
+            </button>
+            <button type="button" class="btn-modelo-campanha bg-stone-800 text-amber-300 border border-stone-700 p-2 rounded-xl font-bold text-left hover:border-amber-500" data-tipo="sabado">
+              🥩 Sábado da Parrilla & Picanha
+            </button>
+            <button type="button" class="btn-modelo-campanha bg-stone-800 text-amber-300 border border-stone-700 p-2 rounded-xl font-bold text-left hover:border-amber-500" data-tipo="domingo">
+              🍗 Domingo da Costela & Frango
+            </button>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-stone-300 uppercase mb-1">Texto da Mensagem (com tags <span class="text-amber-400">{nome}</span> e <span class="text-amber-400">{link}</span>)</label>
+            <textarea id="texto-campanha-whatsapp" rows="4" class="w-full bg-stone-800 border border-stone-700 text-white text-xs p-3 rounded-xl focus:ring-2 focus:ring-amber-500"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabela de Clientes Cadastrados & Disparos 1-Clique -->
+      <div class="bg-stone-900 rounded-2xl border border-stone-800 overflow-hidden shadow-sm">
+        <div class="p-4 border-b border-stone-800 flex items-center justify-between">
+          <h4 class="text-sm font-black text-white font-outfit">Base de Clientes Ativa (<span id="contagem-clientes-tabela">0</span> contatos)</h4>
+          <span class="text-xs text-stone-400">Clique em <strong>Disparar WhatsApp</strong> para enviar mensagem personalizada</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-stone-950/60 border-b border-stone-800 text-stone-400 uppercase tracking-wider">
+                <th class="p-4">Cliente</th>
+                <th class="p-4">WhatsApp / Telefone</th>
+                <th class="p-4">Bairro</th>
+                <th class="p-4 text-right">Disparo no WhatsApp</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-corpo-clientes" class="divide-y divide-stone-800/60">
+              <!-- Renderizado via js/admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         ABA 3: CONFIGURAÇÕES DA LOJA (ENDEREÇO, WHATSAPP, HORÁRIOS)
+         ========================================================================= -->
+    <div id="secao-config" class="hidden">
+      <div class="bg-stone-900 rounded-2xl border border-stone-800 p-6 max-w-2xl mx-auto shadow-sm">
+        <h3 class="text-lg font-black text-white font-outfit mb-1">Configurações Oficiais da Loja</h3>
+        <p class="text-xs text-stone-400 mb-6">Altere o número de WhatsApp que recebe os pedidos e os horários de atendimento.</p>
+
+        <form id="form-config-loja" class="space-y-4 text-xs">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-bold text-slate-300 uppercase mb-1">WhatsApp para Pedidos (com DDD)</label>
-              <input type="text" id="cfg-whatsapp" required placeholder="5511963336938" class="w-full text-xs px-3 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500">
+              <label class="block font-bold text-stone-300 uppercase mb-1">WhatsApp para Pedidos (com DDD)</label>
+              <input type="text" id="cfg-whatsapp" required placeholder="5511963336938" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Telefone de Exibição</label>
-              <input type="text" id="cfg-telefone" required placeholder="(11) 96333-6938" class="w-full text-xs px-3 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500">
+              <label class="block font-bold text-stone-300 uppercase mb-1">Telefone de Exibição</label>
+              <input type="text" id="cfg-telefone" required placeholder="(11) 96333-6938" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500">
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Endereço da Loja</label>
-            <input type="text" id="cfg-endereco" required placeholder="Av. São Paulo, 584" class="w-full text-xs px-3 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500">
+            <label class="block font-bold text-stone-300 uppercase mb-1">Endereço da Loja</label>
+            <input type="text" id="cfg-endereco" required placeholder="Av. São Paulo, 584" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500">
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Bairro / Cidade</label>
-              <input type="text" id="cfg-bairro-cidade" required placeholder="Cidade São Jorge, Santo André - SP" class="w-full text-xs px-3 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500">
+              <label class="block font-bold text-stone-300 uppercase mb-1">Bairro / Cidade</label>
+              <input type="text" id="cfg-bairro-cidade" required placeholder="Cidade São Jorge, Santo André - SP" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-300 uppercase mb-1">Horário Segunda a Sábado</label>
-              <input type="text" id="cfg-horario-semana" required placeholder="07:00 às 20:00" class="w-full text-xs px-3 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500">
+              <label class="block font-bold text-stone-300 uppercase mb-1">Horário Segunda a Sábado</label>
+              <input type="text" id="cfg-horario-semana" required placeholder="07:00 às 20:00" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500">
             </div>
           </div>
 
-          <div class="pt-4 border-t border-slate-800 flex justify-end">
-            <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-6 py-3 rounded-xl transition shadow">
-              Salvar Alterações da Loja
+          <div class="pt-4 border-t border-stone-800 flex justify-end">
+            <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs px-6 py-3 rounded-xl transition shadow">
+              Salvar Dados da Loja
             </button>
           </div>
         </form>
@@ -236,94 +380,130 @@
   </main>
 
   <!-- =========================================================================
-       MODAL DE CADASTRO / EDIÇÃO DE CORTE
+       MODAL DE CADASTRO / EDIÇÃO DE PRODUTO OU COMBO
        ========================================================================= -->
-  <div id="modal-produto" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
-    <div class="bg-slate-900 border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 shadow-2xl overflow-y-auto max-h-[90vh]">
-      <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
-        <h3 id="modal-titulo" class="text-base font-black text-white font-syne">Adicionar Produto</h3>
-        <button id="modal-fechar" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+  <div id="modal-produto" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/85 backdrop-blur-sm hidden">
+    <div class="bg-stone-900 border border-amber-500/40 rounded-3xl max-w-lg w-full p-6 shadow-2xl overflow-y-auto max-h-[90vh]">
+      <div class="flex items-center justify-between pb-4 border-b border-stone-800 mb-4">
+        <div>
+          <h3 id="modal-titulo" class="text-base font-black text-white font-outfit">Adicionar Produto ou Combo</h3>
+          <span class="text-[11px] text-stone-400">Preencha digitando ou usando a voz de Sofia</span>
+        </div>
+        <button id="modal-fechar" class="text-stone-400 hover:text-white text-lg font-bold">✕</button>
       </div>
 
       <form id="form-produto" class="space-y-4 text-xs">
         <input type="hidden" id="prod-id">
 
         <div>
-          <label class="block font-bold text-slate-300 uppercase mb-1">Nome da Carne ou Assado</label>
-          <input type="text" id="prod-nome" required placeholder="Ex: Picanha Black Angus" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500">
+          <label class="block font-bold text-stone-300 uppercase mb-1">Nome do Item ou Combo</label>
+          <input type="text" id="prod-nome" required placeholder="Ex: Combo Churrasco dos Amigos ou Picanha Angus" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block font-bold text-slate-300 uppercase mb-1">Tipo</label>
-            <select id="prod-tipo" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white">
-              <option value="corte">Açougue (Corte)</option>
-              <option value="rotisserie">Rotisserie (Assado)</option>
+            <label class="block font-bold text-stone-300 uppercase mb-1">Categoria</label>
+            <select id="prod-categoria" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white">
+              <option value="combos">🔥 Combos & Kits</option>
+              <option value="rotisserie">🍗 Assados de Domingo</option>
+              <option value="bovinos">🥩 Carnes Nobres</option>
+              <option value="churrasco">🍢 Espetos & Linguiças</option>
+              <option value="acompanhamentos">🥖 Acompanhamentos & Carvão</option>
             </select>
           </div>
           <div>
-            <label class="block font-bold text-slate-300 uppercase mb-1">Categoria do Menu</label>
-            <select id="prod-categoria" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white">
-              <option value="angus">Black Angus & Prime</option>
-              <option value="parrilla">Linha Parrilla</option>
-              <option value="especiais">Wagyu & Dry Aged</option>
-              <option value="suinos">Cordeiro & Suínos</option>
-              <option value="rotisserie">Rotisserie & Assados</option>
+            <label class="block font-bold text-stone-300 uppercase mb-1">Tipo</label>
+            <select id="prod-tipo" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white">
+              <option value="combo">Combo Fechado</option>
+              <option value="corte">Corte Individual</option>
+              <option value="rotisserie">Rotisserie</option>
             </select>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block font-bold text-slate-300 uppercase mb-1">Preço (R$)</label>
-            <input type="number" step="0.01" id="prod-preco" required placeholder="139.90" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white focus:ring-2 focus:ring-amber-500">
+            <label class="block font-bold text-stone-300 uppercase mb-1">Preço (R$)</label>
+            <input type="number" step="0.01" id="prod-preco" required placeholder="189.90" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500">
           </div>
           <div>
-            <label class="block font-bold text-slate-300 uppercase mb-1">Cobrança por</label>
-            <select id="prod-unidade" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white">
+            <label class="block font-bold text-stone-300 uppercase mb-1">Cobrança por</label>
+            <select id="prod-unidade" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white">
+              <option value="combo">Por Combo</option>
               <option value="kg">Por Quilo (kg)</option>
               <option value="unidade">Por Unidade</option>
+              <option value="pacote">Por Pacote</option>
             </select>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block font-bold text-slate-300 uppercase mb-1">Marmoreio / Destaque</label>
-            <input type="text" id="prod-marmoreio" placeholder="Ex: Marmoreio 4+" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white">
+            <label class="block font-bold text-stone-300 uppercase mb-1">Serve / Rendimento</label>
+            <input type="text" id="prod-marmoreio" placeholder="Ex: Serve 6 a 8 pessoas" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white">
           </div>
           <div>
-            <label class="block font-bold text-slate-300 uppercase mb-1">Selo / Tag</label>
-            <input type="text" id="prod-tag" placeholder="Ex: Mais Vendida" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white">
+            <label class="block font-bold text-stone-300 uppercase mb-1">Selo / Tag</label>
+            <input type="text" id="prod-tag" placeholder="Ex: Mais Vendido ou Especial" class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white">
           </div>
         </div>
 
+        <!-- Foto com Ações de IA e Galeria -->
         <div>
-          <label class="block font-bold text-slate-300 uppercase mb-1">URL da Foto</label>
-          <input type="url" id="prod-foto" required placeholder="https://..." class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white">
+          <div class="flex items-center justify-between mb-1">
+            <label class="font-bold text-stone-300 uppercase">Foto do Item</label>
+            <div class="flex items-center gap-2">
+              <button type="button" id="btn-ia-foto" class="text-[11px] bg-red-500/20 text-red-300 border border-red-500/30 px-2 py-0.5 rounded-lg hover:bg-red-500/30 transition">
+                🤖 Gerar Foto com IA
+              </button>
+              <button type="button" id="btn-escolher-galeria-modal" class="text-[11px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-lg hover:bg-amber-500/30 transition">
+                🖼️ Galeria Estúdio
+              </button>
+            </div>
+          </div>
+          <input type="url" id="prod-foto" required placeholder="https://images.unsplash.com/..." class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white focus:ring-2 focus:ring-amber-500 font-mono text-[11px]">
         </div>
 
         <div>
-          <label class="block font-bold text-slate-300 uppercase mb-1">Descrição do Corte / Preparo</label>
-          <textarea id="prod-desc" rows="3" required placeholder="Fale sobre o sabor, maciez ou modo de servir..." class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white"></textarea>
+          <label class="block font-bold text-stone-300 uppercase mb-1">Descrição / Itens Inclusos</label>
+          <textarea id="prod-desc" rows="3" required placeholder="Ex: 1kg Chorizo Angus + 1kg Fraldinha + 700g Linguiça Especial + Pão de Alho..." class="w-full px-3 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white"></textarea>
         </div>
 
         <div class="flex items-center gap-4 pt-2">
           <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" id="prod-disponivel" checked class="w-4 h-4 text-amber-500 rounded bg-slate-800 border-slate-700">
-            <span class="font-bold text-slate-200">Disponível para Venda</span>
+            <input type="checkbox" id="prod-disponivel" checked class="w-4 h-4 text-amber-500 rounded bg-stone-800 border-stone-700">
+            <span class="font-bold text-stone-200">Disponível para Venda</span>
           </label>
           <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" id="prod-destaque" class="w-4 h-4 text-amber-500 rounded bg-slate-800 border-slate-700">
-            <span class="font-bold text-slate-200">Destacar no Site</span>
+            <input type="checkbox" id="prod-destaque" class="w-4 h-4 text-amber-500 rounded bg-stone-800 border-stone-700">
+            <span class="font-bold text-stone-200">Destacar no Topo</span>
           </label>
         </div>
 
-        <div class="pt-4 border-t border-slate-800 flex justify-end gap-2">
-          <button type="button" id="modal-cancelar" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl">Cancelar</button>
-          <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-5 py-2 rounded-xl">Salvar Produto</button>
+        <div class="pt-4 border-t border-stone-800 flex justify-end gap-2">
+          <button type="button" id="modal-cancelar" class="bg-stone-800 hover:bg-stone-700 text-stone-300 px-4 py-2.5 rounded-xl">Cancelar</button>
+          <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-stone-950 font-black px-5 py-2.5 rounded-xl">Salvar Item</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL DE GALERIA DE FOTOS DE ESTÚDIO (12 FOTOS GASTRONÔMICAS)
+       ========================================================================= -->
+  <div id="modal-galeria" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/85 backdrop-blur-sm hidden">
+    <div class="bg-stone-900 border border-amber-500/40 rounded-3xl max-w-2xl w-full p-6 shadow-2xl overflow-y-auto max-h-[85vh]">
+      <div class="flex items-center justify-between pb-4 border-b border-stone-800 mb-4">
+        <div>
+          <h3 class="text-base font-black text-white font-outfit">Galeria de Fotos de Estúdio</h3>
+          <p class="text-xs text-stone-400">Clique em qualquer foto gastronômica para usar no seu produto</p>
+        </div>
+        <button id="modal-galeria-fechar" class="text-stone-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="grade-fotos-estudio">
+        <!-- Preenchido via JavaScript -->
+      </div>
     </div>
   </div>
 

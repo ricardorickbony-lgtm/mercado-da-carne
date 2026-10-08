@@ -1,10 +1,24 @@
 /**
- * MERCADO DA CARNE — SHOP BUTCHER & ROTISSERIE (Mauá - SP)
- * Lógica do Painel de Gestão (admin.js)
+ * MERCADO DA CARNE — SHOP BUTCHER & ROTISSERIE
+ * Av. São Paulo, 584 - Cidade São Jorge, Santo André - SP
+ * Lógica do Painel do Dono, Sofia IA por Voz, Fotos de Estúdio & Campanhas WhatsApp
  * Padrão Ricardo & Severino
  */
 
 const SESSION_KEY = 'mercado_carne_auth_session';
+
+// Modelos Pré-configurados de Campanhas de WhatsApp (Quinta a Domingo)
+const MODELOS_CAMPANHAS = {
+  quinta: `🥩 Olá, {nome}! Tudo bem?\n\nPassando para avisar que já preparamos os cortes especiais e a carne moída fresca de primeira aqui no Mercado da Carne (Santo André)!\n\nConfira nosso cardápio no Web App e garanta seu pedido:\n👉 {link}`,
+  sexta: `🔥 Fala, {nome}! O fim de semana chegou!\n\nNossos COMBOS COMPLETOS PARA CHURRASCO já estão montados com carnes selecionadas, linguiça artesanal, pão de alho e carvão.\n\nMonte seu kit direto pelo nosso Web App:\n👉 {link}\n\nRetire sem fila ou entregamos na sua casa!`,
+  sabado: `🥩 Olá, {nome}! Sábado pede churrasco com a família!\n\nLinha Parrilla Prime, Picanha Black Angus e Bife de Ancho frescos no balcão da Av. São Paulo, 584.\n\nVeja as carnes disponíveis em tempo real:\n👉 {link}`,
+  domingo: `🍗 Bom dia, {nome}! O almoço de domingo está pronto!\n\nNossa tradicional Costela no Bafo desmanchando e o Frango Assado recheado com farofa úmida já estão saindo do forno.\n\nGaranta a sua antes que esgote pelo Web App:\n👉 {link}`
+};
+
+let filtroAtual = 'todos';
+let termoBusca = '';
+let reconhecimentoVoz = null;
+let estaOuvindoVoz = false;
 
 document.addEventListener('DOMContentLoaded', () => {
   configurarAuth();
@@ -12,8 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
     carregarPainel();
   }
   configurarEventosGerais();
+  configurarSofiaVoz();
+  configurarCampanhasWhatsApp();
+  configurarGaleriaEstudio();
 });
 
+/* ==========================================================================
+   1. AUTENTICAÇÃO DO DONO
+   ========================================================================== */
 function estaAutenticado() {
   return sessionStorage.getItem(SESSION_KEY) === 'logado';
 }
@@ -25,7 +45,7 @@ function configurarAuth() {
   const btnDemo = document.getElementById('btn-preencher-demo');
   const btnLogout = document.getElementById('btn-logout');
 
-  if (estaAutenticado()) {
+  if (estaAutenticado() && telaLogin) {
     telaLogin.classList.add('hidden');
   }
 
@@ -45,10 +65,11 @@ function configurarAuth() {
       if (usuario === 'admin' && EstoqueDB.verificarSenha(senha)) {
         sessionStorage.setItem(SESSION_KEY, 'logado');
         telaLogin.classList.add('hidden');
-        loginErro.classList.add('hidden');
+        if (loginErro) loginErro.classList.add('hidden');
         carregarPainel();
+        mostrarAlerta('Bem-vindo ao Painel do Dono, Ricardo!');
       } else {
-        loginErro.classList.remove('hidden');
+        if (loginErro) loginErro.classList.remove('hidden');
       }
     });
   }
@@ -61,303 +82,692 @@ function configurarAuth() {
   }
 }
 
+/* ==========================================================================
+   2. CARREGAMENTO INICIAL DO PAINEL & MÉTRICAS
+   ========================================================================== */
 function carregarPainel() {
   atualizarMetricas();
   renderizarTabelaProdutos();
+  renderizarTabelaClientes();
   carregarConfigLoja();
 }
 
 function atualizarMetricas() {
   const produtos = EstoqueDB.obterProdutos();
-  const total = produtos.length;
-  const ativos = produtos.filter(p => p.disponivel).length;
-  const esgotados = produtos.filter(p => !p.disponivel).length;
-  const rotisserie = produtos.filter(p => p.tipo === 'rotisserie').length;
+  const clientes = EstoqueDB.obterClientes();
 
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-ativos').textContent = ativos;
-  document.getElementById('stat-rotisserie').textContent = rotisserie;
-  document.getElementById('stat-esgotados').textContent = esgotados;
+  const total = produtos.length;
+  const combos = produtos.filter(p => p.categoria === 'combos' && p.disponivel).length;
+  const rotisserie = produtos.filter(p => (p.tipo === 'rotisserie' || p.categoria === 'rotisserie') && p.disponivel).length;
+  const totalClientes = clientes.length;
+
+  const statTotal = document.getElementById('stat-total');
+  const statCombos = document.getElementById('stat-combos');
+  const statRotisserie = document.getElementById('stat-rotisserie');
+  const statClientes = document.getElementById('stat-clientes');
+
+  if (statTotal) statTotal.textContent = total;
+  if (statCombos) statCombos.textContent = combos;
+  if (statRotisserie) statRotisserie.textContent = rotisserie;
+  if (statClientes) statClientes.textContent = totalClientes;
+
+  const countTabelaClientes = document.getElementById('contagem-clientes-tabela');
+  if (countTabelaClientes) countTabelaClientes.textContent = totalClientes;
 }
 
-let filtroAtual = 'todos';
-let termoBusca = '';
+/* ==========================================================================
+   3. NAVEGAÇÃO DE ABAS DO PAINEL
+   ========================================================================== */
+function configurarEventosGerais() {
+  const tabProdutos = document.getElementById('tab-nav-produtos');
+  const tabClientes = document.getElementById('tab-nav-clientes');
+  const tabConfig = document.getElementById('tab-nav-config');
 
+  const secProdutos = document.getElementById('secao-produtos');
+  const secClientes = document.getElementById('secao-clientes');
+  const secConfig = document.getElementById('secao-config');
+
+  const abas = [
+    { btn: tabProdutos, sec: secProdutos },
+    { btn: tabClientes, sec: secClientes },
+    { btn: tabConfig, sec: secConfig }
+  ];
+
+  abas.forEach(aba => {
+    if (aba.btn) {
+      aba.btn.addEventListener('click', () => {
+        abas.forEach(a => {
+          if (a.btn) {
+            a.btn.className = 'tab-btn-nav bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-bold px-4 py-2 rounded-xl transition border border-stone-700';
+          }
+          if (a.sec) a.sec.classList.add('hidden');
+        });
+
+        aba.btn.className = 'tab-btn-nav bg-amber-500 text-stone-950 text-xs font-bold px-4 py-2 rounded-xl transition';
+        if (aba.sec) aba.sec.classList.remove('hidden');
+      });
+    }
+  });
+
+  // Busca e Filtros de Produtos
+  const inputBusca = document.getElementById('admin-busca');
+  if (inputBusca) {
+    inputBusca.addEventListener('input', (e) => {
+      termoBusca = e.target.value.trim().toLowerCase();
+      renderizarTabelaProdutos();
+    });
+  }
+
+  const botoesFiltro = document.querySelectorAll('.filtro-btn');
+  botoesFiltro.forEach(btn => {
+    btn.addEventListener('click', () => {
+      botoesFiltro.forEach(b => {
+        b.className = 'filtro-btn bg-stone-900 text-stone-400 hover:text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap';
+      });
+      btn.className = 'filtro-btn active bg-stone-800 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-lg border border-stone-700 whitespace-nowrap';
+      filtroAtual = btn.getAttribute('data-filtro') || 'todos';
+      renderizarTabelaProdutos();
+    });
+  });
+
+  // Modal Novo Produto
+  const btnNovo = document.getElementById('btn-novo-produto');
+  const modalProd = document.getElementById('modal-produto');
+  const modalFechar = document.getElementById('modal-fechar');
+  const modalCancelar = document.getElementById('modal-cancelar');
+  const formProd = document.getElementById('form-produto');
+
+  if (btnNovo) {
+    btnNovo.addEventListener('click', () => {
+      abrirModalProduto();
+    });
+  }
+
+  if (modalFechar) modalFechar.addEventListener('click', fecharModalProduto);
+  if (modalCancelar) modalCancelar.addEventListener('click', fecharModalProduto);
+
+  if (formProd) {
+    formProd.addEventListener('submit', (e) => {
+      e.preventDefault();
+      salvarFormProduto();
+    });
+  }
+
+  // Gerador de Foto com IA
+  const btnIaFoto = document.getElementById('btn-ia-foto');
+  if (btnIaFoto) {
+    btnIaFoto.addEventListener('click', gerarFotoComIA);
+  }
+
+  // Salvar Config Loja
+  const formConfig = document.getElementById('form-config-loja');
+  if (formConfig) {
+    formConfig.addEventListener('submit', (e) => {
+      e.preventDefault();
+      salvarConfigLoja();
+    });
+  }
+}
+
+/* ==========================================================================
+   4. SOFIA IA: COMANDO DE VOZ PARA CADASTRAR OU ATUALIZAR KITS
+   ========================================================================== */
+function configurarSofiaVoz() {
+  const btnVoz = document.getElementById('btn-sofia-voz');
+  const boxFeedback = document.getElementById('sofia-feedback-box');
+  const textoFeedback = document.getElementById('sofia-transcricao');
+  const btnCancelarVoz = document.getElementById('btn-cancelar-voz');
+  const micStatus = document.getElementById('sofia-mic-status');
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    if (btnVoz) {
+      btnVoz.addEventListener('click', () => {
+        alert('Seu navegador não suporta reconhecimento de voz direto. Experimente usar o Google Chrome no celular ou computador!');
+      });
+    }
+    return;
+  }
+
+  reconhecimentoVoz = new SpeechRecognition();
+  reconhecimentoVoz.lang = 'pt-BR';
+  reconhecimentoVoz.continuous = false;
+  reconhecimentoVoz.interimResults = true;
+
+  if (btnVoz) {
+    btnVoz.addEventListener('click', () => {
+      if (estaOuvindoVoz) {
+        reconhecimentoVoz.stop();
+        return;
+      }
+      iniciarEscutaSofia();
+    });
+  }
+
+  if (btnCancelarVoz) {
+    btnCancelarVoz.addEventListener('click', () => {
+      if (reconhecimentoVoz) reconhecimentoVoz.stop();
+      pararEscutaSofia();
+    });
+  }
+
+  reconhecimentoVoz.onstart = () => {
+    estaOuvindoVoz = true;
+    if (boxFeedback) boxFeedback.classList.remove('hidden');
+    if (textoFeedback) textoFeedback.textContent = 'Sofia ouvindo... Fale o nome do combo, carnes e o preço!';
+    if (micStatus) micStatus.textContent = 'Ouvindo...';
+    if (btnVoz) btnVoz.classList.add('pulse-mic');
+  };
+
+  reconhecimentoVoz.onresult = (event) => {
+    let transcricao = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcricao += event.results[i][0].transcript;
+    }
+    if (textoFeedback) textoFeedback.textContent = `"${transcricao}"`;
+
+    if (event.results[0].isFinal) {
+      processarComandoSofia(transcricao);
+    }
+  };
+
+  reconhecimentoVoz.onerror = (e) => {
+    console.warn('[Sofia IA] Erro no microfone:', e.error);
+    pararEscutaSofia();
+    if (textoFeedback) textoFeedback.textContent = 'Não entendi. Clique novamente para falar com a Sofia.';
+  };
+
+  reconhecimentoVoz.onend = () => {
+    pararEscutaSofia();
+  };
+}
+
+function iniciarEscutaSofia() {
+  try {
+    reconhecimentoVoz.start();
+  } catch (e) {
+    console.warn(e);
+  }
+}
+
+function pararEscutaSofia() {
+  estaOuvindoVoz = false;
+  const btnVoz = document.getElementById('btn-sofia-voz');
+  const micStatus = document.getElementById('sofia-mic-status');
+  if (btnVoz) btnVoz.classList.remove('pulse-mic');
+  if (micStatus) micStatus.textContent = 'Falar com a Sofia';
+}
+
+/**
+ * Inteligência Sofia: interpreta fala em português e preenche o formulário
+ */
+function processarComandoSofia(texto) {
+  const frase = texto.toLowerCase();
+  console.log('[Sofia IA] Processando comando:', frase);
+
+  // 1. Extração de Preço (ex: "por 189 reais", "189,90", "duzentos reais")
+  let precoDetectado = null;
+  const regexPreco = /(?:por|valor|custa|de)?\s*(\d+(?:[,\.]\d+)?)\s*(?:reais)?/i;
+  const matchPreco = frase.match(regexPreco);
+  if (matchPreco && matchPreco[1]) {
+    precoDetectado = parseFloat(matchPreco[1].replace(',', '.'));
+  }
+
+  // 2. Extração de Categoria
+  let categoriaDetectada = 'combos';
+  let tipoDetectado = 'combo';
+
+  if (frase.includes('frango') || frase.includes('costela no bafo') || frase.includes('rotisserie') || frase.includes('lasanha') || frase.includes('assado')) {
+    categoriaDetectada = 'rotisserie';
+    tipoDetectado = 'rotisserie';
+  } else if (frase.includes('espeto') || frase.includes('espetinho') || frase.includes('linguiça')) {
+    categoriaDetectada = 'churrasco';
+    tipoDetectado = 'corte';
+  } else if (frase.includes('picanha') || frase.includes('angus') || frase.includes('ancho') || frase.includes('chorizo') || frase.includes('bife')) {
+    categoriaDetectada = frase.includes('combo') ? 'combos' : 'bovinos';
+    tipoDetectado = frase.includes('combo') ? 'combo' : 'corte';
+  } else if (frase.includes('carvão') || frase.includes('pão de alho') || frase.includes('farofa')) {
+    categoriaDetectada = 'acompanhamentos';
+    tipoDetectado = 'corte';
+  }
+
+  // 3. Extração de Nome
+  let nomeDetectado = frase
+    .replace(/^sofia\s*/i, '')
+    .replace(/^(adicionar|cadastrar|novo|colocar|criar)\s*/i, '')
+    .replace(/(?:por|valor|de)?\s*\d+(?:[,\.]\d+)?\s*(?:reais)?.*/i, '')
+    .trim();
+
+  // Capitalizar primeira letra de cada palavra
+  nomeDetectado = nomeDetectado.replace(/\b\w/g, l => l.toUpperCase()) || 'Novo Combo do Dono';
+
+  // 4. Abrir modal com dados preenchidos
+  abrirModalProduto();
+
+  document.getElementById('prod-nome').value = nomeDetectado;
+  document.getElementById('prod-categoria').value = categoriaDetectada;
+  document.getElementById('prod-tipo').value = tipoDetectado;
+  if (precoDetectado) {
+    document.getElementById('prod-preco').value = precoDetectado.toFixed(2);
+  }
+  document.getElementById('prod-desc').value = `Item cadastrado via comando de voz Sofia: "${texto}"`;
+  document.getElementById('prod-marmoreio').value = categoriaDetectada === 'combos' ? 'Serve 4 a 6 pessoas' : 'Corte Selecionado';
+  document.getElementById('prod-tag').value = 'Especial da Casa';
+
+  // Buscar foto padrão de acordo com categoria
+  const galeria = EstoqueDB.obterGaleriaEstudio();
+  const fotoSugerida = galeria.find(g => g.categoria === categoriaDetectada) || galeria[0];
+  document.getElementById('prod-foto').value = fotoSugerida.url;
+
+  mostrarAlerta(`✨ Sofia interpretou: "${nomeDetectado}" por R$ ${precoDetectado || 'a definir'}. Confira e salve!`);
+}
+
+/* ==========================================================================
+   5. GERADOR DE FOTO COM IA & GALERIA DE ESTÚDIO
+   ========================================================================== */
+function gerarFotoComIA() {
+  const nome = document.getElementById('prod-nome').value.trim();
+  const categoria = document.getElementById('prod-categoria').value;
+  const inputFoto = document.getElementById('prod-foto');
+
+  if (!inputFoto) return;
+
+  const galeria = EstoqueDB.obterGaleriaEstudio();
+  // Busca na galeria uma imagem correspondente
+  const fotoEncontrada = galeria.find(f => 
+    nome.toLowerCase().includes(f.nome.toLowerCase().split(' ')[0]) || 
+    f.categoria === categoria
+  ) || galeria[Math.floor(Math.random() * galeria.length)];
+
+  inputFoto.value = fotoEncontrada.url;
+  mostrarAlerta(`🤖 Sofia IA selecionou a foto de estúdio de alta definição para "${nome || 'seu produto'}"!`);
+}
+
+function configurarGaleriaEstudio() {
+  const btnAbrirTopo = document.getElementById('btn-abrir-galeria');
+  const btnAbrirModal = document.getElementById('btn-escolher-galeria-modal');
+  const modalGaleria = document.getElementById('modal-galeria');
+  const fecharGaleria = document.getElementById('modal-galeria-fechar');
+  const gradeFotos = document.getElementById('grade-fotos-estudio');
+
+  const abrirGaleria = () => {
+    if (!modalGaleria || !gradeFotos) return;
+    const fotos = EstoqueDB.obterGaleriaEstudio();
+    
+    gradeFotos.innerHTML = fotos.map((f, i) => `
+      <div class="group relative rounded-xl overflow-hidden cursor-pointer border border-stone-800 hover:border-amber-500 transition shadow" onclick="selecionarFotoGaleria('${f.url}')">
+        <img src="${f.url}" alt="${f.nome}" class="w-full h-32 object-cover group-hover:scale-105 transition duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-transparent to-transparent flex items-end p-2">
+          <span class="text-[11px] font-bold text-white">${f.nome}</span>
+        </div>
+      </div>
+    `).join('');
+
+    modalGaleria.classList.remove('hidden');
+  };
+
+  if (btnAbrirTopo) btnAbrirTopo.addEventListener('click', abrirGaleria);
+  if (btnAbrirModal) btnAbrirModal.addEventListener('click', abrirGaleria);
+  if (fecharGaleria) fecharGaleria.addEventListener('click', () => modalGaleria.classList.add('hidden'));
+}
+
+window.selecionarFotoGaleria = function(url) {
+  const inputFoto = document.getElementById('prod-foto');
+  const modalGaleria = document.getElementById('modal-galeria');
+  if (inputFoto) inputFoto.value = url;
+  if (modalGaleria) modalGaleria.classList.add('hidden');
+  mostrarAlerta('Foto selecionada com sucesso para o produto!');
+};
+
+/* ==========================================================================
+   6. RENDERIZAÇÃO DA TABELA DE PRODUTOS & TOGGLE EM 1-CLIQUE
+   ========================================================================== */
 function renderizarTabelaProdutos() {
   const tbody = document.getElementById('tabela-corpo-produtos');
   if (!tbody) return;
 
   let produtos = EstoqueDB.obterProdutos();
 
-  if (filtroAtual === 'corte') {
-    produtos = produtos.filter(p => p.tipo === 'corte');
-  } else if (filtroAtual === 'rotisserie') {
-    produtos = produtos.filter(p => p.tipo === 'rotisserie');
+  if (filtroAtual !== 'todos') {
+    produtos = produtos.filter(p => p.categoria === filtroAtual || (filtroAtual === 'rotisserie' && p.tipo === 'rotisserie'));
   }
 
   if (termoBusca) {
-    const termo = termoBusca.toLowerCase();
-    produtos = produtos.filter(p => p.nome.toLowerCase().includes(termo) || p.descricao.toLowerCase().includes(termo));
+    produtos = produtos.filter(p => 
+      p.nome.toLowerCase().includes(termoBusca) || 
+      (p.descricao && p.descricao.toLowerCase().includes(termoBusca))
+    );
   }
 
   if (produtos.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="5" class="p-6 text-center text-slate-500">
-          Nenhum produto encontrado. Clique em "Adicionar Novo Corte ou Assado" para cadastrar.
+        <td colspan="5" class="p-8 text-center text-stone-500">
+          Nenhum produto encontrado com este filtro.
         </td>
       </tr>
     `;
     return;
   }
 
-  tbody.innerHTML = produtos.map(prod => {
-    const precoFormatado = EstoqueDB.formatarPreco(prod.preco);
-    const badgeStatus = prod.disponivel
-      ? `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full text-[10px] font-bold">Disponível</span>`
-      : `<span class="bg-red-500/10 text-red-400 border border-red-500/30 px-2 py-0.5 rounded-full text-[10px] font-bold">Esgotado</span>`;
-
-    const badgeTipo = prod.tipo === 'rotisserie'
-      ? `<span class="bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded text-[10px] font-semibold">🍗 Rotisserie</span>`
-      : `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded text-[10px] font-semibold">🥩 Açougue</span>`;
+  tbody.innerHTML = produtos.map(p => {
+    const precoFormatado = EstoqueDB.formatarPreco(p.preco);
+    const badgeDisp = p.disponivel
+      ? `<span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-full font-bold">🟢 À Venda</span>`
+      : `<span class="bg-red-500/20 text-red-400 border border-red-500/30 px-2.5 py-1 rounded-full font-bold">🔴 Esgotado</span>`;
 
     return `
-      <tr class="hover:bg-slate-900/40 transition">
-        <td class="p-4">
-          <div class="flex items-center gap-3">
-            <img src="${prod.foto}" alt="${prod.nome}" class="w-12 h-12 rounded-xl object-cover border border-slate-700 flex-shrink-0">
-            <div>
-              <div class="font-bold text-white text-xs">${prod.nome}</div>
-              <div class="text-[10px] text-slate-400">${prod.tag || ''} • ${prod.marmoreio || ''}</div>
-            </div>
+      <tr class="hover:bg-stone-800/40 transition">
+        <td class="p-4 flex items-center gap-3">
+          <img src="${p.foto}" alt="${p.nome}" class="w-12 h-12 rounded-xl object-cover border border-stone-800 flex-shrink-0" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=200&q=80'">
+          <div>
+            <span class="font-bold text-white block text-sm">${p.nome}</span>
+            <span class="text-[11px] text-stone-400 block">${p.marmoreio || p.unidade}</span>
           </div>
         </td>
         <td class="p-4">
-          <div class="space-y-1">
-            ${badgeTipo}
-            <div class="text-[10px] text-slate-400 uppercase tracking-wide">${prod.categoria}</div>
-          </div>
+          <span class="capitalize text-stone-300 font-semibold">${p.categoria}</span>
         </td>
         <td class="p-4">
-          <div class="font-bold text-amber-400">${precoFormatado}</div>
-          <div class="text-[10px] text-slate-400">por ${prod.unidade}</div>
+          <span class="font-black text-amber-400 text-sm">${precoFormatado}</span>
+          <span class="text-[10px] text-stone-400 block">/${p.unidade}</span>
         </td>
         <td class="p-4">
-          <button onclick="alternarDisponibilidade('${prod.id}')" title="Clique para alternar status">
-            ${badgeStatus}
+          <button onclick="toggleDisponibilidade('${p.id}')" class="transition transform hover:scale-105" title="Clique para alternar entre Disponível ou Esgotado">
+            ${badgeDisp}
           </button>
         </td>
-        <td class="p-4 text-right">
-          <div class="flex items-center justify-end gap-2">
-            <button onclick="editarProduto('${prod.id}')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition border border-slate-700">
-              Editar
-            </button>
-            <button onclick="excluirProduto('${prod.id}')" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition border border-red-500/30">
-              Excluir
-            </button>
-          </div>
+        <td class="p-4 text-right space-x-2">
+          <button onclick="editarProduto('${p.id}')" class="bg-stone-800 hover:bg-stone-700 text-stone-200 px-3 py-1.5 rounded-lg font-bold border border-stone-700">
+            Editar
+          </button>
+          <button onclick="excluirProduto('${p.id}')" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 px-2.5 py-1.5 rounded-lg font-bold border border-red-500/30">
+            ✕
+          </button>
         </td>
       </tr>
     `;
   }).join('');
 }
 
-function configurarEventosGerais() {
-  // Navegação entre abas Produtos vs Configurações
-  const tabProd = document.getElementById('tab-nav-produtos');
-  const tabCfg = document.getElementById('tab-nav-config');
-  const secProd = document.getElementById('secao-produtos');
-  const secCfg = document.getElementById('secao-config');
-
-  if (tabProd && tabCfg) {
-    tabProd.addEventListener('click', () => {
-      tabProd.className = 'bg-amber-500 text-slate-950 text-xs font-bold px-4 py-2 rounded-xl transition';
-      tabCfg.className = 'bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl transition border border-slate-700';
-      secProd.classList.remove('hidden');
-      secCfg.classList.add('hidden');
-    });
-
-    tabCfg.addEventListener('click', () => {
-      tabCfg.className = 'bg-amber-500 text-slate-950 text-xs font-bold px-4 py-2 rounded-xl transition';
-      tabProd.className = 'bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl transition border border-slate-700';
-      secCfg.classList.remove('hidden');
-      secProd.classList.add('hidden');
-    });
-  }
-
-  // Filtros de tipo
-  const filtroBtns = document.querySelectorAll('.filtro-btn');
-  filtroBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filtroBtns.forEach(b => {
-        b.className = 'filtro-btn bg-slate-900 text-slate-400 hover:text-white text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap';
-      });
-      btn.className = 'filtro-btn active bg-slate-800 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-lg border border-slate-700 whitespace-nowrap';
-      filtroAtual = btn.getAttribute('data-filtro');
-      renderizarTabelaProdutos();
-    });
-  });
-
-  // Campo de busca
-  const campoBusca = document.getElementById('admin-busca');
-  if (campoBusca) {
-    campoBusca.addEventListener('input', (e) => {
-      termoBusca = e.target.value;
-      renderizarTabelaProdutos();
-    });
-  }
-
-  // Modal de Produto
-  const modalProd = document.getElementById('modal-produto');
-  const btnNovoProd = document.getElementById('btn-novo-produto');
-  const btnFecharModal = document.getElementById('modal-fechar');
-  const btnCancelarModal = document.getElementById('modal-cancelar');
-  const formProd = document.getElementById('form-produto');
-
-  if (btnNovoProd) {
-    btnNovoProd.addEventListener('click', () => {
-      formProd.reset();
-      document.getElementById('prod-id').value = '';
-      document.getElementById('modal-titulo').textContent = 'Adicionar Novo Corte ou Assado';
-      modalProd.classList.remove('hidden');
-    });
-  }
-
-  function fecharModal() {
-    if (modalProd) modalProd.classList.add('hidden');
-  }
-
-  if (btnFecharModal) btnFecharModal.addEventListener('click', fecharModal);
-  if (btnCancelarModal) btnCancelarModal.addEventListener('click', fecharModal);
-
-  // Submissão do Formulário de Produto
-  if (formProd) {
-    formProd.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('prod-id').value || `item-${Date.now()}`;
-      const nome = document.getElementById('prod-nome').value;
-      const tipo = document.getElementById('prod-tipo').value;
-      const categoria = document.getElementById('prod-categoria').value;
-      const preco = parseFloat(document.getElementById('prod-preco').value) || 0;
-      const unidade = document.getElementById('prod-unidade').value;
-      const marmoreio = document.getElementById('prod-marmoreio').value;
-      const tag = document.getElementById('prod-tag').value;
-      const foto = document.getElementById('prod-foto').value;
-      const descricao = document.getElementById('prod-desc').value;
-      const disponivel = document.getElementById('prod-disponivel').checked;
-      const destaque = document.getElementById('prod-destaque').checked;
-
-      const itemSalvo = {
-        id,
-        nome,
-        tipo,
-        categoria,
-        preco,
-        unidade,
-        marmoreio,
-        tag,
-        foto,
-        descricao,
-        disponivel,
-        destaque
-      };
-
-      EstoqueDB.salvarItem(itemSalvo);
-      fecharModal();
-      carregarPainel();
-      mostrarAlerta(`"${nome}" salvo com sucesso!`);
-    });
-  }
-
-  // Formulário de Configurações da Loja
-  const formCfg = document.getElementById('form-config-loja');
-  if (formCfg) {
-    formCfg.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const config = EstoqueDB.obterConfigLoja();
-
-      config.whatsapp = document.getElementById('cfg-whatsapp').value.trim();
-      config.telefone = document.getElementById('cfg-telefone').value.trim();
-      config.endereco = document.getElementById('cfg-endereco').value.trim();
-      config.bairro = document.getElementById('cfg-bairro-cidade').value.trim();
-      config.horarioSemana = document.getElementById('cfg-horario-semana').value.trim();
-
-      EstoqueDB.salvarConfigLoja(config);
-      mostrarAlerta("Configurações da loja e WhatsApp atualizados!");
-    });
-  }
-}
-
-function carregarConfigLoja() {
-  const config = EstoqueDB.obterConfigLoja();
-  if (!config) return;
-
-  const w = document.getElementById('cfg-whatsapp');
-  const t = document.getElementById('cfg-telefone');
-  const e = document.getElementById('cfg-endereco');
-  const b = document.getElementById('cfg-bairro-cidade');
-  const h = document.getElementById('cfg-horario-semana');
-
-  if (w) w.value = config.whatsapp || '';
-  if (t) t.value = config.telefone || '';
-  if (e) e.value = config.endereco || '';
-  if (b) b.value = `${config.bairro || ''}, ${config.cidade || ''}`;
-  if (h) h.value = config.horarioSemana || '';
-}
-
-function alternarDisponibilidade(id) {
-  const produtos = EstoqueDB.obterProdutos();
-  const prod = produtos.find(p => p.id === id);
-  if (prod) {
-    prod.disponivel = !prod.disponivel;
-    EstoqueDB.salvarItem(prod);
-    carregarPainel();
-    mostrarAlerta(`Status de "${prod.nome}" alterado para ${prod.disponivel ? 'Disponível' : 'Esgotado'}.`);
-  }
-}
-
-function editarProduto(id) {
+window.toggleDisponibilidade = function(id) {
   const produtos = EstoqueDB.obterProdutos();
   const prod = produtos.find(p => p.id === id);
   if (!prod) return;
 
+  prod.disponivel = !prod.disponivel;
+  EstoqueDB.salvarItem(prod);
+  renderizarTabelaProdutos();
+  atualizarMetricas();
+  mostrarAlerta(`Status de "${prod.nome}" alterado para: ${prod.disponivel ? 'Disponível' : 'Esgotado'}!`);
+};
+
+window.editarProduto = function(id) {
+  const produtos = EstoqueDB.obterProdutos();
+  const prod = produtos.find(p => p.id === id);
+  if (!prod) return;
+
+  abrirModalProduto();
+  document.getElementById('modal-titulo').textContent = 'Editar Produto ou Combo';
   document.getElementById('prod-id').value = prod.id;
   document.getElementById('prod-nome').value = prod.nome;
+  document.getElementById('prod-categoria').value = prod.categoria;
   document.getElementById('prod-tipo').value = prod.tipo || 'corte';
-  document.getElementById('prod-categoria').value = prod.categoria || 'angus';
   document.getElementById('prod-preco').value = prod.preco;
   document.getElementById('prod-unidade').value = prod.unidade || 'kg';
   document.getElementById('prod-marmoreio').value = prod.marmoreio || '';
   document.getElementById('prod-tag').value = prod.tag || '';
-  document.getElementById('prod-foto').value = prod.foto || '';
+  document.getElementById('prod-foto').value = prod.foto;
   document.getElementById('prod-desc').value = prod.descricao || '';
-  document.getElementById('prod-disponivel').checked = prod.disponivel;
-  document.getElementById('prod-destaque').checked = prod.destaque;
+  document.getElementById('prod-disponivel').checked = prod.disponivel !== false;
+  document.getElementById('prod-destaque').checked = !!prod.destaque;
+};
 
-  document.getElementById('modal-titulo').textContent = `Editar: ${prod.nome}`;
-  document.getElementById('modal-produto').classList.remove('hidden');
-}
-
-function excluirProduto(id) {
-  const produtos = EstoqueDB.obterProdutos();
-  const prod = produtos.find(p => p.id === id);
-  if (!prod) return;
-
-  if (confirm(`Tem certeza que deseja excluir o item "${prod.nome}"?`)) {
+window.excluirProduto = function(id) {
+  if (confirm('Tem certeza que deseja excluir este item do catálogo?')) {
     EstoqueDB.excluirItem(id);
-    carregarPainel();
-    mostrarAlerta(`"${prod.nome}" removido do catálogo.`);
+    renderizarTabelaProdutos();
+    atualizarMetricas();
+    mostrarAlerta('Item excluído com sucesso.');
+  }
+};
+
+function abrirModalProduto() {
+  const modal = document.getElementById('modal-produto');
+  const form = document.getElementById('form-produto');
+  if (modal) {
+    if (form) form.reset();
+    document.getElementById('prod-id').value = '';
+    document.getElementById('modal-titulo').textContent = 'Adicionar Produto ou Combo';
+    modal.classList.remove('hidden');
   }
 }
 
-function mostrarAlerta(msg) {
+function fecharModalProduto() {
+  const modal = document.getElementById('modal-produto');
+  if (modal) modal.classList.add('hidden');
+}
+
+function salvarFormProduto() {
+  const id = document.getElementById('prod-id').value || `item-${Date.now()}`;
+  const nome = document.getElementById('prod-nome').value.trim();
+  const categoria = document.getElementById('prod-categoria').value;
+  const tipo = document.getElementById('prod-tipo').value;
+  const preco = parseFloat(document.getElementById('prod-preco').value) || 0;
+  const unidade = document.getElementById('prod-unidade').value;
+  const marmoreio = document.getElementById('prod-marmoreio').value.trim();
+  const tag = document.getElementById('prod-tag').value.trim();
+  const foto = document.getElementById('prod-foto').value.trim();
+  const descricao = document.getElementById('prod-desc').value.trim();
+  const disponivel = document.getElementById('prod-disponivel').checked;
+  const destaque = document.getElementById('prod-destaque').checked;
+
+  const item = {
+    id,
+    nome,
+    categoria,
+    tipo,
+    preco,
+    unidade,
+    marmoreio,
+    tag,
+    foto,
+    descricao,
+    disponivel,
+    destaque
+  };
+
+  EstoqueDB.salvarItem(item);
+  fecharModalProduto();
+  renderizarTabelaProdutos();
+  atualizarMetricas();
+  mostrarAlerta(`"${nome}" salvo no catálogo com sucesso!`);
+}
+
+/* ==========================================================================
+   7. GESTÃO DE CLIENTES & DISPAROS DE CAMPANHAS DE WHATSAPP
+   ========================================================================== */
+function configurarCampanhasWhatsApp() {
+  const textareaCampanha = document.getElementById('texto-campanha-whatsapp');
+  const botoesModelo = document.querySelectorAll('.btn-modelo-campanha');
+  const btnProcessar = document.getElementById('btn-processar-importacao');
+
+  // Inicializa com o modelo de Sexta (Combos de FDS)
+  if (textareaCampanha) {
+    textareaCampanha.value = MODELOS_CAMPANHAS.sexta;
+  }
+
+  botoesModelo.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tipo = btn.getAttribute('data-tipo');
+      if (MODELOS_CAMPANHAS[tipo] && textareaCampanha) {
+        textareaCampanha.value = MODELOS_CAMPANHAS[tipo];
+        mostrarAlerta(`Modelo de ${tipo.toUpperCase()} aplicado para disparo!`);
+      }
+    });
+  });
+
+  // Importar Clientes via Textarea / CSV
+  if (btnProcessar) {
+    btnProcessar.addEventListener('click', () => {
+      const input = document.getElementById('importar-contatos-texto');
+      if (!input || !input.value.trim()) {
+        alert('Cole pelo menos um contato no formato: Nome, Telefone');
+        return;
+      }
+
+      const linhas = input.value.trim().split('\n');
+      const novos = [];
+
+      linhas.forEach(linha => {
+        const partes = linha.split(',').map(p => p.trim());
+        if (partes.length >= 2) {
+          const nome = partes[0];
+          let tel = partes[1].replace(/\D/g, '');
+          if (tel.length === 10 || tel.length === 11) {
+            tel = '55' + tel;
+          }
+          const bairro = partes[2] || 'Santo André';
+
+          if (tel.length >= 12) {
+            novos.push({
+              id: `cli-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+              nome,
+              telefone: tel,
+              bairro
+            });
+          }
+        }
+      });
+
+      if (novos.length > 0) {
+        EstoqueDB.adicionarClientes(novos);
+        input.value = '';
+        renderizarTabelaClientes();
+        atualizarMetricas();
+        mostrarAlerta(`${novos.length} novos clientes adicionados à base de disparos!`);
+      } else {
+        alert('Nenhum telefone válido encontrado. Verifique se o telefone contém DDD.');
+      }
+    });
+  }
+}
+
+function renderizarTabelaClientes() {
+  const tbody = document.getElementById('tabela-corpo-clientes');
+  if (!tbody) return;
+
+  const clientes = EstoqueDB.obterClientes();
+
+  if (clientes.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="4" class="p-8 text-center text-stone-500">
+          Nenhum cliente cadastrado. Cole sua lista na caixa de importação acima!
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = clientes.map(c => `
+    <tr class="hover:bg-stone-800/40 transition">
+      <td class="p-4 font-bold text-white text-sm">
+        ${c.nome}
+      </td>
+      <td class="p-4 font-mono text-stone-300">
+        ${c.telefone}
+      </td>
+      <td class="p-4 text-stone-400">
+        ${c.bairro || 'Santo André'}
+      </td>
+      <td class="p-4 text-right space-x-2">
+        <button onclick="dispararWhatsAppCliente('${c.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-xl shadow transition inline-flex items-center gap-1.5">
+          <span>Disparar WhatsApp</span> ➔
+        </button>
+        <button onclick="excluirCliente('${c.id}')" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 px-2 py-1.5 rounded-lg">
+          ✕
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+window.dispararWhatsAppCliente = function(id) {
+  const clientes = EstoqueDB.obterClientes();
+  const cliente = clientes.find(c => c.id === id);
+  if (!cliente) return;
+
+  const textareaCampanha = document.getElementById('texto-campanha-whatsapp');
+  let textoBase = (textareaCampanha && textareaCampanha.value) ? textareaCampanha.value : MODELOS_CAMPANHAS.sexta;
+
+  const linkWebapp = 'https://ricardorickbony-lgtm.github.io/mercado-da-carne/';
+  const textoPronto = textoBase
+    .replace('{nome}', cliente.nome)
+    .replace('{link}', linkWebapp);
+
+  const url = `https://wa.me/${cliente.telefone}?text=${encodeURIComponent(textoPronto)}`;
+  window.open(url, '_blank');
+};
+
+window.excluirCliente = function(id) {
+  if (confirm('Remover cliente da base de disparos?')) {
+    EstoqueDB.excluirCliente(id);
+    renderizarTabelaClientes();
+    atualizarMetricas();
+    mostrarAlerta('Cliente removido.');
+  }
+};
+
+/* ==========================================================================
+   8. DADOS DA LOJA (CONFIGURAÇÃO)
+   ========================================================================== */
+function carregarConfigLoja() {
+  const config = EstoqueDB.obterConfigLoja();
+
+  const cfgWa = document.getElementById('cfg-whatsapp');
+  const cfgTel = document.getElementById('cfg-telefone');
+  const cfgEnd = document.getElementById('cfg-endereco');
+  const cfgBairro = document.getElementById('cfg-bairro-cidade');
+  const cfgHorario = document.getElementById('cfg-horario-semana');
+
+  if (cfgWa) cfgWa.value = config.whatsapp || '5511963336938';
+  if (cfgTel) cfgTel.value = config.telefone || '(11) 96333-6938';
+  if (cfgEnd) cfgEnd.value = config.endereco || 'Av. São Paulo, 584';
+  if (cfgBairro) cfgBairro.value = `${config.bairro || 'Cidade São Jorge'}, ${config.cidade || 'Santo André - SP'}`;
+  if (cfgHorario) cfgHorario.value = config.horarioSemana || '07:00 às 20:00';
+}
+
+function salvarConfigLoja() {
+  const cfgWa = document.getElementById('cfg-whatsapp').value.trim();
+  const cfgTel = document.getElementById('cfg-telefone').value.trim();
+  const cfgEnd = document.getElementById('cfg-endereco').value.trim();
+  const cfgBairro = document.getElementById('cfg-bairro-cidade').value.trim();
+  const cfgHorario = document.getElementById('cfg-horario-semana').value.trim();
+
+  const configAtual = EstoqueDB.obterConfigLoja();
+  configAtual.whatsapp = cfgWa;
+  configAtual.telefone = cfgTel;
+  configAtual.endereco = cfgEnd;
+  configAtual.bairro = cfgBairro;
+  configAtual.horarioSemana = cfgHorario;
+
+  EstoqueDB.salvarConfigLoja(configAtual);
+  mostrarAlerta('Dados da loja e WhatsApp salvos com sucesso!');
+}
+
+/* ==========================================================================
+   9. ALERTA FLUTUANTE
+   ========================================================================== */
+function mostrarAlerta(mensagem) {
   const alerta = document.getElementById('admin-alerta-sucesso');
   const texto = document.getElementById('admin-alerta-texto');
   if (alerta && texto) {
-    texto.textContent = msg;
+    texto.textContent = mensagem;
     alerta.classList.remove('hidden');
     setTimeout(() => {
       alerta.classList.add('hidden');
-    }, 4000);
+    }, 4500);
   }
 }

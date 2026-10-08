@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="gradBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#991B1B"/>
+      <stop offset="100%" stop-color="#7F1D1D"/>
+    </linearGradient>
+    <linearGradient id="gradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+  <!-- Fundo com cantos arredondados para ícone de App -->
+  <rect width="512" height="512" rx="112" fill="url(#gradBg)"/>
+  <!-- Borda dourada sutil -->
+  <rect x="12" y="12" width="488" height="488" rx="100" fill="none" stroke="url(#gradGold)" stroke-width="6" opacity="0.4"/>
+  <!-- Ícone de Fogo e Cutelo Central -->
+  <g transform="translate(106, 96) scale(1.2)">
+    <!-- Fogo de Brasa -->
+    <path d="M125 15C100 55 60 90 60 145c0 65 50 115 115 115s115-50 115-115c0-40-25-75-50-105-10 30-35 55-60 55-25 0-35-25-35-50 0-15 5-30-20-30z" fill="url(#gradGold)"/>
+    <!-- Brilho Interno da Brasa -->
+    <path d="M140 100c-15 25-25 45-25 70 0 35 25 60 60 60s60-25 60-60c0-20-10-40-25-55-5 15-15 25-25 25s-20-15-20-30c0-5 0-8-5-10z" fill="#FFF" opacity="0.85"/>
+  </g>
+  <!-- Texto Inferior -->
+  <text x="256" y="435" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="34" fill="#FFFFFF" letter-spacing="4">MERCADO DA CARNE</text>
+  <text x="256" y="465" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="18" fill="#FBBF24" letter-spacing="6">SANTO ANDRÉ</text>
+</svg>
