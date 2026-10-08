@@ -36,9 +36,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Folha de Estilos Oficial (com Cache Busting) -->
-  <link rel="stylesheet" href="css/style.css?v=4.0">
+  <link rel="stylesheet" href="css/style.css?v=4.1">
 
-  <!-- Blindagem Crítica Desktop Contra Cache: O Mobile Drawer NUNCA aparece no Desktop -->
+  <!-- Blindagem Crítica Desktop Contra Cache & Proteção Mobile -->
   <style>
     #mobileDrawer, .mobile-drawer, #drawerBackdrop, .drawer-backdrop {
       display: none !important;
@@ -49,6 +49,12 @@
       }
       #drawerBackdrop.active, .drawer-backdrop.active {
         display: block !important;
+      }
+      #btn-install-app {
+        display: none !important;
+      }
+      .logo-subtitle {
+        display: none !important;
       }
     }
     @media (min-width: 769px) {
@@ -772,6 +778,9 @@
       <a href="#faq">Perguntas Frequentes</a>
     </nav>
     <div style="margin-top:auto; padding-top:20px; display:flex; flex-direction:column; gap:10px;">
+      <button id="btn-install-app-drawer" class="btn btn-secondary btn-sm" style="display:none; max-width:100%; border-color:#D97706; color:#B45309;" title="Instalar Aplicativo no Celular">
+        📲 Instalar App no Celular
+      </button>
       <button id="btn-drawer-cart" class="btn btn-primary btn-sm" style="max-width:100%;">
         🛒 Ver Sacola (<span id="cart-drawer-toggle-count">0</span>)
       </button>
@@ -785,7 +794,7 @@
   </aside>
 
   <!-- Scripts Oficiais -->
-  <script src="js/db.js?v=4.0"></script>
-  <script src="js/main.js?v=4.0"></script>
+  <script src="js/db.js?v=4.1"></script>
+  <script src="js/main.js?v=4.1"></script>
 </body>
 </html>

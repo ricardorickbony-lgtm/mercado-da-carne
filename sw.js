@@ -1,16 +1,16 @@
 /**
  * Service Worker — Mercado da Carne PWA
  * Padrão Oficial Ricardo & Severino
- * Versão 4.0 — Cache Busting & Resposta Segura
+ * Versão 4.1 — Mobile Header Fix & Cache Purge
  */
 
-const CACHE_NAME = 'mercado-da-carne-v4';
+const CACHE_NAME = 'mercado-da-carne-v4-1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './css/style.css?v=4.0',
-  './js/db.js?v=4.0',
-  './js/main.js?v=4.0',
+  './css/style.css?v=4.1',
+  './js/db.js?v=4.1',
+  './js/main.js?v=4.1',
   './manifest.json'
 ];
 

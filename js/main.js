@@ -57,25 +57,33 @@ function initServiceWorker() {
 
 function initPwaInstall() {
   const btnInstall = document.getElementById('btn-install-app');
+  const btnInstallDrawer = document.getElementById('btn-install-app-drawer');
 
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPrompt = e;
-    if (btnInstall) {
+    // No desktop (>768px), exibe o botão do header se houver espaço
+    if (btnInstall && window.innerWidth > 768) {
       btnInstall.style.display = 'inline-flex';
+    }
+    // No celular, exibe no drawer lateral
+    if (btnInstallDrawer) {
+      btnInstallDrawer.style.display = 'inline-flex';
     }
   });
 
-  if (btnInstall) {
-    btnInstall.addEventListener('click', async () => {
-      if (!deferredInstallPrompt) return;
-      deferredInstallPrompt.prompt();
-      const { outcome } = await deferredInstallPrompt.userChoice;
-      console.log('[PWA] Instalação outcome:', outcome);
-      deferredInstallPrompt = null;
-      btnInstall.style.display = 'none';
-    });
-  }
+  const handleInstallClick = async () => {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    const { outcome } = await deferredInstallPrompt.userChoice;
+    console.log('[PWA] Instalação outcome:', outcome);
+    deferredInstallPrompt = null;
+    if (btnInstall) btnInstall.style.display = 'none';
+    if (btnInstallDrawer) btnInstallDrawer.style.display = 'none';
+  };
+
+  if (btnInstall) btnInstall.addEventListener('click', handleInstallClick);
+  if (btnInstallDrawer) btnInstallDrawer.addEventListener('click', handleInstallClick);
 }
 
 /* ==========================================================================
@@ -314,8 +322,10 @@ function atualizarUI_Carrinho() {
   if (floatingBar) {
     if (totalItens > 0) {
       floatingBar.classList.add('active');
+      document.body.classList.add('cart-bar-visible');
     } else {
       floatingBar.classList.remove('active');
+      document.body.classList.remove('cart-bar-visible');
     }
   }
 
