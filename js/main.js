@@ -612,13 +612,23 @@ function initMobileDrawer() {
 
   if (toggle && drawer && backdrop) {
     toggle.addEventListener('click', () => {
-      drawer.classList.add('active');
-      backdrop.classList.add('active');
+      drawer.style.display = 'flex';
+      backdrop.style.display = 'block';
+      requestAnimationFrame(() => {
+        drawer.classList.add('active');
+        backdrop.classList.add('active');
+      });
     });
 
     const fechar = () => {
       drawer.classList.remove('active');
       backdrop.classList.remove('active');
+      setTimeout(() => {
+        if (!drawer.classList.contains('active')) {
+          drawer.style.display = 'none';
+          backdrop.style.display = 'none';
+        }
+      }, 300);
     };
 
     if (close) close.addEventListener('click', fechar);

@@ -35,8 +35,35 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Folha de Estilos Oficial -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Folha de Estilos Oficial (com Cache Busting) -->
+  <link rel="stylesheet" href="css/style.css?v=4.0">
+
+  <!-- Blindagem Crítica Desktop Contra Cache: O Mobile Drawer NUNCA aparece no Desktop -->
+  <style>
+    #mobileDrawer, .mobile-drawer, #drawerBackdrop, .drawer-backdrop {
+      display: none !important;
+    }
+    @media (max-width: 768px) {
+      #mobileDrawer.active, .mobile-drawer.active {
+        display: flex !important;
+      }
+      #drawerBackdrop.active, .drawer-backdrop.active {
+        display: block !important;
+      }
+    }
+    @media (min-width: 769px) {
+      #mobileDrawer, .mobile-drawer, #drawerBackdrop, .drawer-backdrop, .mobile-toggle {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        position: absolute !important;
+        left: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -609,9 +636,8 @@
           <p style="font-size:0.88rem; color:#A8A29E; line-height:1.6; margin-bottom:16px;">
             Painel com Sofia IA por comando de voz, gerador de fotos e automação de disparos de promoções para clientes.
           </p>
-          <div style="display:flex; flex-direction:column; gap:10px;">
-            <a href="admin.html" class="btn btn-secondary btn-sm" style="font-size:0.85rem; border-color:#44403C; color:#FFFFFF;">
-              🔐 Acessar Painel do Dono (Sofia IA)
+            <a href="admin.html" class="btn btn-admin-footer">
+              <span>🔐 Acessar Painel do Dono (Sofia IA)</span>
             </a>
             <a href="https://wa.me/5511963336938" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
               Chamar no WhatsApp
@@ -728,14 +754,14 @@
   <!-- =========================================================================
        15. MOBILE DRAWER MENU (EXCLUSIVO PARA DISPOSITIVOS MÓVEIS)
        ========================================================================= -->
-  <div class="drawer-backdrop" id="drawerBackdrop"></div>
-  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Menu Mobile">
+  <div class="drawer-backdrop" id="drawerBackdrop" style="display: none;"></div>
+  <aside class="mobile-drawer" id="mobileDrawer" style="display: none;" aria-label="Menu Mobile">
     <div class="drawer-header">
       <div class="logo-text-group">
         <span class="logo-title">MERCADO DA <span>CARNE</span></span>
         <span class="logo-subtitle">Shop Butcher & Rotisserie</span>
       </div>
-      <button id="drawerClose" style="background:transparent; color:#1C1917; font-size:1.4rem; cursor:pointer;">✕</button>
+      <button id="drawerClose" style="background:transparent; color:#1C1917; font-size:1.4rem; cursor:pointer;" aria-label="Fechar Menu">✕</button>
     </div>
     <nav class="drawer-nav">
       <a href="#inicio">Início</a>
@@ -746,20 +772,20 @@
       <a href="#faq">Perguntas Frequentes</a>
     </nav>
     <div style="margin-top:auto; padding-top:20px; display:flex; flex-direction:column; gap:10px;">
-      <button id="btn-drawer-cart" class="btn btn-primary btn-sm">
+      <button id="btn-drawer-cart" class="btn btn-primary btn-sm" style="max-width:100%;">
         🛒 Ver Sacola (<span id="cart-drawer-toggle-count">0</span>)
       </button>
-      <a href="https://wa.me/5511963336938" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
+      <a href="https://wa.me/5511963336938" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm" style="max-width:100%;">
         Falar no WhatsApp
       </a>
-      <a href="admin.html" style="text-align:center; font-size:0.75rem; color:var(--text-muted); margin-top:6px;">
+      <a href="admin.html" style="text-align:center; font-size:0.78rem; color:var(--text-muted); margin-top:6px; font-weight:600;">
         🔐 Painel do Dono (Sofia IA)
       </a>
     </div>
   </aside>
 
   <!-- Scripts Oficiais -->
-  <script src="js/db.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/db.js?v=4.0"></script>
+  <script src="js/main.js?v=4.0"></script>
 </body>
 </html>
